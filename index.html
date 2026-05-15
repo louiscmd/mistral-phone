@@ -1,0 +1,1797 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mistral Phone – Réparation Express Smartphones à Marseille</title>
+  <meta name="description" content="Réparation express de smartphones à Marseille. iPhone, Samsung, Huawei – réparation rapide, pièces de qualité, depuis 2004. 3 boutiques." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #F97316;
+      --orange-dark: #EA580C;
+      --orange-light: #FED7AA;
+      --orange-xlight: #FFF7ED;
+      --white: #FFFFFF;
+      --gray-50: #F9FAFB;
+      --gray-100: #F3F4F6;
+      --gray-200: #E5E7EB;
+      --gray-400: #9CA3AF;
+      --gray-600: #4B5563;
+      --gray-800: #1F2937;
+      --gray-900: #111827;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.06);
+      --shadow: 0 4px 16px rgba(0,0,0,.08);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,.12);
+      --shadow-orange: 0 8px 32px rgba(249,115,22,.25);
+      --radius: 16px;
+      --radius-sm: 8px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--gray-800);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--gray-100); }
+    ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 3px; }
+
+    /* ─── NAVBAR ─── */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--gray-100);
+      transition: box-shadow .3s;
+    }
+    .navbar.scrolled { box-shadow: var(--shadow-lg); }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .nav-logo-img {
+      height: 52px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--gray-600);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      transition: color .2s, background .2s;
+    }
+    .nav-links a:hover { color: var(--orange); background: var(--orange-xlight); }
+    .nav-links .nav-cta {
+      background: var(--orange);
+      color: var(--white) !important;
+      border-radius: 50px;
+      padding: 10px 20px !important;
+      font-weight: 600;
+    }
+    .nav-links .nav-cta:hover { background: var(--orange-dark) !important; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--gray-800);
+      border-radius: 2px;
+      transition: all .3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 70px; left: 0; right: 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-100);
+      padding: 16px 24px 24px;
+      z-index: 999;
+      box-shadow: var(--shadow-lg);
+      animation: slideDown .25s ease;
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a {
+      display: block;
+      text-decoration: none;
+      color: var(--gray-700);
+      font-size: 16px;
+      font-weight: 500;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .mobile-menu a:last-child { border-bottom: none; color: var(--orange); font-weight: 600; }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #FFFFFF 0%, #FFF7ED 50%, #FFEDD5 100%);
+      padding-top: 70px;
+    }
+
+    .hero-bg-circles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .hero-circle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: .08;
+      background: var(--orange);
+      animation: float 8s ease-in-out infinite;
+    }
+    .hero-circle:nth-child(1) { width: 600px; height: 600px; top: -200px; right: -150px; animation-delay: 0s; }
+    .hero-circle:nth-child(2) { width: 300px; height: 300px; bottom: -50px; left: -80px; animation-delay: 3s; }
+    .hero-circle:nth-child(3) { width: 150px; height: 150px; top: 30%; right: 20%; animation-delay: 1.5s; opacity: .05; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-20px) scale(1.03); }
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--orange-light);
+      color: var(--orange-dark);
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      animation: fadeInUp .6s ease both;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      background: var(--orange);
+      border-radius: 50%;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: .7; }
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--gray-900);
+      letter-spacing: -2px;
+      margin-bottom: 24px;
+      animation: fadeInUp .6s ease .1s both;
+    }
+    .hero h1 em { font-style: normal; color: var(--orange); }
+
+    .hero-desc {
+      font-size: 18px;
+      color: var(--gray-600);
+      max-width: 480px;
+      margin-bottom: 40px;
+      animation: fadeInUp .6s ease .2s both;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      animation: fadeInUp .6s ease .3s both;
+    }
+
+    .btn-primary {
+      background: var(--orange);
+      color: var(--white);
+      padding: 16px 32px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: var(--shadow-orange);
+      transition: background .2s, transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { background: var(--orange-dark); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(249,115,22,.4); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--gray-800);
+      padding: 16px 32px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      border: 2px solid var(--gray-200);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: border-color .2s, color .2s, transform .2s;
+    }
+    .btn-secondary:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-2px); }
+
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 48px;
+      animation: fadeInUp .6s ease .4s both;
+    }
+    .stat { text-align: center; }
+    .stat-number { font-size: 28px; font-weight: 800; color: var(--orange); }
+    .stat-label { font-size: 12px; color: var(--gray-600); font-weight: 500; }
+
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      animation: fadeInUp .6s ease .2s both;
+      /* extra vertical room for the fall animation */
+      padding-top: 60px;
+      padding-bottom: 20px;
+    }
+
+    /* ── Phone animation container ── */
+    .phone-scene {
+      position: relative;
+      width: 240px;
+      height: 500px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .phone-anim-wrapper {
+      position: relative;
+      width: 240px;
+      height: 480px;
+      will-change: transform, opacity;
+      transform-origin: center bottom;
+    }
+    .phone-frame {
+      width: 100%; height: 100%;
+      background: var(--gray-900);
+      border-radius: 40px;
+      border: 8px solid var(--gray-800);
+      overflow: hidden;
+      position: relative;
+      box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255,255,255,.1);
+    }
+    .phone-notch {
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 80px; height: 24px;
+      background: var(--gray-800);
+      border-radius: 0 0 16px 16px;
+      z-index: 10;
+    }
+    /* Dark screen base (always visible behind layers) */
+    .phone-bg {
+      position: absolute;
+      inset: 0;
+      background: #080808;
+    }
+    /* Crack overlay */
+    .phone-cracks {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+    }
+    .phone-cracks svg { width: 100%; height: 100%; display: block; }
+    /* Repaired orange screen */
+    .phone-screen-repaired {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, var(--orange) 0%, var(--orange-dark) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      color: white;
+      opacity: 0;
+    }
+    .phone-screen-repaired .psr-icon {
+      width: 60px; height: 60px;
+      border: 3px solid rgba(255,255,255,.6);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .phone-screen-repaired .psr-icon svg { width: 32px; height: 32px; fill: white; }
+    .phone-text { font-size: 14px; font-weight: 700; text-align: center; line-height: 1.3; }
+
+    @keyframes impactBounce {
+      0%   { transform: translateY(20px); }
+      20%  { transform: translateY(4px); }
+      45%  { transform: translateY(18px); }
+      65%  { transform: translateY(10px); }
+      82%  { transform: translateY(17px); }
+      92%  { transform: translateY(13px); }
+      100% { transform: translateY(16px); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── SECTION COMMONS ─── */
+    section { padding: 96px 24px; scroll-margin-top: 70px; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-tag {
+      display: inline-block;
+      background: var(--orange-xlight);
+      color: var(--orange);
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .section-header h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 800;
+      color: var(--gray-900);
+      letter-spacing: -1.5px;
+      line-height: 1.15;
+    }
+    .section-header p {
+      font-size: 18px;
+      color: var(--gray-600);
+      max-width: 540px;
+      margin: 16px auto 0;
+    }
+
+    /* ─── SERVICES ─── */
+    #services { background: var(--gray-50); }
+
+    .brand-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+    .brand-tab {
+      padding: 14px 32px;
+      border-radius: 50px;
+      border: 2px solid var(--gray-200);
+      background: var(--white);
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gray-600);
+      transition: all .25s;
+    }
+    .brand-tab:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-2px); }
+    .brand-tab.active {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: var(--white);
+      box-shadow: var(--shadow-orange);
+      transform: translateY(-2px);
+    }
+
+    .brand-panel { display: none; animation: fadeInUp .4s ease both; }
+    .brand-panel.active { display: block; }
+
+    .brand-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 24px 32px;
+      margin-bottom: 32px;
+      border: 1px solid var(--gray-100);
+      box-shadow: var(--shadow-sm);
+    }
+    .brand-header-icon {
+      width: 48px; height: 48px;
+      background: var(--orange-xlight);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .brand-header-icon svg { width: 24px; height: 24px; fill: var(--orange); }
+    .brand-header-title { font-size: 22px; font-weight: 800; color: var(--gray-900); }
+    .brand-header-sub { font-size: 14px; color: var(--gray-600); }
+    .brand-badge {
+      margin-left: auto;
+      background: var(--orange-xlight);
+      color: var(--orange-dark);
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .models-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .model-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--gray-100);
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+      cursor: pointer;
+    }
+    .model-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--orange-light); }
+    .model-card-header {
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .model-icon {
+      width: 44px; height: 44px;
+      background: var(--orange-xlight);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .model-icon svg { width: 22px; height: 22px; fill: var(--orange); }
+    .model-name { font-size: 16px; font-weight: 700; color: var(--gray-900); }
+    .model-arrow {
+      margin-left: auto;
+      color: var(--gray-400);
+      font-size: 18px;
+      transition: color .2s, transform .2s;
+    }
+    .model-card:hover .model-arrow { color: var(--orange); transform: translateX(4px); }
+
+    .model-repairs { display: none; border-top: 1px solid var(--gray-100); }
+    .model-card.expanded .model-repairs { display: block; }
+    .model-card.expanded .model-arrow { color: var(--orange); transform: rotate(90deg); }
+
+    .repair-item {
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--gray-50);
+      font-size: 14px;
+    }
+    .repair-item:last-child { border-bottom: none; }
+    .repair-name { color: var(--gray-700); display: flex; align-items: center; gap: 8px; }
+    .repair-dot { width: 6px; height: 6px; background: var(--orange); border-radius: 50%; flex-shrink: 0; }
+    .repair-cta {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--orange);
+      background: var(--orange-xlight);
+      padding: 4px 10px;
+      border-radius: 50px;
+      text-decoration: none;
+      white-space: nowrap;
+      cursor: pointer;
+      border: none;
+    }
+    .repair-cta:hover { background: var(--orange); color: var(--white); }
+
+    /* ─── WHY CHOOSE US ─── */
+    #pourquoi { background: var(--white); }
+
+    .why-scene {
+      perspective: 1200px;
+      max-width: 800px;
+      margin: 0 auto 48px;
+      position: relative;
+      height: 340px;
+    }
+    .why-cards-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+    }
+    .why-card {
+      position: absolute;
+      inset: 0;
+      background: var(--white);
+      border-radius: 24px;
+      padding: 48px 56px;
+      border: 2px solid var(--gray-100);
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .5s, transform .5s;
+      transform: translateX(60px) scale(.96);
+    }
+    .why-card.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0) scale(1);
+    }
+    .why-card.prev {
+      opacity: 0;
+      transform: translateX(-60px) scale(.96);
+    }
+    .why-card-icon {
+      width: 80px; height: 80px;
+      background: linear-gradient(135deg, var(--orange-xlight), var(--orange-light));
+      border-radius: 20px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px;
+      animation: iconSpin 8s linear infinite;
+    }
+    .why-card-icon svg { width: 36px; height: 36px; fill: var(--orange); }
+    @keyframes iconSpin {
+      0%   { transform: rotate(0deg); }
+      10%  { transform: rotate(10deg); }
+      20%  { transform: rotate(0deg); }
+      100% { transform: rotate(0deg); }
+    }
+    .why-card h3 { font-size: 22px; font-weight: 800; color: var(--gray-900); margin-bottom: 12px; }
+    .why-card p { font-size: 16px; color: var(--gray-600); max-width: 480px; line-height: 1.7; }
+
+    .why-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+    .why-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--gray-200);
+      cursor: pointer;
+      transition: background .3s, transform .3s;
+    }
+    .why-dot.active { background: var(--orange); transform: scale(1.3); }
+
+    .why-nav {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+    .why-nav-btn {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      border: 2px solid var(--gray-200);
+      background: var(--white);
+      cursor: pointer;
+      font-size: 18px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .2s;
+      color: var(--gray-600);
+    }
+    .why-nav-btn:hover { border-color: var(--orange); color: var(--orange); background: var(--orange-xlight); }
+
+    /* ─── PROMO ─── */
+    #promotions {
+      background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
+      padding: 80px 24px;
+    }
+    .promo-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .promo-content { color: white; }
+    .promo-content .section-tag { background: rgba(255,255,255,.2); color: white; }
+    .promo-content h2 { font-size: 36px; font-weight: 800; letter-spacing: -1px; margin-bottom: 16px; }
+    .promo-content p { font-size: 16px; opacity: .85; line-height: 1.8; }
+    .promo-card {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 24px 64px rgba(0,0,0,.2);
+    }
+    .promo-amount {
+      font-size: 72px;
+      font-weight: 900;
+      color: var(--orange);
+      line-height: 1;
+      letter-spacing: -3px;
+    }
+    .promo-amount span { font-size: 36px; }
+    .promo-desc { font-size: 16px; color: var(--gray-600); margin-top: 8px; margin-bottom: 24px; }
+    .promo-badge {
+      display: inline-block;
+      background: var(--orange-xlight);
+      color: var(--orange-dark);
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* ─── BOUTIQUES ─── */
+    #boutiques { background: var(--gray-50); }
+
+    .stores-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .store-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 32px;
+      border: 1px solid var(--gray-100);
+      box-shadow: var(--shadow-sm);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .store-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .store-number {
+      width: 44px; height: 44px;
+      background: var(--orange);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .store-address { font-size: 16px; font-weight: 700; color: var(--gray-900); margin-bottom: 8px; }
+    .store-city { font-size: 14px; color: var(--gray-600); margin-bottom: 20px; }
+    .store-info { display: flex; flex-direction: column; gap: 10px; }
+    .store-row { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--gray-600); }
+    .store-row-icon {
+      width: 28px; height: 28px;
+      background: var(--orange-xlight);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .store-row-icon svg { width: 14px; height: 14px; fill: var(--orange); }
+
+    /* ─── CONTACT ─── */
+    #contact { background: var(--white); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .contact-info h3 { font-size: 26px; font-weight: 800; color: var(--gray-900); margin-bottom: 8px; }
+    .contact-info > p { font-size: 16px; color: var(--gray-600); margin-bottom: 32px; }
+    .contact-items { display: flex; flex-direction: column; gap: 16px; }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      background: var(--gray-50);
+      border-radius: var(--radius-sm);
+    }
+    .contact-item-icon {
+      width: 44px; height: 44px;
+      background: var(--orange-xlight);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-item-icon svg { width: 20px; height: 20px; fill: var(--orange); }
+    .contact-item-label { font-size: 12px; color: var(--gray-400); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+    .contact-item-value { font-size: 15px; font-weight: 600; color: var(--gray-900); }
+    .contact-item-value a { color: var(--orange); text-decoration: none; }
+
+    .contact-socials { display: flex; gap: 12px; margin-top: 24px; }
+    .social-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 50px;
+      border: 2px solid var(--gray-200);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-700);
+      text-decoration: none;
+      transition: all .2s;
+    }
+    .social-btn:hover { border-color: var(--orange); color: var(--orange); background: var(--orange-xlight); }
+
+    .contact-form {
+      background: var(--gray-50);
+      border-radius: 24px;
+      padding: 40px;
+      border: 1px solid var(--gray-100);
+    }
+    .form-title { font-size: 20px; font-weight: 800; color: var(--gray-900); margin-bottom: 8px; }
+    .form-subtitle { font-size: 14px; color: var(--gray-600); margin-bottom: 28px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .form-group label { font-size: 13px; font-weight: 600; color: var(--gray-700); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--gray-200);
+      background: var(--white);
+      font-size: 15px;
+      font-family: inherit;
+      color: var(--gray-900);
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 3px rgba(249,115,22,.1);
+    }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-group select { appearance: none; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%234B5563'%3E%3Cpath d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px; padding-right: 40px; }
+
+    .form-success {
+      display: none;
+      background: #ECFDF5;
+      border: 1.5px solid #A7F3D0;
+      color: #065F46;
+      padding: 16px 20px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--white);
+      color: var(--gray-800);
+      border-top: 1px solid var(--gray-100);
+      padding: 64px 24px 32px;
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .footer-logo-img { height: 44px; width: auto; object-fit: contain; }
+    .footer-brand p { font-size: 14px; color: var(--gray-600); line-height: 1.8; max-width: 280px; }
+    .footer-phone { margin-top: 20px; font-size: 18px; font-weight: 700; color: var(--orange); }
+
+    .footer-col h4 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--gray-400); margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { color: var(--gray-600); text-decoration: none; font-size: 14px; transition: color .2s; }
+    .footer-col a:hover { color: var(--orange); }
+
+    .footer-bottom {
+      border-top: 1px solid var(--gray-100);
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--gray-400);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-bottom-socials { display: flex; gap: 12px; }
+    .footer-social {
+      width: 36px; height: 36px;
+      background: var(--gray-100);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gray-600);
+      text-decoration: none;
+      letter-spacing: -.3px;
+      transition: background .2s, color .2s;
+    }
+    .footer-social:hover { background: var(--orange); color: var(--white); }
+
+    /* ─── NOS PRODUITS ─── */
+    #produits { background: var(--gray-50); }
+
+    .conditions-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 56px;
+    }
+    .condition-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--white);
+      border: 2px solid var(--gray-100);
+      border-radius: 50px;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-700);
+    }
+    .condition-pill .pill-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--orange);
+      flex-shrink: 0;
+    }
+
+    .produits-categories {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    .produit-cat-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--gray-100);
+      padding: 28px 24px;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .produit-cat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .produit-cat-icon {
+      width: 52px; height: 52px;
+      background: var(--orange-xlight);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+    }
+    .produit-cat-icon svg { width: 26px; height: 26px; fill: var(--orange); }
+    .produit-cat-title { font-size: 17px; font-weight: 800; color: var(--gray-900); margin-bottom: 12px; }
+    .produit-cat-items { display: flex; flex-direction: column; gap: 8px; }
+    .produit-cat-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 14px; color: var(--gray-600);
+    }
+    .produit-cat-item::before {
+      content: '';
+      width: 5px; height: 5px;
+      background: var(--orange);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .produits-info {
+      background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
+      border-radius: 24px;
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .produits-info-text { color: var(--white); }
+    .produits-info-text h3 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+    .produits-info-text p { font-size: 15px; opacity: .85; line-height: 1.7; max-width: 480px; }
+    .produits-info .btn-secondary {
+      border-color: rgba(255,255,255,.6);
+      color: var(--white);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .produits-info .btn-secondary:hover { border-color: var(--white); background: rgba(255,255,255,.15); }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+
+    /* ─── BACK TO TOP ─── */
+    .back-top {
+      position: fixed;
+      bottom: 32px; right: 32px;
+      width: 48px; height: 48px;
+      background: var(--orange);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      color: var(--white);
+      cursor: pointer;
+      box-shadow: var(--shadow-orange);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity .3s, transform .3s;
+      z-index: 500;
+      text-decoration: none;
+    }
+    .back-top.visible { opacity: 1; transform: none; }
+    .back-top:hover { background: var(--orange-dark); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .stores-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .produits-categories { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero-inner { grid-template-columns: 1fr; text-align: center; gap: 48px; }
+      .hero-actions { justify-content: center; }
+      .hero-stats { justify-content: center; }
+      .hero-visual { order: -1; }
+      .repair-tag { display: none; }
+      .promo-inner { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .stores-grid { grid-template-columns: 1fr; }
+      .produits-categories { grid-template-columns: 1fr 1fr; }
+      .produits-info { flex-direction: column; text-align: center; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .why-scene { height: 400px; }
+    }
+    @media (max-width: 480px) {
+      section { padding: 64px 16px; }
+      .hero-inner { padding: 60px 16px; }
+      .contact-form { padding: 24px; }
+      .produits-categories { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAVBAR ─── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="#accueil" class="nav-logo">
+      <img src="https://www.mistralphone.com/file/2018/11/site-logo.png" alt="Mistral Phone" class="nav-logo-img" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="#accueil">Accueil</a></li>
+      <li><a href="#promotions">Promotions</a></li>
+      <li><a href="#services">Réparations</a></li>
+      <li><a href="produits.html">Nos produits</a></li>
+      <li><a href="#boutiques">Nos boutiques</a></li>
+      <li><a href="#contact" class="nav-cta">Réserver</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#accueil" onclick="closeMobile()">Accueil</a>
+  <a href="#promotions" onclick="closeMobile()">Promotions</a>
+  <a href="#services" onclick="closeMobile()">Réparations</a>
+  <a href="produits.html" onclick="closeMobile()">Nos produits</a>
+  <a href="#boutiques" onclick="closeMobile()">Nos boutiques</a>
+  <a href="#contact" onclick="closeMobile()">📅 Réserver une réparation</a>
+</div>
+
+<!-- ─── HERO ─── -->
+<section id="accueil" class="hero">
+  <div class="hero-bg-circles">
+    <div class="hero-circle"></div>
+    <div class="hero-circle"></div>
+    <div class="hero-circle"></div>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <h1>Réparation <em>express</em> de tous types de téléphones</h1>
+      <p class="hero-desc">iPhone réparé en <strong>10 minutes</strong>, Samsung &amp; Huawei en <strong>30 minutes</strong>. Pièces de qualité, experts depuis 2004, tarifs transparents.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">📅 Réserver ma réparation</a>
+        <a href="tel:0601040437" class="btn-secondary">06 01 04 04 37</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-number">20+</div>
+          <div class="stat-label">ans d'expérience</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">#1</div>
+          <div class="stat-label">à Marseille</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">3</div>
+          <div class="stat-label">boutiques</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="phone-scene">
+        <div class="phone-anim-wrapper" id="phoneWrapper">
+          <div class="phone-frame">
+            <div class="phone-notch"></div>
+            <!-- Base dark screen -->
+            <div class="phone-bg"></div>
+            <!-- Crack overlay (appears at impact) -->
+            <div class="phone-cracks" id="phoneCracks">
+              <svg viewBox="0 0 224 464" xmlns="http://www.w3.org/2000/svg">
+                <!-- Dark cracked screen background -->
+                <rect width="224" height="464" fill="#0a0a0a"/>
+                <!-- Shatter zone at impact point (top-left corner) -->
+                <polygon points="8,8 42,22 28,46 8,36" fill="#1a1a1a" stroke="rgba(200,210,255,0.75)" stroke-width="0.8"/>
+                <polygon points="22,8 48,18 42,22 28,8" fill="#151515" stroke="rgba(200,210,255,0.6)" stroke-width="0.6"/>
+                <polygon points="8,28 28,46 18,60 8,52" fill="#181818" stroke="rgba(200,210,255,0.55)" stroke-width="0.6"/>
+                <!-- Main crack radiating from top-left corner -->
+                <path d="M28 46 L82 118 L68 198 L104 290 L90 400" stroke="rgba(220,230,255,0.85)" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+                <!-- Branch 1: goes right across screen -->
+                <path d="M28 46 L72 78 L148 62 L206 88" stroke="rgba(220,230,255,0.75)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <!-- Branch 2: goes down-left -->
+                <path d="M28 46 L10 92 L38 152 L14 212" stroke="rgba(220,230,255,0.65)" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+                <!-- Branch 3: from main crack, goes right -->
+                <path d="M82 118 L158 136 L188 186" stroke="rgba(220,230,255,0.6)" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+                <!-- Branch 4: from main crack, goes lower-left -->
+                <path d="M68 198 L28 224 L18 298" stroke="rgba(220,230,255,0.55)" stroke-width="1" fill="none" stroke-linecap="round"/>
+                <!-- Branch 5: splits further -->
+                <path d="M68 198 L128 212 L148 268 L136 330" stroke="rgba(220,230,255,0.55)" stroke-width="1" fill="none" stroke-linecap="round"/>
+                <!-- Branch 6: lower area -->
+                <path d="M104 290 L58 318 L68 388" stroke="rgba(220,230,255,0.45)" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+                <!-- Branch 7: thin secondary cracks -->
+                <path d="M148 62 L158 118" stroke="rgba(220,230,255,0.4)" stroke-width="0.7" fill="none"/>
+                <path d="M158 136 L168 90" stroke="rgba(220,230,255,0.35)" stroke-width="0.7" fill="none"/>
+                <path d="M128 212 L168 230 L188 280" stroke="rgba(220,230,255,0.4)" stroke-width="0.8" fill="none"/>
+                <!-- Glare/reflection effect near impact -->
+                <ellipse cx="24" cy="32" rx="14" ry="10" fill="rgba(255,255,255,0.07)" transform="rotate(-30 24 32)"/>
+              </svg>
+            </div>
+            <!-- Repaired orange screen -->
+            <div class="phone-screen-repaired" id="phoneScreenRepaired">
+              <div class="psr-icon">
+                <svg viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
+              </div>
+              <div class="phone-text">Réparation<br>Express</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SERVICES ─── -->
+<section id="services">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-tag">Nos Réparations</div>
+      <h2>Choisissez votre marque</h2>
+      <p>Sélectionnez votre téléphone pour découvrir toutes les réparations disponibles et les modèles pris en charge.</p>
+    </div>
+
+    <div class="brand-tabs reveal">
+      <button class="brand-tab active" onclick="switchBrand('iphone')" id="tab-iphone">iPhone</button>
+      <button class="brand-tab" onclick="switchBrand('samsung')" id="tab-samsung">Samsung</button>
+      <button class="brand-tab" onclick="switchBrand('huawei')" id="tab-huawei">Huawei &amp; Xiaomi</button>
+    </div>
+
+    <!-- iPhone Panel -->
+    <div class="brand-panel active" id="panel-iphone">
+      <div class="brand-header reveal">
+        <div class="brand-header-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+        </div>
+        <div>
+          <div class="brand-header-title">Réparation iPhone</div>
+          <div class="brand-header-sub">Pièces d'origine ou équivalent · Service Apple Express</div>
+        </div>
+        <div class="brand-badge">Express 10 min</div>
+      </div>
+      <div class="models-grid" id="iphone-grid"></div>
+    </div>
+
+    <!-- Samsung Panel -->
+    <div class="brand-panel" id="panel-samsung">
+      <div class="brand-header reveal">
+        <div class="brand-header-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+        </div>
+        <div>
+          <div class="brand-header-title">Réparation Samsung</div>
+          <div class="brand-header-sub">Pièces de qualité · Devis immédiat</div>
+        </div>
+        <div class="brand-badge">Express 30 min</div>
+      </div>
+      <div class="models-grid" id="samsung-grid"></div>
+    </div>
+
+    <!-- Huawei Panel -->
+    <div class="brand-panel" id="panel-huawei">
+      <div class="brand-header reveal">
+        <div class="brand-header-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+        </div>
+        <div>
+          <div class="brand-header-title">Réparation Huawei &amp; Xiaomi</div>
+          <div class="brand-header-sub">Toutes marques et modèles · Devis immédiat</div>
+        </div>
+        <div class="brand-badge">Express 30 min</div>
+      </div>
+      <div class="models-grid" id="huawei-grid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WHY CHOOSE US ─── -->
+<section id="pourquoi">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-tag">Pourquoi nous choisir</div>
+      <h2>L'excellence au service<br>de votre smartphone</h2>
+    </div>
+
+    <div class="why-scene reveal">
+      <div class="why-cards-wrapper" id="whyWrapper"></div>
+    </div>
+
+    <div class="why-dots" id="whyDots"></div>
+    <div class="why-nav">
+      <button class="why-nav-btn" onclick="prevCard()" aria-label="Précédent">&#9664;</button>
+      <button class="why-nav-btn" onclick="nextCard()" aria-label="Suivant">&#9654;</button>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROMO ─── -->
+<section id="promotions">
+  <div class="promo-inner">
+    <div class="promo-content reveal">
+      <div class="section-tag">Offre Qualirepar</div>
+      <h2>–25€ sur votre réparation</h2>
+      <p>Grâce à notre certification <strong>Qualirepar</strong>, bénéficiez d'une remise de 25€ directement déduite sur le montant total de votre réparation. Une initiative gouvernementale pour prolonger la durée de vie de vos appareils.</p>
+      <br/>
+      <p>En réservant en ligne, profitez également d'une <strong>remise supplémentaire de 10%</strong> sur votre réparation.</p>
+    </div>
+    <div class="promo-card reveal reveal-delay-2">
+      <div class="promo-amount"><span>–</span>25<span>€</span></div>
+      <div class="promo-desc">Remise certifiée Qualirepar sur toute réparation</div>
+      <div class="promo-badge">Certification officielle</div>
+      <br/>
+      <a href="#contact" class="btn-primary" style="justify-content:center;width:100%;margin-top:8px;">Réserver maintenant</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── BOUTIQUES ─── -->
+<section id="boutiques">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-tag">Nos Boutiques</div>
+      <h2>3 adresses à Marseille</h2>
+      <p>Trouvez la boutique la plus proche de chez vous. Nos experts vous accueillent 7j/7.</p>
+    </div>
+    <div class="stores-grid">
+      <div class="store-card reveal">
+        <div class="store-number">1</div>
+        <div class="store-address">11 Avenue du Maréchal Foch</div>
+        <div class="store-city">13004 Marseille</div>
+        <div class="store-info">
+          <div class="store-row">
+            <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg></div>
+            06 01 04 04 37
+          </div>
+          <div class="store-row">
+            <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+            iPhone 10 min · Samsung 30 min
+          </div>
+          <div class="store-row">
+            <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+            Certifié Qualirepar
+          </div>
+        </div>
+      </div>
+      <div class="store-card reveal reveal-delay-1">
+        <div class="store-number">2</div>
+        <div class="store-address">1 rue du Maréchal Fayolle</div>
+        <div class="store-city">13004 Marseille</div>
+        <div class="store-info">
+          <div class="store-row">
+            <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg></div>
+            06 01 04 04 37
+          </div>
+          <div class="store-row">
+            <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+            Réparation express
+          </div>
+          <div class="store-row">
+            <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg></div>
+            Toutes marques
+          </div>
+        </div>
+      </div>
+      <div class="store-card reveal reveal-delay-2">
+        <div class="store-number">3</div>
+        <div class="store-address">12 Avenue de St Julien</div>
+        <div class="store-city">13012 Marseille</div>
+        <div class="store-info">
+          <div class="store-row">
+            <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg></div>
+            06 01 04 04 37
+          </div>
+          <div class="store-row">
+            <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+            Réparation express
+          </div>
+          <div class="store-row">
+            <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg></div>
+            Toutes marques
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-tag">Contact &amp; Réservation</div>
+      <h2>Prenez rendez-vous<br>en quelques clics</h2>
+      <p>Remplissez le formulaire et nous vous recontactons rapidement pour confirmer votre réparation.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <h3>Coordonnées</h3>
+        <p>Appelez-nous directement ou remplissez le formulaire pour planifier votre réparation.</p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+            </div>
+            <div>
+              <div class="contact-item-label">Téléphone</div>
+              <div class="contact-item-value"><a href="tel:0601040437">06 01 04 04 37</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            </div>
+            <div>
+              <div class="contact-item-label">Boutiques</div>
+              <div class="contact-item-value">3 adresses à Marseille (13004 &amp; 13012)</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+            </div>
+            <div>
+              <div class="contact-item-label">Réparation express</div>
+              <div class="contact-item-value">iPhone 10 min · Samsung &amp; Huawei 30 min</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            </div>
+            <div>
+              <div class="contact-item-label">Email</div>
+              <div class="contact-item-value"><a href="mailto:contact@mistralphone.com">contact@mistralphone.com</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-socials">
+          <a href="https://www.instagram.com/mistralphone13" target="_blank" class="social-btn">Instagram</a>
+          <a href="https://www.facebook.com/mistralphone" target="_blank" class="social-btn">Facebook</a>
+        </div>
+      </div>
+
+      <div class="contact-form reveal reveal-delay-1">
+        <div class="form-title">Formulaire de réservation</div>
+        <div class="form-subtitle">Remplissez vos informations et nous reviendrons vers vous rapidement.</div>
+        <form id="bookingForm" onsubmit="submitForm(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">Prénom &amp; Nom *</label>
+              <input type="text" id="fname" name="name" placeholder="Jean Dupont" required />
+            </div>
+            <div class="form-group">
+              <label for="femail">Email *</label>
+              <input type="email" id="femail" name="email" placeholder="jean@exemple.fr" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fphone">Téléphone</label>
+              <input type="tel" id="fphone" name="phone" placeholder="06 XX XX XX XX" />
+            </div>
+            <div class="form-group">
+              <label for="fdate">Date souhaitée *</label>
+              <input type="date" id="fdate" name="date" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="fservice">Service souhaité *</label>
+            <select id="fservice" name="service" required>
+              <option value="">Choisissez une réparation...</option>
+              <optgroup label="iPhone">
+                <option>iPhone – Remplacement écran</option>
+                <option>iPhone – Remplacement batterie</option>
+                <option>iPhone – Autre réparation</option>
+              </optgroup>
+              <optgroup label="Samsung">
+                <option>Samsung – Remplacement écran</option>
+                <option>Samsung – Remplacement batterie</option>
+                <option>Samsung – Autre réparation</option>
+              </optgroup>
+              <optgroup label="Huawei / Xiaomi">
+                <option>Huawei – Remplacement écran</option>
+                <option>Huawei – Remplacement batterie</option>
+                <option>Xiaomi – Remplacement écran</option>
+                <option>Xiaomi – Autre réparation</option>
+              </optgroup>
+              <option>Autre / Je ne sais pas encore</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="fdesc">Description du problème (optionnel)</label>
+            <textarea id="fdesc" name="description" placeholder="Décrivez brièvement le problème de votre téléphone…"></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="width:100%;justify-content:center;font-size:16px;">
+            📅 Envoyer ma demande de réservation
+          </button>
+          <div class="form-success" id="formSuccess">
+            Votre demande a bien été envoyée ! Nous vous recontactons très rapidement.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="https://www.mistralphone.com/file/2018/11/site-logo.png" alt="Mistral Phone" class="footer-logo-img" />
+        </div>
+        <p>Experts en réparation de smartphones à Marseille depuis 2004. iPhone, Samsung, Huawei, Xiaomi – réparation rapide et qualitative.</p>
+        <div class="footer-phone">06 01 04 04 37</div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#accueil">Accueil</a></li>
+          <li><a href="#promotions">Promotions</a></li>
+          <li><a href="#services">Réparations</a></li>
+          <li><a href="produits.html">Nos produits</a></li>
+          <li><a href="#boutiques">Nos boutiques</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Réparations</h4>
+        <ul>
+          <li><a href="#services">iPhone</a></li>
+          <li><a href="#services">Samsung</a></li>
+          <li><a href="#services">Huawei</a></li>
+          <li><a href="#services">Xiaomi / Redmi</a></li>
+          <li><a href="#services">Autres marques</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Boutiques</h4>
+        <ul>
+          <li><a href="#boutiques">11 Av. Maréchal Foch, 13004</a></li>
+          <li><a href="#boutiques">1 rue Maréchal Fayolle, 13004</a></li>
+          <li><a href="#boutiques">12 Av. de St Julien, 13012</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 Mistral Phone · Marseille · Tous droits réservés</span>
+      <div class="footer-bottom-socials">
+        <a href="https://www.instagram.com/mistralphone13" target="_blank" class="footer-social" aria-label="Instagram">IG</a>
+        <a href="https://www.facebook.com/mistralphone" target="_blank" class="footer-social" aria-label="Facebook">FB</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── BACK TO TOP ─── -->
+<a href="#accueil" class="back-top" id="backTop" aria-label="Retour en haut">↑</a>
+
+<script>
+// ─── DATA ───
+const iphoneModels = [
+  { name: 'iPhone 5 / 5S / 5C', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur'] },
+  { name: 'iPhone 6 / 6 Plus', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Caméra'] },
+  { name: 'iPhone 6S / 6S Plus', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge'] },
+  { name: 'iPhone 7 / 7 Plus', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Caméra arrière'] },
+  { name: 'iPhone 8 / 8 Plus', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Caméra'] },
+  { name: 'iPhone X', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Face ID', 'Connecteur de charge'] },
+  { name: 'iPhone XS / XS Max', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Connecteur de charge'] },
+  { name: 'iPhone XR', repairs: ['Remplacement écran LCD', 'Remplacement batterie', 'Connecteur de charge'] },
+  { name: 'iPhone 11', repairs: ['Remplacement écran LCD', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
+  { name: 'iPhone 11 Pro / Pro Max', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
+  { name: 'iPhone 12 / Mini', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Connecteur de charge'] },
+  { name: 'iPhone 12 Pro / Pro Max', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
+  { name: 'iPhone 13 / Mini', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Connecteur de charge'] },
+  { name: 'iPhone 13 Pro / Pro Max', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
+  { name: 'iPhone 14 Pro Max', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
+];
+
+const samsungModels = [
+  { name: 'Samsung Galaxy A12', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge'] },
+  { name: 'Samsung Galaxy A13', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Caméra'] },
+  { name: 'Samsung Galaxy A14', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge'] },
+  { name: 'Samsung Galaxy A22', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge'] },
+  { name: 'Samsung Galaxy A40', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra'] },
+  { name: 'Samsung Galaxy S20 FE', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
+  { name: 'Samsung Galaxy S21', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
+  { name: 'Samsung Galaxy S21 FE', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge'] },
+  { name: 'Samsung Galaxy S22', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
+];
+
+const huaweiModels = [
+  { name: 'Huawei P30', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Connecteur de charge', 'Caméra'] },
+  { name: 'Xiaomi Redmi 9A', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge'] },
+  { name: 'Xiaomi Redmi Note 10', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge', 'Caméra'] },
+  { name: 'Xiaomi Redmi Note 11', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge'] },
+  { name: 'Xiaomi Redmi Note 12', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge', 'Caméra'] },
+];
+
+const phoneIconSVG = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:22px;height:22px;fill:var(--orange)"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>`;
+
+const whyReasons = [
+  {
+    svg: `<svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>`,
+    title: 'Certification Qualirepar – 25€',
+    text: 'Bénéficiez d\'une remise officielle de 25€ grâce à notre certification Qualirepar, une initiative gouvernementale pour encourager la réparation et réduire les déchets électroniques.',
+  },
+  {
+    svg: `<svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>`,
+    title: 'Réparation ultra-rapide',
+    text: 'iPhone réparé en seulement 10 minutes, Samsung et Huawei en 30 minutes. Nos techniciens expérimentés travaillent vite sans jamais sacrifier la qualité.',
+  },
+  {
+    svg: `<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`,
+    title: 'N°1 à Marseille',
+    text: 'Validé par des milliers de clients satisfaits depuis 2004. Notre réputation s\'est construite grâce à notre sérieux, notre rapidité et notre transparence sur les tarifs.',
+  },
+  {
+    svg: `<svg viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>`,
+    title: 'Pièces de qualité garanties',
+    text: 'Nous utilisons exclusivement des pièces d\'origine ou de qualité équivalente. Chaque réparation est effectuée avec soin pour vous garantir la durabilité de votre smartphone.',
+  },
+];
+
+// ─── SMOOTH NAV (JS-based, html element is scroll container) ───
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const scroller = document.documentElement;
+  const offset = el.getBoundingClientRect().top + scroller.scrollTop - 70;
+  scroller.scrollTo({ top: offset, behavior: 'smooth' });
+}
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', function(e) {
+    const id = this.getAttribute('href').slice(1);
+    if (document.getElementById(id)) {
+      e.preventDefault();
+      scrollTo(id);
+      closeMobile();
+    }
+  });
+});
+
+// ─── NAVIGATE TO CONTACT + PREFILL ───
+function goToContact(modelName, repairName) {
+  const serviceVal = modelName + ' – ' + repairName;
+  const sel = document.getElementById('fservice');
+  let found = false;
+  for (let opt of sel.options) {
+    if (opt.text === serviceVal) { sel.value = opt.value; found = true; break; }
+  }
+  if (!found) {
+    const opt = new Option(serviceVal, serviceVal, true, true);
+    sel.add(opt);
+  }
+  scrollTo('contact');
+}
+
+// ─── BUILD MODELS GRID ───
+function buildGrid(containerId, models) {
+  const grid = document.getElementById(containerId);
+  grid.innerHTML = models.map(m => `
+    <div class="model-card" onclick="toggleModel(this)">
+      <div class="model-card-header">
+        <div class="model-icon">${phoneIconSVG}</div>
+        <div class="model-name">${m.name}</div>
+        <div class="model-arrow">›</div>
+      </div>
+      <div class="model-repairs">
+        ${m.repairs.map(r => `
+          <div class="repair-item">
+            <div class="repair-name"><div class="repair-dot"></div>${r}</div>
+            <button class="repair-cta" onclick="event.stopPropagation(); goToContact('${m.name.replace(/'/g,"\\'")}', '${r.replace(/'/g,"\\'")}')">Réserver</button>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleModel(card) {
+  const isOpen = card.classList.contains('expanded');
+  document.querySelectorAll('.model-card.expanded').forEach(c => c.classList.remove('expanded'));
+  if (!isOpen) card.classList.add('expanded');
+}
+
+buildGrid('iphone-grid', iphoneModels);
+buildGrid('samsung-grid', samsungModels);
+buildGrid('huawei-grid', huaweiModels);
+
+// ─── BRAND TABS ───
+function switchBrand(brand) {
+  document.querySelectorAll('.brand-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.brand-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-' + brand).classList.add('active');
+  document.getElementById('panel-' + brand).classList.add('active');
+}
+
+// ─── WHY CARDS ───
+let currentCard = 0;
+let autoTimer;
+
+function buildWhyCards() {
+  const wrapper = document.getElementById('whyWrapper');
+  const dots = document.getElementById('whyDots');
+
+  wrapper.innerHTML = whyReasons.map((r, i) => `
+    <div class="why-card ${i === 0 ? 'active' : ''}" id="why-card-${i}">
+      <div class="why-card-icon">${r.svg}</div>
+      <h3>${r.title}</h3>
+      <p>${r.text}</p>
+    </div>
+  `).join('');
+
+  dots.innerHTML = whyReasons.map((_, i) => `
+    <div class="why-dot ${i === 0 ? 'active' : ''}" onclick="goCard(${i})"></div>
+  `).join('');
+}
+
+function goCard(n) {
+  const prev = currentCard;
+  currentCard = (n + whyReasons.length) % whyReasons.length;
+  document.querySelectorAll('.why-card').forEach((c, i) => {
+    c.classList.remove('active', 'prev');
+    if (i === currentCard) c.classList.add('active');
+    else if (i === prev) c.classList.add('prev');
+  });
+  document.querySelectorAll('.why-dot').forEach((d, i) => d.classList.toggle('active', i === currentCard));
+  resetAutoPlay();
+}
+
+function nextCard() { goCard(currentCard + 1); }
+function prevCard() { goCard(currentCard - 1); }
+
+function resetAutoPlay() {
+  clearInterval(autoTimer);
+  autoTimer = setInterval(nextCard, 4000);
+}
+
+buildWhyCards();
+resetAutoPlay();
+
+// ─── NAVBAR SCROLL ───
+const navbar = document.getElementById('navbar');
+const backTop = document.getElementById('backTop');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  navbar.classList.toggle('scrolled', y > 20);
+  backTop.classList.toggle('visible', y > 400);
+});
+
+// ─── HAMBURGER ───
+const ham = document.getElementById('hamburger');
+const mob = document.getElementById('mobileMenu');
+ham.addEventListener('click', () => {
+  ham.classList.toggle('open');
+  mob.classList.toggle('open');
+});
+function closeMobile() {
+  ham.classList.remove('open');
+  mob.classList.remove('open');
+}
+document.querySelectorAll('.mobile-menu a').forEach(a => a.addEventListener('click', closeMobile));
+
+// ─── SCROLL REVEAL ───
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ─── FORM ───
+document.getElementById('fdate').min = new Date().toISOString().split('T')[0];
+
+function submitForm(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button[type=submit]');
+  btn.textContent = 'Envoi en cours…';
+  btn.disabled = true;
+  setTimeout(() => {
+    document.getElementById('formSuccess').style.display = 'block';
+    btn.textContent = 'Envoyé !';
+    btn.style.background = '#10B981';
+    e.target.reset();
+  }, 1200);
+}
+
+// ─── PHONE ANIMATION ───
+(function initPhoneAnimation() {
+  const wrapper = document.getElementById('phoneWrapper');
+  const cracks  = document.getElementById('phoneCracks');
+  const screen  = document.getElementById('phoneScreenRepaired');
+  if (!wrapper) return;
+
+  // Timing constants (ms)
+  const FALL_DUR     = 1350;
+  const BOUNCE_DUR   = 520;
+  const PAUSE_CRASH  = 320;
+  const UPRIGHT_DUR  = 950;
+  const CRACK_FADE   = 480;
+  const SCREEN_FADE  = 480;
+  const HOLD         = 2400;
+  const FADE_OUT     = 380;
+  const LOOP_PAUSE   = 200;
+
+  function tr(el, transition) { el.style.transition = transition; }
+  function tf(el, transform)  { el.style.transform  = transform;  }
+  function op(el, opacity, transitionStr) {
+    if (transitionStr !== undefined) tr(el, transitionStr);
+    el.style.opacity = opacity;
+  }
+  function reflow(el) { void el.offsetHeight; }
+
+  function runLoop() {
+    // ── Phase 0: instant reset (invisible, high, vertical) ──
+    tr(wrapper, 'none');
+    tf(wrapper, 'translateY(-290px)');
+    op(wrapper, '0');
+    op(cracks,  '0', 'none');
+    op(screen,  '0', 'none');
+    wrapper.style.animation = 'none';
+    reflow(wrapper);
+
+    // ── Phase 1: fall (gravity curve) ──
+    setTimeout(() => {
+      tr(wrapper, `transform ${FALL_DUR}ms cubic-bezier(0.42,0,1,0.92), opacity 280ms ease-out`);
+      tf(wrapper, 'translateY(20px)');
+      op(wrapper, '1');
+    }, 50);
+
+    // ── Phase 2: impact bounce + cracks appear ──
+    setTimeout(() => {
+      tr(wrapper, 'none');
+      wrapper.style.animation = `impactBounce ${BOUNCE_DUR}ms ease-out forwards`;
+      op(cracks, '1', `opacity 120ms ease-in`);
+    }, 50 + FALL_DUR);
+
+    // ── Phase 3: pause crashed (let cracks read) ──
+    // ── Phase 4: rotate upright ──
+    setTimeout(() => {
+      wrapper.style.animation = 'none';
+      reflow(wrapper);
+      tf(wrapper, 'translateY(16px)');
+      reflow(wrapper);
+      tr(wrapper, `transform ${UPRIGHT_DUR}ms cubic-bezier(0.34,1.25,0.64,1)`);
+      tf(wrapper, 'translateY(0px)');
+    }, 50 + FALL_DUR + BOUNCE_DUR + PAUSE_CRASH);
+
+    // ── Phase 5: cracks fade out ──
+    const t5 = 50 + FALL_DUR + BOUNCE_DUR + PAUSE_CRASH + UPRIGHT_DUR;
+    setTimeout(() => {
+      op(cracks, '0', `opacity ${CRACK_FADE}ms ease-out`);
+    }, t5);
+
+    // ── Phase 6: orange screen fades in ──
+    setTimeout(() => {
+      op(screen, '1', `opacity ${SCREEN_FADE}ms ease-in`);
+    }, t5 + CRACK_FADE);
+
+    // ── Phase 7: hold then fade wrapper out ──
+    const t7 = t5 + CRACK_FADE + SCREEN_FADE + HOLD;
+    setTimeout(() => {
+      tr(wrapper, `opacity ${FADE_OUT}ms ease-in`);
+      op(wrapper, '0');
+    }, t7);
+
+    // ── Loop ──
+    setTimeout(runLoop, t7 + FADE_OUT + LOOP_PAUSE);
+  }
+
+  // Small initial delay so page renders first
+  setTimeout(runLoop, 400);
+})();
+</script>
+</body>
+</html>
