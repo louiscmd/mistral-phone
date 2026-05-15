@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Promotions – Mistral Phone Marseille</title>
-  <meta name="description" content="Promotions et offres spéciales chez Mistral Phone Marseille. Réparation express de smartphones." />
+  <title>Mentions légales – Mistral Phone Marseille</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -14,7 +13,6 @@
     :root {
       --orange: #F97316;
       --orange-dark: #EA580C;
-      --orange-light: #FED7AA;
       --orange-xlight: #FFF7ED;
       --white: #FFFFFF;
       --gray-50: #F9FAFB;
@@ -25,8 +23,6 @@
       --gray-700: #374151;
       --gray-800: #1F2937;
       --gray-900: #111827;
-      --shadow-sm: 0 1px 2px rgba(0,0,0,.06);
-      --shadow: 0 4px 16px rgba(0,0,0,.08);
       --shadow-lg: 0 12px 40px rgba(0,0,0,.12);
       --shadow-orange: 0 8px 32px rgba(249,115,22,.25);
       --radius: 16px;
@@ -57,7 +53,6 @@
       transition: box-shadow .3s;
     }
     .navbar.scrolled { box-shadow: var(--shadow-lg); }
-
     .nav-inner {
       max-width: 1200px;
       margin: 0 auto;
@@ -67,10 +62,8 @@
       align-items: center;
       justify-content: space-between;
     }
-
     .nav-logo { display: flex; align-items: center; text-decoration: none; }
     .nav-logo-img { height: 52px; width: auto; object-fit: contain; }
-
     .nav-links {
       display: flex;
       align-items: center;
@@ -87,7 +80,6 @@
       transition: color .2s, background .2s;
     }
     .nav-links a:hover { color: var(--orange); background: var(--orange-xlight); }
-    .nav-links a.active { color: var(--orange); background: var(--orange-xlight); font-weight: 700; }
     .nav-links .nav-cta {
       background: var(--orange);
       color: var(--white) !important;
@@ -126,7 +118,6 @@
       padding: 16px 24px 24px;
       z-index: 999;
       box-shadow: var(--shadow-lg);
-      animation: slideDown .25s ease;
     }
     .mobile-menu.open { display: block; }
     .mobile-menu a {
@@ -139,17 +130,11 @@
       border-bottom: 1px solid var(--gray-100);
     }
     .mobile-menu a:last-child { border-bottom: none; color: var(--orange); font-weight: 600; }
-    .mobile-menu a.active { color: var(--orange); font-weight: 700; }
-
-    @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
 
     /* ─── PAGE HERO ─── */
     .page-hero {
       background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
-      padding: 120px 24px 80px;
+      padding: 120px 24px 60px;
       text-align: center;
       color: white;
     }
@@ -163,128 +148,63 @@
       font-weight: 700;
       letter-spacing: .5px;
       text-transform: uppercase;
-      margin-bottom: 20px;
-    }
-    .page-hero h1 {
-      font-size: clamp(32px, 5vw, 52px);
-      font-weight: 900;
-      letter-spacing: -2px;
-      line-height: 1.1;
-      margin-bottom: 20px;
-    }
-    .page-hero p {
-      font-size: 18px;
-      opacity: .85;
-      max-width: 540px;
-      margin: 0 auto;
-      line-height: 1.7;
-    }
-
-    /* ─── MAIN CONTENT ─── */
-    .main-content {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 96px 24px;
-      text-align: center;
-    }
-
-    /* ─── EMPTY STATE ─── */
-    .empty-state {
-      background: var(--gray-50);
-      border-radius: 24px;
-      padding: 80px 48px;
-      border: 2px dashed var(--gray-200);
-      margin-bottom: 64px;
-    }
-    .empty-icon {
-      width: 88px; height: 88px;
-      background: var(--orange-xlight);
-      border-radius: 24px;
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 28px;
-    }
-    .empty-icon svg { width: 44px; height: 44px; fill: var(--orange); }
-    .empty-state h2 {
-      font-size: 26px;
-      font-weight: 800;
-      color: var(--gray-900);
-      letter-spacing: -1px;
       margin-bottom: 16px;
     }
-    .empty-state p {
-      font-size: 16px;
-      color: var(--gray-600);
-      line-height: 1.8;
-      max-width: 420px;
+    .page-hero h1 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 900;
+      letter-spacing: -1.5px;
+    }
+
+    /* ─── LEGAL CONTENT ─── */
+    .legal-content {
+      max-width: 860px;
       margin: 0 auto;
-    }
-    .notify-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--orange-xlight);
-      color: var(--orange-dark);
-      border-radius: 50px;
-      padding: 8px 20px;
-      font-size: 14px;
-      font-weight: 600;
-      margin-top: 28px;
-    }
-    .notify-dot {
-      width: 8px; height: 8px;
-      background: var(--orange);
-      border-radius: 50%;
-      animation: pulse 1.5s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.4); opacity: .7; }
+      padding: 72px 24px 96px;
     }
 
-    /* ─── CTA ─── */
-    .cta-box {
-      background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
-      border-radius: 24px;
-      padding: 48px;
-      color: white;
+    .legal-section {
+      margin-bottom: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid var(--gray-100);
     }
-    .cta-box h3 { font-size: 24px; font-weight: 800; margin-bottom: 12px; }
-    .cta-box p { font-size: 15px; opacity: .85; margin-bottom: 28px; line-height: 1.7; }
-    .cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .legal-section:last-child { border-bottom: none; margin-bottom: 0; }
 
-    .btn-primary {
-      background: var(--white);
-      color: var(--orange);
-      padding: 14px 28px;
-      border-radius: 50px;
-      font-size: 15px;
+    .legal-section h2 {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--gray-900);
+      margin-bottom: 20px;
+      padding-left: 16px;
+      border-left: 4px solid var(--orange);
+    }
+
+    .legal-section h3 {
+      font-size: 16px;
       font-weight: 700;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: transform .2s, box-shadow .2s;
-      box-shadow: 0 4px 16px rgba(0,0,0,.15);
+      color: var(--gray-900);
+      margin: 24px 0 10px;
     }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
 
-    .btn-secondary-white {
-      background: transparent;
-      color: var(--white);
-      padding: 14px 28px;
-      border-radius: 50px;
+    .legal-section p {
       font-size: 15px;
-      font-weight: 600;
-      text-decoration: none;
-      border: 2px solid rgba(255,255,255,.6);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: border-color .2s, background .2s, transform .2s;
+      color: var(--gray-600);
+      line-height: 1.85;
+      margin-bottom: 12px;
     }
-    .btn-secondary-white:hover { border-color: white; background: rgba(255,255,255,.15); transform: translateY(-2px); }
+
+    .legal-block {
+      background: var(--gray-50);
+      border-radius: var(--radius-sm);
+      padding: 20px 24px;
+      margin-bottom: 16px;
+    }
+    .legal-block p { margin-bottom: 4px; }
+    .legal-block p:last-child { margin-bottom: 0; }
+    .legal-block strong { color: var(--gray-900); }
+
+    .legal-section a { color: var(--orange); text-decoration: none; }
+    .legal-section a:hover { text-decoration: underline; }
 
     /* ─── FOOTER ─── */
     footer {
@@ -355,16 +275,11 @@
     .back-top.visible { opacity: 1; transform: none; }
     .back-top:hover { background: var(--orange-dark); }
 
-    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; } }
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
       .footer-grid { grid-template-columns: 1fr; }
-      .empty-state { padding: 48px 24px; }
-      .cta-box { padding: 36px 24px; }
-    }
-    @media (max-width: 1024px) {
-      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
     }
   </style>
 </head>
@@ -378,7 +293,7 @@
     </a>
     <ul class="nav-links">
       <li><a href="index.html">Accueil</a></li>
-      <li><a href="promotions.html" class="active">Promotions</a></li>
+      <li><a href="promotions.html">Promotions</a></li>
       <li><a href="index.html#services">Réparations</a></li>
       <li><a href="produits.html">Nos produits</a></li>
       <li><a href="index.html#boutiques">Nos boutiques</a></li>
@@ -392,42 +307,88 @@
 
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.html">Accueil</a>
-  <a href="promotions.html" class="active">Promotions</a>
+  <a href="promotions.html">Promotions</a>
   <a href="index.html#services">Réparations</a>
   <a href="produits.html">Nos produits</a>
   <a href="index.html#boutiques">Nos boutiques</a>
   <a href="index.html#contact">📅 Réserver une réparation</a>
 </div>
 
-<!-- ─── PAGE HERO ─── -->
+<!-- ─── HERO ─── -->
 <div class="page-hero">
-  <div class="page-hero-tag">Promotions</div>
-  <h1>Nos offres spéciales</h1>
-  <p>Retrouvez ici toutes nos promotions et offres en cours pour la réparation de votre smartphone.</p>
+  <div class="page-hero-tag">Informations légales</div>
+  <h1>Mentions légales</h1>
 </div>
 
-<!-- ─── MAIN CONTENT ─── -->
-<div class="main-content">
+<!-- ─── CONTENT ─── -->
+<div class="legal-content">
 
-  <div class="empty-state">
-    <div class="empty-icon">
-      <svg viewBox="0 0 24 24"><path d="M20 7H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm-1 11H5c-.55 0-1-.45-1-1v-7c0-.55.45-1 1-1h14c.55 0 1 .45 1 1v7c0 .55-.45 1-1 1zm-7-4c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM12 3c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2h2c0-2.21-1.79-4-4-4z"/></svg>
-    </div>
-    <h2>Aucune promotion en ce moment</h2>
-    <p>Nous n'avons pas d'offre active pour l'instant. Dès qu'une promotion sera disponible, elle apparaîtra directement sur cette page.</p>
-    <div class="notify-badge">
-      <div class="notify-dot"></div>
-      Revenez bientôt — de nouvelles offres arrivent régulièrement
+  <div class="legal-section">
+    <h2>Identification de l'éditeur du site</h2>
+    <div class="legal-block">
+      <p><strong>Mistral Phone</strong></p>
+      <p>SAS au capital de 100 000 €</p>
+      <p>Adresse : 11 Avenue Maréchal Foch – 13004 Marseille</p>
+      <p>SIRET : 83256310000029</p>
+      <p>Directeurs de la publication : Ghani LASSOUANI</p>
     </div>
   </div>
 
-  <div class="cta-box">
-    <h3>Besoin d'une réparation maintenant ?</h3>
-    <p>Même sans promotion, nos tarifs restent transparents et compétitifs. Réservez votre réparation en ligne en quelques clics.</p>
-    <div class="cta-actions">
-      <a href="index.html#contact" class="btn-primary">📅 Réserver ma réparation</a>
-      <a href="tel:0601040437" class="btn-secondary-white">06 01 04 04 37</a>
+  <div class="legal-section">
+    <h2>Conception et gestion du site Internet</h2>
+    <div class="legal-block">
+      <p><strong>CR Media Creative Agency – CR MEDIA</strong></p>
+      <p>SAS au capital de 5 000 €</p>
+      <p>RCS Aix-en-Provence B 804 801 645</p>
+      <p>Code APE 6201Z</p>
+      <p>N° TVA : FR 63 804801645</p>
+      <p>Siège social : 31 Parc du Golf CS 90519 – 13100 Aix-en-Provence</p>
     </div>
+  </div>
+
+  <div class="legal-section">
+    <h2>Hébergement</h2>
+    <p>Notre site Internet est hébergé par :</p>
+    <div class="legal-block">
+      <p><strong>OVH</strong></p>
+      <p>SAS au capital de 10 059 500 €</p>
+      <p>RCS Lille Métropole 424 761 419 00045</p>
+      <p>Code APE 6202A</p>
+      <p>N° TVA : FR 22 424 761 419</p>
+      <p>Siège social : 2 rue Kellermann – 59100 Roubaix – France</p>
+    </div>
+  </div>
+
+  <div class="legal-section">
+    <h2>Conditions d'utilisation</h2>
+
+    <h3>1 – Droit de propriété intellectuelle</h3>
+    <p>Toute copie, modification, diffusion publique ou reproduction du contenu de ce site Internet sans l'autorisation écrite, préalable et expresse de l'auteur détenteur du droit est interdite, sauf pour usage personnel ou tout autre usage expressément prévu par la loi.</p>
+    <p>L'ensemble de ce site relève des législations françaises et internationales sur le droit d'auteur et la propriété intellectuelle. Tous les droits de reproduction sont réservés, y compris pour les documents iconographiques et photographiques.</p>
+
+    <h3>2 – Utilisation de ce site Internet</h3>
+    <p>Sur ce site Internet, y compris et sans être limitatif, toute information, déclaration, ou photographie, sont présentés sans aucune garantie, expresse ou tacite, que ce soit en terme d'exactitude, d'utilité ou de précision. Nous déclinons toute responsabilité pour des dommages résultant directement ou indirectement de l'utilisation du site Internet, y compris et sans être limitatif, dommages directs ou indirects, dans la limite des lois en vigueur.</p>
+    <p>Nous nous réservons le droit de modifier ou d'interrompre les opérations du site Internet à notre discrétion et sans information préalable.</p>
+
+    <h3>3 – Liens Hypertextes</h3>
+    <p>Tout lien hypertexte est strictement interdit sans accord express et écrit de la société Mistral Phone.</p>
+  </div>
+
+  <div class="legal-section">
+    <h2>Données personnelles</h2>
+    <p>Nous souhaitons obtenir votre satisfaction et gagner votre confiance en vous offrant des produits et services de qualité. Dans le cadre de nos efforts pour atteindre ce but, nous avons mis en place la présente politique afin de protéger vos données personnelles.</p>
+    <p>Dans les cas où nous vous demanderons de transmettre ou d'enregistrer vos données personnelles, telles que vos nom, adresse, email, ou numéro de téléphone, nous vous informerons du but de l'utilisation pour laquelle la collecte est faite ainsi que la personne à contacter. Nous vous demanderons de communiquer seulement les informations strictement nécessaires au but de la collecte.</p>
+    <p>Nous ne divulguerons pas vos données personnelles à des tiers sauf dans les cas où nous aurons obtenu votre accord préalable ou dans les cas où nous sous-traitons certains services.</p>
+    <p>Nous faisons tous les efforts nécessaires pour maintenir et améliorer la sécurité afin de nous assurer que vos informations personnelles sont gérées de manière sûre.</p>
+    <p>Nous tenons à ce que vos informations personnelles soient exactes et mises à jour et soient traitées en conformité avec la loi Informatique et Liberté.</p>
+    <p>Conformément à la Loi Informatique et Liberté, vous avez un droit d'accès, de modification, d'opposition ou de suppression à vos données personnelles en contactant : <a href="mailto:mistralphone1306@gmail.com">mistralphone1306@gmail.com</a></p>
+  </div>
+
+  <div class="legal-section">
+    <h2>Cookies</h2>
+    <p>Les cookies sont de petits fichiers textes stockés sur le disque dur du visiteur d'un site Internet et qui servent (entre autres) à enregistrer des informations sur le visiteur ou encore sur son parcours dans le site.</p>
+    <p>Nous utilisons occasionnellement des cookies pour améliorer l'information et les services que nous fournissons et pour rendre la navigation de notre site plus facile. Aucune information personnellement identifiable n'est enregistrée dans un cookie ou transféré à un tiers.</p>
+    <p>Si vous ne souhaitez pas recevoir de « cookies », reportez-vous au fichier d'aide de votre navigateur Internet qui vous indiquera comment bloquer tous les « cookies » ou vous avertir avant de les enregistrer.</p>
   </div>
 
 </div>
@@ -496,16 +457,11 @@ window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 20);
   backTop.classList.toggle('visible', window.scrollY > 400);
 });
-
 const ham = document.getElementById('hamburger');
 const mob = document.getElementById('mobileMenu');
-ham.addEventListener('click', () => {
-  ham.classList.toggle('open');
-  mob.classList.toggle('open');
-});
+ham.addEventListener('click', () => { ham.classList.toggle('open'); mob.classList.toggle('open'); });
 document.querySelectorAll('.mobile-menu a').forEach(a => a.addEventListener('click', () => {
-  ham.classList.remove('open');
-  mob.classList.remove('open');
+  ham.classList.remove('open'); mob.classList.remove('open');
 }));
 </script>
 </body>
