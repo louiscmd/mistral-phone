@@ -533,6 +533,8 @@
     .repair-item:last-child { border-bottom: none; }
     .repair-name { color: var(--gray-700); display: flex; align-items: center; gap: 8px; }
     .repair-dot { width: 6px; height: 6px; background: var(--orange); border-radius: 50%; flex-shrink: 0; }
+    .repair-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .repair-price { font-weight: 700; color: var(--orange); font-size: 13px; background: var(--orange-xlight); padding: 2px 8px; border-radius: 50px; white-space: nowrap; }
     .repair-cta {
       font-size: 12px;
       font-weight: 600;
@@ -1481,36 +1483,36 @@ const iphoneModels = [
   { name: 'iPhone 6S / 6S Plus', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge'] },
   { name: 'iPhone 7 / 7 Plus', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Caméra arrière'] },
   { name: 'iPhone 8 / 8 Plus', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Caméra'] },
-  { name: 'iPhone X', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Face ID', 'Connecteur de charge'] },
+  { name: 'iPhone X', screenPrice: '39€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Face ID', 'Connecteur de charge'] },
   { name: 'iPhone XS / XS Max', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Connecteur de charge'] },
-  { name: 'iPhone XR', repairs: ['Remplacement écran LCD', 'Remplacement batterie', 'Connecteur de charge'] },
-  { name: 'iPhone 11', repairs: ['Remplacement écran LCD', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
-  { name: 'iPhone 11 Pro / Pro Max', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
-  { name: 'iPhone 12 / Mini', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Connecteur de charge'] },
-  { name: 'iPhone 12 Pro / Pro Max', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
-  { name: 'iPhone 13 / Mini', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Connecteur de charge'] },
-  { name: 'iPhone 13 Pro / Pro Max', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
-  { name: 'iPhone 14 Pro Max', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
+  { name: 'iPhone XR', screenPrice: '59€', repairs: ['Remplacement écran LCD', 'Remplacement batterie', 'Connecteur de charge'] },
+  { name: 'iPhone 11', screenPrice: '59€', repairs: ['Remplacement écran LCD', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
+  { name: 'iPhone 11 Pro / Pro Max', screenPrice: 'dès 79€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
+  { name: 'iPhone 12 / Mini', screenPrice: '79€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Connecteur de charge'] },
+  { name: 'iPhone 12 Pro / Pro Max', screenPrice: 'dès 79€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
+  { name: 'iPhone 13 / Mini', screenPrice: '99€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Connecteur de charge'] },
+  { name: 'iPhone 13 Pro / Pro Max', screenPrice: '99€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
+  { name: 'iPhone 14 Pro Max', screenPrice: '129€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
 ];
 
 const samsungModels = [
-  { name: 'Samsung Galaxy A12', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge'] },
-  { name: 'Samsung Galaxy A13', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Caméra'] },
-  { name: 'Samsung Galaxy A14', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge'] },
-  { name: 'Samsung Galaxy A22', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge'] },
-  { name: 'Samsung Galaxy A40', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra'] },
-  { name: 'Samsung Galaxy S20 FE', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
-  { name: 'Samsung Galaxy S21', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
-  { name: 'Samsung Galaxy S21 FE', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge'] },
-  { name: 'Samsung Galaxy S22', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
+  { name: 'Samsung Galaxy A12', screenPrice: '84€', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge'] },
+  { name: 'Samsung Galaxy A13', screenPrice: '84€', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Caméra'] },
+  { name: 'Samsung Galaxy A14', screenPrice: '84€', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge'] },
+  { name: 'Samsung Galaxy A22', screenPrice: '104€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge'] },
+  { name: 'Samsung Galaxy A40', screenPrice: '84€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra'] },
+  { name: 'Samsung Galaxy S20 FE', screenPrice: '184€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
+  { name: 'Samsung Galaxy S21', screenPrice: '224€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
+  { name: 'Samsung Galaxy S21 FE', screenPrice: '184€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge'] },
+  { name: 'Samsung Galaxy S22', screenPrice: '234€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
 ];
 
 const huaweiModels = [
-  { name: 'Huawei P30', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Connecteur de charge', 'Caméra'] },
-  { name: 'Xiaomi Redmi 9A', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge'] },
-  { name: 'Xiaomi Redmi Note 10', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge', 'Caméra'] },
-  { name: 'Xiaomi Redmi Note 11', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge'] },
-  { name: 'Xiaomi Redmi Note 12', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge', 'Caméra'] },
+  { name: 'Huawei P30', screenPrice: '64€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Connecteur de charge', 'Caméra'] },
+  { name: 'Xiaomi Redmi 9A', screenPrice: '64€', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge'] },
+  { name: 'Xiaomi Redmi Note 10', screenPrice: '164€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge', 'Caméra'] },
+  { name: 'Xiaomi Redmi Note 11', screenPrice: '164€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge'] },
+  { name: 'Xiaomi Redmi Note 12', screenPrice: '164€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge', 'Caméra'] },
 ];
 
 const phoneIconSVG = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:22px;height:22px;fill:var(--orange)"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>`;
@@ -1584,12 +1586,15 @@ function buildGrid(containerId, models) {
         <div class="model-arrow">›</div>
       </div>
       <div class="model-repairs">
-        ${m.repairs.map(r => `
+        ${m.repairs.map(r => {
+          const isScreen = r.toLowerCase().includes('écran');
+          const priceTag = isScreen && m.screenPrice ? `<span class="repair-price">${m.screenPrice}</span>` : '';
+          return `
           <div class="repair-item">
             <div class="repair-name"><div class="repair-dot"></div>${r}</div>
-            <button class="repair-cta" onclick="event.stopPropagation(); goToContact('${m.name.replace(/'/g,"\\'")}', '${r.replace(/'/g,"\\'")}')">Réserver</button>
-          </div>
-        `).join('')}
+            <div class="repair-right">${priceTag}<button class="repair-cta" onclick="event.stopPropagation(); goToContact('${m.name.replace(/'/g,"\\'")}', '${r.replace(/'/g,"\\'")}')">Réserver</button></div>
+          </div>`;
+        }).join('')}
       </div>
     </div>
   `).join('');
