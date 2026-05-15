@@ -1487,11 +1487,11 @@ const iphoneModels = [
   { name: 'iPhone XS / XS Max', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Connecteur de charge'] },
   { name: 'iPhone XR', screenPrice: '59€', repairs: ['Remplacement écran LCD', 'Remplacement batterie', 'Connecteur de charge'] },
   { name: 'iPhone 11', screenPrice: '59€', repairs: ['Remplacement écran LCD', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
-  { name: 'iPhone 11 Pro / Pro Max', screenPrice: 'dès 79€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
-  { name: 'iPhone 12 / Mini', screenPrice: '79€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Connecteur de charge'] },
-  { name: 'iPhone 12 Pro / Pro Max', screenPrice: 'dès 79€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
-  { name: 'iPhone 13 / Mini', screenPrice: '99€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Connecteur de charge'] },
-  { name: 'iPhone 13 Pro / Pro Max', screenPrice: '99€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
+  { name: 'iPhone 11 Pro / Pro Max', screenPrice: 'dès 79€', batteryPrice: '48€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
+  { name: 'iPhone 12 / Mini', screenPrice: '79€', batteryPrice: 'dès 44€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Connecteur de charge'] },
+  { name: 'iPhone 12 Pro / Pro Max', screenPrice: 'dès 79€', batteryPrice: '54€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
+  { name: 'iPhone 13 / Mini', screenPrice: '99€', batteryPrice: '64€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Connecteur de charge'] },
+  { name: 'iPhone 13 Pro / Pro Max', screenPrice: '99€', batteryPrice: '64€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
   { name: 'iPhone 14 Pro Max', screenPrice: '129€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge'] },
 ];
 
@@ -1588,7 +1588,9 @@ function buildGrid(containerId, models) {
       <div class="model-repairs">
         ${m.repairs.map(r => {
           const isScreen = r.toLowerCase().includes('écran');
-          const priceTag = isScreen && m.screenPrice ? `<span class="repair-price">${m.screenPrice}</span>` : '';
+          const isBattery = r.toLowerCase().includes('batterie');
+          const price = isScreen && m.screenPrice ? m.screenPrice : isBattery && m.batteryPrice ? m.batteryPrice : null;
+          const priceTag = price ? `<span class="repair-price">${price}</span>` : '';
           return `
           <div class="repair-item">
             <div class="repair-name"><div class="repair-dot"></div>${r}</div>
