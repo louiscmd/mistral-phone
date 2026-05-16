@@ -1533,7 +1533,7 @@
         </div>
       </div>
 
-      <div class="contact-form reveal reveal-delay-1">
+      <div id="reservation-form" class="contact-form reveal reveal-delay-1">
         <div class="form-title">Formulaire de réservation</div>
         <div class="form-subtitle">Remplissez vos informations et nous reviendrons vers vous rapidement.</div>
         <form id="bookingForm" onsubmit="submitForm(event)">
@@ -1689,32 +1689,32 @@
 // ─── DATA ───
 const iphoneModels = [
   { name: 'iPhone 8 / SE 2020', screenPrice: '49€', batteryPrice: '39€', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'iPhone X', screenPrice: '49€', batteryPrice: '49€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Face ID', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'iPhone X', screenPrice: '49€', batteryPrice: '49€', vitrePrice: '79€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Remplacement vitre arrière', 'Face ID', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
   { name: 'iPhone XR', screenPrice: '49€', batteryPrice: '49€', repairs: ['Remplacement écran LCD', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'iPhone XS', screenPrice: '59€', batteryPrice: '59€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Face ID', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'iPhone XS Max', screenPrice: '69€', batteryPrice: '59€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Face ID', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'iPhone XS', screenPrice: '59€', batteryPrice: '59€', vitrePrice: '79€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Remplacement vitre arrière', 'Face ID', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'iPhone XS Max', screenPrice: '69€', batteryPrice: '59€', vitrePrice: '89€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Remplacement vitre arrière', 'Face ID', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
   { name: 'iPhone SE 2023', screenPrice: '59€', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'iPhone 11', screenPrice: '59€', batteryPrice: '49€', repairs: ['Remplacement écran LCD', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'iPhone 11 Pro', screenPrice: '69€', batteryPrice: '59€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'iPhone 11 Pro Max', screenPrice: '79€', batteryPrice: '59€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'iPhone 12 / Mini', screenPrice: '69€', batteryPrice: '59€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'iPhone 12 Pro', screenPrice: '69€', batteryPrice: '59€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'iPhone 12 Pro Max', screenPrice: '79€', batteryPrice: '69€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'iPhone 13 / Mini', screenPrice: '89€', batteryPrice: '69€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'iPhone 13 Pro', screenPrice: '99€', batteryPrice: '79€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'iPhone 13 Pro Max', screenPrice: '119€', batteryPrice: '79€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'iPhone 14', screenPrice: '99€', batteryPrice: '69€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'iPhone 14 Plus', screenPrice: '99€', batteryPrice: '69€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'iPhone 14 Pro', screenPrice: '129€', batteryPrice: '79€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'iPhone 14 Pro Max', screenPrice: '139€', batteryPrice: '89€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'iPhone 15', screenPrice: '119€', batteryPrice: '89€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'iPhone 15 Plus', screenPrice: '129€', batteryPrice: '89€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'iPhone 15 Pro', screenPrice: '139€', batteryPrice: '99€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'iPhone 15 Pro Max', screenPrice: '149€', batteryPrice: '99€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'iPhone 16', screenPrice: '129€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'iPhone 16 Plus', screenPrice: '149€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'iPhone 16 Pro', screenPrice: '199€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'iPhone 16 Pro Max', screenPrice: '249€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'iPhone 11', screenPrice: '59€', batteryPrice: '49€', vitrePrice: '79€', repairs: ['Remplacement écran LCD', 'Remplacement batterie', 'Remplacement vitre arrière', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'iPhone 11 Pro', screenPrice: '69€', batteryPrice: '59€', vitrePrice: '79€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Remplacement vitre arrière', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'iPhone 11 Pro Max', screenPrice: '79€', batteryPrice: '59€', vitrePrice: '89€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Remplacement vitre arrière', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'iPhone 12 / Mini', screenPrice: '69€', batteryPrice: '59€', vitrePrice: '79€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Remplacement vitre arrière', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'iPhone 12 Pro', screenPrice: '69€', batteryPrice: '59€', vitrePrice: '79€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Remplacement vitre arrière', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'iPhone 12 Pro Max', screenPrice: '79€', batteryPrice: '69€', vitrePrice: '89€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Remplacement vitre arrière', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'iPhone 13 / Mini', screenPrice: '89€', batteryPrice: '69€', vitrePrice: '89€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Remplacement vitre arrière', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'iPhone 13 Pro', screenPrice: '99€', batteryPrice: '79€', vitrePrice: '99€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Remplacement vitre arrière', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'iPhone 13 Pro Max', screenPrice: '119€', batteryPrice: '79€', vitrePrice: '99€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Remplacement vitre arrière', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'iPhone 14', screenPrice: '99€', batteryPrice: '69€', vitrePrice: '99€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Remplacement vitre arrière', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'iPhone 14 Plus', screenPrice: '99€', batteryPrice: '69€', vitrePrice: '99€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Remplacement vitre arrière', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'iPhone 14 Pro', screenPrice: '129€', batteryPrice: '79€', vitrePrice: '129€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Remplacement vitre arrière', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'iPhone 14 Pro Max', screenPrice: '139€', batteryPrice: '89€', vitrePrice: '129€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Remplacement vitre arrière', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'iPhone 15', screenPrice: '119€', batteryPrice: '89€', vitrePrice: '129€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Remplacement vitre arrière', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'iPhone 15 Plus', screenPrice: '129€', batteryPrice: '89€', vitrePrice: '129€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Remplacement vitre arrière', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'iPhone 15 Pro', screenPrice: '139€', batteryPrice: '99€', vitrePrice: '129€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Remplacement vitre arrière', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'iPhone 15 Pro Max', screenPrice: '149€', batteryPrice: '99€', vitrePrice: '129€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Remplacement vitre arrière', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'iPhone 16', screenPrice: '129€', vitrePrice: '129€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Remplacement vitre arrière', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'iPhone 16 Plus', screenPrice: '149€', vitrePrice: '129€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Remplacement vitre arrière', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'iPhone 16 Pro', screenPrice: '199€', vitrePrice: '149€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Remplacement vitre arrière', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'iPhone 16 Pro Max', screenPrice: '249€', vitrePrice: '149€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Remplacement vitre arrière', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
   { name: 'iPhone 16e', screenPrice: '129€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
   { name: 'iPhone 17', screenPrice: '199€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
   { name: 'iPhone 17 Pro', screenPrice: '249€', repairs: ['Remplacement écran OLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
@@ -1723,30 +1723,41 @@ const iphoneModels = [
 ];
 
 const samsungModels = [
+  { name: 'Samsung Galaxy A02s', screenPrice: '79€', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy A03s', screenPrice: '79€', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy A05', screenPrice: '79€', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy A05s', screenPrice: '79€', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
   { name: 'Samsung Galaxy A10', screenPrice: '44€', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'Samsung Galaxy A12', screenPrice: '84€', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy A10s', screenPrice: '79€', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy A12', screenPrice: '79€', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
   { name: 'Samsung Galaxy A13', screenPrice: '84€', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Caméra', 'Haut-parleur', 'Désoxydation'] },
   { name: 'Samsung Galaxy A14', screenPrice: '84€', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'Samsung Galaxy A15 4G/5G', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'Samsung Galaxy A16 4G', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'Samsung Galaxy A16 5G', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'Samsung Galaxy A22', screenPrice: '104€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'Samsung Galaxy A32 5G', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'Samsung Galaxy A34', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge', 'Caméra', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'Samsung Galaxy A40', screenPrice: '84€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'Samsung Galaxy A52', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge', 'Caméra', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'Samsung Galaxy A52s', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge', 'Caméra', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'Samsung Galaxy A53', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge', 'Caméra', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'Samsung Galaxy A54', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge', 'Caméra', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'Samsung Galaxy S20 FE', screenPrice: '184€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy A15 4G/5G', screenPrice: '99€', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy A16 4G', screenPrice: '99€', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy A16 5G', screenPrice: '99€', repairs: ['Remplacement écran', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy A22 5G', screenPrice: '99€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy A32 5G', screenPrice: '99€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy A34', screenPrice: '119€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge', 'Caméra', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy A35', screenPrice: '119€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge', 'Caméra', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy A40', screenPrice: '99€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy A52', screenPrice: '119€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge', 'Caméra', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy A52s', screenPrice: '119€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge', 'Caméra', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy A53', screenPrice: '119€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge', 'Caméra', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy A54', screenPrice: '119€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge', 'Caméra', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy S20 FE', screenPrice: '99€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
   { name: 'Samsung Galaxy S21', screenPrice: '224€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'Samsung Galaxy S21 FE', screenPrice: '184€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'Samsung Galaxy S22', screenPrice: '234€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'Samsung Galaxy S22 Plus', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'Samsung Galaxy S22 Ultra', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'Samsung Galaxy S23', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'Samsung Galaxy S24', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
-  { name: 'Samsung Galaxy S24 Ultra', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy S21 FE', screenPrice: '119€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy S22', screenPrice: '199€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy S22 Plus', screenPrice: '139€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy S22 Ultra', screenPrice: '299€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy S23', screenPrice: '189€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy S23 FE', screenPrice: '179€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy S23 Plus', screenPrice: '199€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy S23 Ultra', screenPrice: '349€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy S24', screenPrice: '229€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy S24 FE', screenPrice: '179€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy S24 Plus', screenPrice: '269€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
+  { name: 'Samsung Galaxy S24 Ultra', screenPrice: '399€', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
   { name: 'Samsung Galaxy S25', repairs: ['Remplacement écran AMOLED', 'Remplacement batterie', 'Caméra', 'Connecteur de charge', 'Haut-parleur', 'Désoxydation'] },
 ];
 
@@ -1842,7 +1853,7 @@ function goToContact(modelName, repairName) {
     const opt = new Option(serviceVal, serviceVal, true, true);
     sel.add(opt);
   }
-  scrollTo('contact');
+  document.getElementById('reservation-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // ─── BUILD MODELS GRID ───
@@ -1861,8 +1872,10 @@ function buildGrid(containerId, models) {
           const isBattery = r.toLowerCase().includes('batterie');
           const isSpeaker = r.toLowerCase().includes('haut-parleur');
           const isDesoxy = r.toLowerCase().includes('désoxydation');
+          const isVitre = r.toLowerCase().includes('vitre');
           const price = isScreen && m.screenPrice ? m.screenPrice
                       : isBattery && m.batteryPrice ? m.batteryPrice
+                      : isVitre && m.vitrePrice ? m.vitrePrice
                       : (isSpeaker || isDesoxy) ? 'à partir de 39€'
                       : null;
           const priceTag = price ? `<span class="repair-price">${price}</span>` : '';
