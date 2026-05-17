@@ -537,6 +537,7 @@
     .repair-name { color: var(--gray-700); display: flex; align-items: center; gap: 8px; }
     .repair-dot { width: 6px; height: 6px; background: var(--orange); border-radius: 50%; flex-shrink: 0; }
     .repair-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .repair-right-col { flex-direction: column; align-items: flex-end; gap: 6px; }
     .repair-price { font-weight: 700; color: var(--orange); font-size: 13px; background: var(--orange-xlight); padding: 2px 8px; border-radius: 50px; white-space: nowrap; }
     .repair-cta {
       font-size: 12px;
@@ -1879,10 +1880,11 @@ function buildGrid(containerId, models) {
                       : (isSpeaker || isDesoxy) ? 'à partir de 39€'
                       : null;
           const priceTag = price ? `<span class="repair-price">${price}</span>` : '';
+          const rightClass = price === 'à partir de 39€' ? 'repair-right repair-right-col' : 'repair-right';
           return `
           <div class="repair-item">
             <div class="repair-name"><div class="repair-dot"></div>${r}</div>
-            <div class="repair-right">${priceTag}<button class="repair-cta" onclick="event.stopPropagation(); goToContact('${m.name.replace(/'/g,"\\'")}', '${r.replace(/'/g,"\\'")}')">Réserver</button></div>
+            <div class="${rightClass}">${priceTag}<button class="repair-cta" onclick="event.stopPropagation(); goToContact('${m.name.replace(/'/g,"\\'")}', '${r.replace(/'/g,"\\'")}')">Réserver</button></div>
           </div>`;
         }).join('')}
       </div>
