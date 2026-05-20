@@ -1190,13 +1190,11 @@
     }
 
     /* ── PHOTO CAROUSEL ── */
-    .photo-scene { position: relative; border-radius: 20px; overflow: hidden; background: var(--gray-100); margin: 20px 0 16px; height: 320px; }
+    .photo-scene { position: relative; border-radius: 20px; overflow: hidden; background: var(--gray-100); margin: 20px 0 16px; aspect-ratio: 3/2; }
     .photo-wrapper { position: relative; width: 100%; height: 100%; }
     .photo-slide { position: absolute; inset: 0; opacity: 0; transition: opacity .7s ease; }
     .photo-slide.p-active { opacity: 1; z-index: 1; }
-    .photo-slide-bg { width: 100%; height: 100%; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 16px; }
-    .photo-slide-icon { font-size: 64px; line-height: 1; filter: drop-shadow(0 4px 12px rgba(0,0,0,.3)); }
-    .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,.6)); color: white; padding: 32px 24px 16px; font-size: 15px; font-weight: 700; letter-spacing: .2px; }
+    .photo-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .photo-dots { display: flex; justify-content: center; gap: 8px; margin-top: 14px; }
     .photo-dot { height: 8px; width: 8px; border-radius: 4px; background: var(--gray-300); cursor: pointer; transition: all .25s; }
     .photo-dot.p-active { background: var(--orange); width: 22px; }
@@ -2252,11 +2250,10 @@ resetAutoPlay();
 
 // ─── PHOTO CAROUSEL ───
 const photoSlides = [
-  { bg: 'linear-gradient(140deg,#1B4AAF 0%,#0d2d6e 100%)', icon: '📱', caption: 'Remplacement écran — résultat comme neuf' },
-  { bg: 'linear-gradient(140deg,#E87722 0%,#9c3d00 100%)', icon: '🔋', caption: 'Batterie neuve — autonomie retrouvée' },
-  { bg: 'linear-gradient(140deg,#1a3a6e 0%,#E87722 100%)', icon: '🏪', caption: 'Boutique Maréchal Foch — 13004 Marseille' },
-  { bg: 'linear-gradient(140deg,#15432e 0%,#2d6a4f 100%)', icon: '🔧', caption: 'Techniciens certifiés Qualirepar' },
-  { bg: 'linear-gradient(140deg,#4a1a6e 0%,#7c3aed 100%)', icon: '⭐', caption: 'Plus de 1 000 clients satisfaits' },
+  'repair_1.jpg',
+  'repair_2.jpg',
+  'repair_3.jpg',
+  'repair_4.jpg',
 ];
 
 let currentPhoto = 0;
@@ -2265,12 +2262,9 @@ let photoTimer;
 function buildPhotoCarousel() {
   const wrapper = document.getElementById('photoWrapper');
   const dots    = document.getElementById('photoDots');
-  wrapper.innerHTML = photoSlides.map((s, i) => `
+  wrapper.innerHTML = photoSlides.map((src, i) => `
     <div class="photo-slide${i===0?' p-active':''}" id="photo-slide-${i}">
-      <div class="photo-slide-bg" style="background:${s.bg}">
-        <div class="photo-slide-icon">${s.icon}</div>
-      </div>
-      <div class="photo-caption">${s.caption}</div>
+      <img src="${src}" alt="Réparation Mistral Phone" loading="${i===0?'eager':'lazy'}">
     </div>`).join('');
   dots.innerHTML = photoSlides.map((_, i) => `
     <div class="photo-dot${i===0?' p-active':''}" onclick="goPhoto(${i})"></div>`).join('');
