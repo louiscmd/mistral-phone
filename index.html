@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mistral Phone – Réparation Express Smartphones à Marseille</title>
-  <meta name="description" content="Réparation express de smartphones à Marseille. iPhone, Samsung, Huawei – réparation rapide, pièces de qualité, depuis 2004. 3 boutiques." />
+  <meta name="description" content="Réparation de smartphones à Marseille depuis 2004. iPhone, Samsung, Huawei, Xiaomi et autres marques. Pièces de qualité, service fiable. 3 boutiques. Réservez en ligne." />
   <link rel="icon" href="favicon.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -984,6 +984,20 @@
     }
     .no-model-note a { color: var(--orange); font-weight: 600; }
 
+    /* ─── REPAIR SEARCH ─── */
+    .repair-search { margin-bottom: 24px; position: relative; }
+    .repair-search-inner { display: flex; align-items: center; gap: 12px; background: white; border: 2px solid var(--gray-200); border-radius: var(--radius); padding: 12px 18px; transition: border-color .2s; }
+    .repair-search-inner:focus-within { border-color: var(--blue); }
+    #repairSearch { flex: 1; border: none; outline: none; font-size: 15px; font-family: inherit; color: var(--gray-900); background: transparent; }
+    #repairSearch::placeholder { color: var(--gray-400); }
+    .search-results { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); box-shadow: var(--shadow-lg); z-index: 100; max-height: 320px; overflow-y: auto; }
+    .search-result-item { padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; border-bottom: 1px solid var(--gray-100); transition: background .15s; }
+    .search-result-item:last-child { border-bottom: none; }
+    .search-result-item:hover { background: var(--blue-xlight); }
+    .search-result-brand { font-size: 11px; color: var(--gray-400); font-weight: 600; text-transform: uppercase; }
+    .search-result-name { font-size: 14px; font-weight: 600; color: var(--gray-900); }
+    .search-result-arrow { color: var(--blue); font-size: 18px; }
+
     /* ─── EXTRA SERVICES ─── */
     .extra-services {
       display: grid;
@@ -1044,14 +1058,8 @@
       min-height: 44px;
     }
     .agenda-display.selected { color: var(--gray-900); border-color: var(--blue); }
-    .btn-agenda {
-      background: var(--blue); color: white;
-      border: none; border-radius: var(--radius-sm);
-      padding: 10px 16px; font-size: 13px; font-weight: 600;
-      cursor: pointer; white-space: nowrap;
-      transition: opacity .2s;
-    }
-    .btn-agenda:hover { opacity: .85; }
+    .btn-agenda { background: var(--blue); color: white; border: none; border-radius: var(--radius-sm); padding: 10px 20px; font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(27,74,175,.3); transition: transform .15s, box-shadow .15s; }
+    .btn-agenda:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(27,74,175,.4); }
 
     /* ─── CALENDAR MODAL ─── */
     .cal-overlay {
@@ -1202,10 +1210,10 @@
   <div class="hero-inner">
     <div class="hero-content">
       <h1>Réparation <em>express</em> de tous types de téléphones</h1>
-      <p class="hero-desc">iPhone réparé en <strong>10 minutes</strong>, Samsung &amp; Huawei en <strong>30 minutes</strong>. Pièces de qualité, experts depuis 2004, tarifs transparents.</p>
+      <p class="hero-desc">Spécialistes de la réparation de smartphones à Marseille depuis 2004, nous intervenons rapidement sur iPhone, Samsung, Huawei, Xiaomi et bien d'autres marques avec un service fiable et de qualité.</p>
       <div class="hero-actions">
         <a href="#contact" class="btn-primary">📅 Réserver ma réparation</a>
-        <a href="tel:0601040437" class="btn-secondary">06 01 04 04 37</a>
+        <a href="tel:0668096669" class="btn-secondary">06 68 09 66 69</a>
       </div>
       <div class="hero-stats">
         <div class="stat">
@@ -1283,6 +1291,14 @@
       <p>Sélectionnez votre téléphone pour découvrir toutes les réparations disponibles et les modèles pris en charge.</p>
     </div>
 
+    <div class="repair-search reveal">
+      <div class="repair-search-inner">
+        <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:var(--gray-400);flex-shrink:0"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <input type="text" id="repairSearch" placeholder="Recherchez votre modèle… ex : iPhone 14, Galaxy S23" oninput="filterModels(this.value)" autocomplete="off" />
+      </div>
+      <div id="searchResults" class="search-results" style="display:none"></div>
+    </div>
+
     <div class="brand-tabs reveal">
       <button class="brand-tab active" onclick="switchBrand('iphone')" id="tab-iphone">iPhone</button>
       <button class="brand-tab" onclick="switchBrand('samsung')" id="tab-samsung">Samsung</button>
@@ -1300,7 +1316,7 @@
           <div class="brand-header-title">Réparation iPhone</div>
           <div class="brand-header-sub">Pièces d'origine ou équivalent · Service Apple Express</div>
         </div>
-        <div class="brand-badge">Express 10 min</div>
+        <div class="brand-badge">Express 30 min</div>
       </div>
       <div class="models-grid" id="iphone-grid"></div>
       <div class="no-model-note">Si vous ne trouvez pas votre modèle, <a href="#contact">contactez-nous</a>.</div>
@@ -1316,7 +1332,7 @@
           <div class="brand-header-title">Réparation Samsung</div>
           <div class="brand-header-sub">Pièces de qualité · Devis immédiat</div>
         </div>
-        <div class="brand-badge">Express 30 min</div>
+        <div class="brand-badge">Express 1h</div>
       </div>
       <div class="models-grid" id="samsung-grid"></div>
       <div class="no-model-note">Si vous ne trouvez pas votre modèle, <a href="#contact">contactez-nous</a>.</div>
@@ -1332,7 +1348,7 @@
           <div class="brand-header-title">Réparation Huawei &amp; Xiaomi</div>
           <div class="brand-header-sub">Toutes marques et modèles · Devis immédiat</div>
         </div>
-        <div class="brand-badge">Express 30 min</div>
+        <div class="brand-badge">Express 1h</div>
       </div>
       <div class="models-grid" id="huawei-grid"></div>
       <div class="no-model-note">Si vous ne trouvez pas votre modèle, <a href="#contact">contactez-nous</a>.</div>
@@ -1348,7 +1364,7 @@
           <div class="brand-header-title">Réparation Google Pixel</div>
           <div class="brand-header-sub">Pièces de qualité · Devis immédiat</div>
         </div>
-        <div class="brand-badge">Express 30 min</div>
+        <div class="brand-badge">Express 1h</div>
       </div>
       <div class="models-grid" id="google-grid"></div>
       <div class="no-model-note">Si vous ne trouvez pas votre modèle, <a href="#contact">contactez-nous</a>.</div>
@@ -1367,7 +1383,7 @@
           <p>Tout modèle de tablette (iPad, Samsung, Huawei…). Appelez-nous ou envoyez une demande pour un devis immédiat.</p>
         </div>
         <div class="extra-service-actions">
-          <a href="tel:0601040437" class="btn-extra">📞 Nous appeler</a>
+          <a href="tel:0668096669" class="btn-extra">📞 Nous appeler</a>
           <a href="#contact" class="btn-extra-outline">Envoyer une demande</a>
         </div>
       </div>
@@ -1380,7 +1396,7 @@
           <p>Tout modèle de MacBook et ordinateur portable. Appelez-nous ou envoyez une demande pour un devis immédiat.</p>
         </div>
         <div class="extra-service-actions">
-          <a href="tel:0601040437" class="btn-extra">📞 Nous appeler</a>
+          <a href="tel:0668096669" class="btn-extra">📞 Nous appeler</a>
           <a href="#contact" class="btn-extra-outline">Envoyer une demande</a>
         </div>
       </div>
@@ -1414,7 +1430,7 @@
     <div class="section-header reveal">
       <div class="section-tag">Nos Boutiques</div>
       <h2>3 adresses à Marseille</h2>
-      <p>Trouvez la boutique la plus proche de chez vous. Nos experts vous accueillent 6j/7.</p>
+      <p>Trouvez la boutique la plus proche de chez vous. Nos experts vous accueillent 7j/7.<br><small style="color:var(--gray-600);font-size:13px;">Dimanche : 10h - 15h</small></p>
     </div>
     <div class="stores-grid">
       <div class="store-card reveal">
@@ -1424,11 +1440,11 @@
         <div class="store-info">
           <div class="store-row">
             <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg></div>
-            06 01 04 04 37
+            06 68 09 66 69
           </div>
           <div class="store-row">
             <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-            iPhone 10 min · Samsung 30 min
+            iPhone 30 min · Samsung 1h
           </div>
           <div class="store-row">
             <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
@@ -1443,7 +1459,7 @@
         <div class="store-info">
           <div class="store-row">
             <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg></div>
-            06 01 04 04 37
+            06 68 09 66 69
           </div>
           <div class="store-row">
             <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
@@ -1462,7 +1478,7 @@
         <div class="store-info">
           <div class="store-row">
             <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg></div>
-            06 01 04 04 37
+            06 68 09 66 69
           </div>
           <div class="store-row">
             <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
@@ -1519,7 +1535,7 @@
                   <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:var(--gray-400);flex-shrink:0"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zm-7-9H7v5h5v-5z"/></svg>
                   <span id="agendaText">Choisir une date et heure…</span>
                 </div>
-                <button type="button" class="btn-agenda" onclick="openAgenda()">📅 Agenda</button>
+                <button type="button" class="btn-agenda" onclick="openAgenda()">📅 Choisir un créneau</button>
               </div>
               <input type="hidden" id="fdate" name="date" required />
               <input type="hidden" id="ftime" name="time" required />
@@ -1529,9 +1545,10 @@
             <label for="fservice">Service souhaité *</label>
             <select id="fservice" name="service" required>
               <option value="">Choisissez une réparation...</option>
-              <optgroup label="iPhone">
+              <optgroup label="Apple (iPhone)">
                 <option>iPhone – Remplacement écran</option>
                 <option>iPhone – Remplacement batterie</option>
+                <option>iPhone – Remplacement vitre arrière</option>
                 <option>iPhone – Autre réparation</option>
               </optgroup>
               <optgroup label="Samsung">
@@ -1539,13 +1556,29 @@
                 <option>Samsung – Remplacement batterie</option>
                 <option>Samsung – Autre réparation</option>
               </optgroup>
-              <optgroup label="Huawei / Xiaomi">
+              <optgroup label="Huawei">
                 <option>Huawei – Remplacement écran</option>
                 <option>Huawei – Remplacement batterie</option>
+                <option>Huawei – Autre réparation</option>
+              </optgroup>
+              <optgroup label="Xiaomi / Redmi">
                 <option>Xiaomi – Remplacement écran</option>
+                <option>Xiaomi – Remplacement batterie</option>
                 <option>Xiaomi – Autre réparation</option>
               </optgroup>
-              <option>Autre / Je ne sais pas encore</option>
+              <optgroup label="Honor">
+                <option>Honor – Remplacement écran</option>
+                <option>Honor – Autre réparation</option>
+              </optgroup>
+              <optgroup label="Oppo">
+                <option>Oppo – Remplacement écran</option>
+                <option>Oppo – Autre réparation</option>
+              </optgroup>
+              <optgroup label="Motorola">
+                <option>Motorola – Remplacement écran</option>
+                <option>Motorola – Autre réparation</option>
+              </optgroup>
+              <option value="Autre marque">Autre marque 📱</option>
             </select>
           </div>
           <div class="form-group">
@@ -1556,7 +1589,7 @@
             📅 Envoyer ma demande de réservation
           </button>
           <div class="form-success" id="formSuccess">
-            Votre demande a bien été envoyée ! Nous vous recontactons très rapidement.
+            ✅ Votre demande a bien été envoyée ! Un email de confirmation vous a été envoyé. Nous vous recontactons très rapidement.
           </div>
         </form>
       </div>
@@ -1571,7 +1604,7 @@
             </div>
             <div>
               <div class="contact-item-label">Téléphone</div>
-              <div class="contact-item-value"><a href="tel:0601040437">06 01 04 04 37</a></div>
+              <div class="contact-item-value"><a href="tel:0668096669">06 68 09 66 69</a></div>
             </div>
           </div>
           <div class="contact-item">
@@ -1589,7 +1622,7 @@
             </div>
             <div>
               <div class="contact-item-label">Réparation express</div>
-              <div class="contact-item-value">iPhone 10 min · Samsung &amp; Huawei 30 min</div>
+              <div class="contact-item-value">iPhone 30 min · Samsung &amp; autres marques 1h</div>
             </div>
           </div>
           <div class="contact-item">
@@ -1598,13 +1631,14 @@
             </div>
             <div>
               <div class="contact-item-label">Email</div>
-              <div class="contact-item-value"><a href="mailto:contact@mistralphone.com">contact@mistralphone.com</a></div>
+              <div class="contact-item-value"><a href="mailto:mistralPhone4@gmail.com">mistralPhone4@gmail.com</a></div>
             </div>
           </div>
         </div>
         <div class="contact-socials">
           <a href="https://www.instagram.com/mistralphone13" target="_blank" class="social-btn">Instagram</a>
           <a href="https://www.facebook.com/mistralphone/" target="_blank" class="social-btn">Facebook</a>
+          <a href="https://www.tiktok.com/@mistralphone" target="_blank" class="social-btn">TikTok</a>
         </div>
       </div>
     </div>
@@ -1619,8 +1653,8 @@
         <div class="footer-logo">
           <img src="logo.png" alt="Mistral Phone" class="footer-logo-img" />
         </div>
-        <p>Experts en réparation de smartphones à Marseille depuis 2004. iPhone, Samsung, Huawei, Xiaomi – réparation rapide et qualitative.</p>
-        <div class="footer-phone">06 01 04 04 37</div>
+        <p>Spécialistes de la réparation de smartphones à Marseille depuis 2004. iPhone, Samsung, Huawei, Xiaomi et bien d'autres marques – service fiable et de qualité.</p>
+        <div class="footer-phone">06 68 09 66 69</div>
       </div>
       <div class="footer-col">
         <h4>Navigation</h4>
@@ -1661,6 +1695,7 @@
       <div class="footer-bottom-socials">
         <a href="https://www.instagram.com/mistralphone13" target="_blank" class="footer-social" aria-label="Instagram">IG</a>
         <a href="https://www.facebook.com/mistralphone/" target="_blank" class="footer-social" aria-label="Facebook">FB</a>
+        <a href="https://www.tiktok.com/@mistralphone" target="_blank" class="footer-social" aria-label="TikTok">TK</a>
       </div>
     </div>
   </div>
@@ -1808,7 +1843,7 @@ const whyReasons = [
   {
     svg: `<svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>`,
     title: 'Réparation ultra-rapide',
-    text: 'iPhone réparé en seulement 10 minutes, Samsung et Huawei en 30 minutes. Nos techniciens expérimentés travaillent vite sans jamais sacrifier la qualité.',
+    text: 'iPhone réparé en seulement 30 minutes, Samsung et autres marques en 1h. Nos techniciens expérimentés travaillent vite sans jamais sacrifier la qualité.',
   },
   {
     svg: `<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`,
@@ -1983,18 +2018,105 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+// ─── REPAIR SEARCH ───
+const allModels = [
+  ...iphoneModels.map(m => ({ ...m, brand: 'iphone' })),
+  ...samsungModels.map(m => ({ ...m, brand: 'samsung' })),
+  ...huaweiModels.map(m => ({ ...m, brand: 'huawei' })),
+  ...googleModels.map(m => ({ ...m, brand: 'google' })),
+];
+
+function filterModels(query) {
+  const resultsBox = document.getElementById('searchResults');
+  if (!query.trim()) { resultsBox.style.display = 'none'; return; }
+  const q = query.toLowerCase();
+  const matches = allModels.filter(m => m.name.toLowerCase().includes(q)).slice(0, 8);
+  if (!matches.length) {
+    resultsBox.innerHTML = '<div class="search-result-item"><div><div class="search-result-name" style="color:var(--gray-400)">Aucun modèle trouvé — <a href="#contact" style="color:var(--orange)">contactez-nous</a></div></div></div>';
+    resultsBox.style.display = 'block';
+    return;
+  }
+  const brandLabels = { iphone: 'iPhone', samsung: 'Samsung', huawei: 'Huawei & Xiaomi', google: 'Google Pixel' };
+  resultsBox.innerHTML = matches.map(m => `
+    <div class="search-result-item" onclick="openModelFromSearch('${m.brand}','${m.name.replace(/'/g,"\\'")}')">
+      <div>
+        <div class="search-result-brand">${brandLabels[m.brand]}</div>
+        <div class="search-result-name">${m.name}</div>
+      </div>
+      <div class="search-result-arrow">›</div>
+    </div>
+  `).join('');
+  resultsBox.style.display = 'block';
+}
+
+function openModelFromSearch(brand, modelName) {
+  document.getElementById('repairSearch').value = '';
+  document.getElementById('searchResults').style.display = 'none';
+  switchBrand(brand);
+  setTimeout(() => {
+    const card = Array.from(document.querySelectorAll(`#${brand}-grid .model-card`))
+      .find(c => c.querySelector('.model-name').textContent === modelName);
+    if (card) {
+      card.click();
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, 100);
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.repair-search')) {
+    document.getElementById('searchResults').style.display = 'none';
+  }
+});
+
 // ─── FORM ───
 function submitForm(e) {
   e.preventDefault();
   const btn = e.target.querySelector('button[type=submit]');
+  const form = e.target;
   btn.textContent = 'Envoi en cours…';
   btn.disabled = true;
-  setTimeout(() => {
-    document.getElementById('formSuccess').style.display = 'block';
-    btn.textContent = 'Envoyé !';
-    btn.style.background = '#10B981';
-    e.target.reset();
-  }, 1200);
+
+  const name = document.getElementById('fname').value;
+  const email = document.getElementById('femail').value;
+  const phone = document.getElementById('fphone').value;
+  const device = document.getElementById('fdevice').value;
+  const service = document.getElementById('fservice').value;
+  const date = document.getElementById('fdate').value;
+  const time = document.getElementById('ftime').value;
+  const desc = document.getElementById('fdesc').value;
+
+  // Send via Formspree — replace YOUR_FORM_ID with your Formspree form ID
+  fetch('https://formspree.io/f/YOUR_FORM_ID', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({
+      name, email, phone, device, service,
+      date, time, description: desc,
+      _replyto: email,
+      _subject: `Demande de réparation – ${name} – ${service}`,
+      _cc: email
+    })
+  })
+  .then(r => {
+    if (r.ok) {
+      document.getElementById('formSuccess').style.display = 'block';
+      btn.textContent = 'Envoyé !';
+      btn.style.background = '#10B981';
+      form.reset();
+      document.getElementById('agendaText').textContent = 'Choisir une date et heure…';
+      document.getElementById('agendaDisplay').classList.remove('selected');
+    } else {
+      btn.textContent = 'Erreur – Réessayez';
+      btn.style.background = '#EF4444';
+      btn.disabled = false;
+    }
+  })
+  .catch(() => {
+    btn.textContent = 'Erreur – Réessayez';
+    btn.style.background = '#EF4444';
+    btn.disabled = false;
+  });
 }
 
 // ─── CALENDAR WIDGET ───
