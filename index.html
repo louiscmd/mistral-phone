@@ -1200,6 +1200,47 @@
     .admin-unbook-btn:hover { background: #DC2626; color: white; border-color: #DC2626; }
     .admin-empty { text-align: center; color: #9CA3AF; font-size: 13px; padding: 32px 0; }
 
+    /* ─── ADMIN PASSWORD MODAL ─── */
+    .admin-pw-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.55);
+      z-index: 11000; display: none; align-items: center; justify-content: center;
+    }
+    .admin-pw-overlay.open { display: flex; }
+    .admin-pw-box {
+      background: white; border-radius: 16px;
+      padding: 32px 28px 24px; width: 320px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.3);
+      text-align: center; font-family: inherit;
+    }
+    .admin-pw-icon { font-size: 32px; margin-bottom: 12px; }
+    .admin-pw-title { font-size: 17px; font-weight: 800; color: #111; margin-bottom: 4px; }
+    .admin-pw-sub { font-size: 13px; color: #6B7280; margin-bottom: 20px; }
+    .admin-pw-input {
+      width: 100%; box-sizing: border-box;
+      border: 2px solid #E5E7EB; border-radius: 10px;
+      padding: 11px 14px; font-size: 15px; font-family: inherit;
+      outline: none; transition: border-color .15s; letter-spacing: 2px;
+      text-align: center;
+    }
+    .admin-pw-input:focus { border-color: #DC2626; }
+    .admin-pw-input.error { border-color: #DC2626; background: #FEF2F2; animation: pwShake .3s ease; }
+    @keyframes pwShake {
+      0%,100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+    .admin-pw-err { color: #DC2626; font-size: 12px; font-weight: 600; margin-top: 8px; min-height: 18px; }
+    .admin-pw-btn {
+      margin-top: 16px; width: 100%;
+      background: #DC2626; color: white;
+      border: none; border-radius: 10px;
+      padding: 12px; font-size: 14px; font-weight: 800;
+      cursor: pointer; transition: background .15s;
+    }
+    .admin-pw-btn:hover { background: #B91C1C; }
+    .admin-pw-cancel { margin-top: 10px; font-size: 12px; color: #9CA3AF; cursor: pointer; }
+    .admin-pw-cancel:hover { color: #6B7280; }
+
     /* ─── BACK TO TOP ─── */
     .back-top {
       position: fixed;
@@ -2522,13 +2563,44 @@ try {
 } catch(e) { /* Firebase not configured — slots shown as all available */ }
 
 // ─── ADMIN MODE ───
-// Access: add ?admin=MISTRAL2025 to the URL (keep this password secret)
-const ADMIN_PASSWORD = 'MISTRAL2025';
-const isAdmin = new URLSearchParams(window.location.search).get('admin') === ADMIN_PASSWORD;
+// Open with Shift + A — then enter password
+const ADMIN_PASSWORD = 'MistralPhone2026';
+let isAdmin = false;
 
-if (isAdmin) {
-  document.getElementById('adminFab').style.display = 'flex';
+function openAdminPw() {
+  document.getElementById('adminPwOverlay').classList.add('open');
+  document.getElementById('adminPwInput').value = '';
+  document.getElementById('adminPwErr').textContent = '';
+  setTimeout(() => document.getElementById('adminPwInput').focus(), 80);
 }
+function closeAdminPw() {
+  document.getElementById('adminPwOverlay').classList.remove('open');
+  document.getElementById('adminPwInput').value = '';
+  document.getElementById('adminPwErr').textContent = '';
+}
+function checkAdminPw() {
+  const val = document.getElementById('adminPwInput').value;
+  if (val === ADMIN_PASSWORD) {
+    isAdmin = true;
+    closeAdminPw();
+    document.getElementById('adminFab').style.display = 'flex';
+    toggleAdminPanel();
+  } else {
+    const inp = document.getElementById('adminPwInput');
+    inp.classList.add('error');
+    document.getElementById('adminPwErr').textContent = 'Mot de passe incorrect.';
+    setTimeout(() => inp.classList.remove('error'), 400);
+    inp.value = '';
+  }
+}
+
+// Shift + A triggers password prompt
+document.addEventListener('keydown', e => {
+  if (e.shiftKey && e.key === 'A' && !isAdmin) {
+    e.preventDefault();
+    openAdminPw();
+  }
+});
 
 function toggleAdminPanel() {
   const panel = document.getElementById('adminPanel');
@@ -2759,7 +2831,21 @@ function selectSlot(dateStr, time) {
 })();
 </script>
 
-<!-- ─── ADMIN PANEL HTML (hidden until ?admin=… is in URL) ─── -->
+<!-- ─── ADMIN PASSWORD MODAL ─── -->
+<div class="admin-pw-overlay" id="adminPwOverlay">
+  <div class="admin-pw-box">
+    <div class="admin-pw-icon">🔐</div>
+    <div class="admin-pw-title">Accès administrateur</div>
+    <div class="admin-pw-sub">Entrez le mot de passe pour continuer</div>
+    <input class="admin-pw-input" id="adminPwInput" type="password" placeholder="••••••••••••"
+      onkeydown="if(event.key==='Enter')checkAdminPw(); if(event.key==='Escape')closeAdminPw();">
+    <div class="admin-pw-err" id="adminPwErr"></div>
+    <button class="admin-pw-btn" onclick="checkAdminPw()">Connexion</button>
+    <div class="admin-pw-cancel" onclick="closeAdminPw()">Annuler</div>
+  </div>
+</div>
+
+<!-- ─── ADMIN PANEL HTML ─── -->
 <div class="admin-fab" id="adminFab" style="display:none" onclick="toggleAdminPanel()">
   <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
   ADMIN
