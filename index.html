@@ -2086,8 +2086,8 @@ function submitForm(e) {
   const time = document.getElementById('ftime').value;
   const desc = document.getElementById('fdesc').value;
 
-  // Send via Formspree — replace YOUR_FORM_ID with your Formspree form ID
-  fetch('https://formspree.io/f/YOUR_FORM_ID', {
+  // Send via Formsubmit.co — no signup needed, verify email on first submission
+  fetch('https://formsubmit.co/ajax/mistralPhone4@gmail.com', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
     body: JSON.stringify({
@@ -2095,7 +2095,8 @@ function submitForm(e) {
       date, time, description: desc,
       _replyto: email,
       _subject: `Demande de réparation – ${name} – ${service}`,
-      _cc: email
+      _cc: email,
+      _template: 'table'
     })
   })
   .then(r => {
