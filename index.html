@@ -727,7 +727,10 @@
     .store-rating-score { font-size: 16px; font-weight: 800; color: var(--gray-900); }
     .store-rating-count { font-size: 13px; color: var(--gray-500); }
     .store-gmb { display: flex; align-items: center; gap: 10px; padding: 10px 0 14px; border-bottom: 1px solid var(--gray-100); margin-bottom: 14px; }
-    .store-gmb-google { font-weight: 700; font-size: 14px; line-height: 1.2; color: var(--gray-900); }
+    .store-gmb-google { font-weight: 700; font-size: 16px; line-height: 1; letter-spacing: -.3px; }
+    .store-gmb-google .g1{color:#4285F4}.store-gmb-google .g2{color:#EA4335}.store-gmb-google .g3{color:#FBBC05}.store-gmb-google .g4{color:#4285F4}.store-gmb-google .g5{color:#34A853}.store-gmb-google .g6{color:#EA4335}
+    .store-map-thumb { margin-top: 14px; border-radius: 12px; overflow: hidden; height: 140px; }
+    .store-map-thumb iframe { width: 100%; height: 100%; border: 0; display: block; pointer-events: none; }
     .store-gmb-sub { font-size: 10px; color: var(--gray-500); font-weight: 500; letter-spacing: .3px; }
     .store-gmb-icon { width: 36px; height: 36px; flex-shrink: 0; }
     .store-info { display: flex; flex-direction: column; gap: 10px; }
@@ -1546,10 +1549,9 @@
           <span class="store-rating-count">(307 avis)</span>
         </div>
         <div class="store-gmb">
-          <svg class="store-gmb-icon" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#fff"/><path d="M24 4C13 4 4 13 4 24s9 20 20 20 20-9 20-20S35 4 24 4z" fill="#4285F4"/><path d="M24 4C13 4 4 13 4 24h20V4z" fill="#EA4335"/><path d="M4 24c0 11 9 20 20 20V24H4z" fill="#34A853"/><path d="M44 24c0-11-9-20-20-20v20h20z" fill="#FBBC05"/><circle cx="24" cy="24" r="8" fill="#fff"/><circle cx="24" cy="24" r="5" fill="#4285F4"/></svg>
           <div>
-            <div class="store-gmb-google">Google My Business</div>
-            <div class="store-gmb-sub">Établissement vérifié</div>
+            <div class="store-gmb-google"><span class="g1">G</span><span class="g2">o</span><span class="g3">o</span><span class="g4">g</span><span class="g5">l</span><span class="g6">e</span></div>
+            <div class="store-gmb-sub">MY BUSINESS</div>
           </div>
         </div>
         <div class="store-info">
@@ -1578,6 +1580,9 @@
           <svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
           Réserver ma réparation
         </a>
+        <div class="store-map-thumb">
+          <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=5.3733%2C43.2992%2C5.3793%2C43.3032&amp;layer=mapnik&amp;marker=43.3012%2C5.3763" loading="lazy" title="11 Av. Maréchal Foch, Marseille"></iframe>
+        </div>
       </div>
 
       <!-- BOUTIQUE 2 -->
@@ -1596,10 +1601,9 @@
           <span class="store-rating-count">(340 avis)</span>
         </div>
         <div class="store-gmb">
-          <svg class="store-gmb-icon" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#fff"/><path d="M24 4C13 4 4 13 4 24s9 20 20 20 20-9 20-20S35 4 24 4z" fill="#4285F4"/><path d="M24 4C13 4 4 13 4 24h20V4z" fill="#EA4335"/><path d="M4 24c0 11 9 20 20 20V24H4z" fill="#34A853"/><path d="M44 24c0-11-9-20-20-20v20h20z" fill="#FBBC05"/><circle cx="24" cy="24" r="8" fill="#fff"/><circle cx="24" cy="24" r="5" fill="#4285F4"/></svg>
           <div>
-            <div class="store-gmb-google">Google My Business</div>
-            <div class="store-gmb-sub">Établissement vérifié</div>
+            <div class="store-gmb-google"><span class="g1">G</span><span class="g2">o</span><span class="g3">o</span><span class="g4">g</span><span class="g5">l</span><span class="g6">e</span></div>
+            <div class="store-gmb-sub">MY BUSINESS</div>
           </div>
         </div>
         <div class="store-info">
@@ -1628,6 +1632,9 @@
           <svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
           Réserver ma réparation
         </a>
+        <div class="store-map-thumb">
+          <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=5.3719%2C43.2999%2C5.3779%2C43.3039&amp;layer=mapnik&amp;marker=43.3019%2C5.3749" loading="lazy" title="1 rue Maréchal Fayolle, Marseille"></iframe>
+        </div>
       </div>
 
       <!-- BOUTIQUE 3 -->
@@ -1646,10 +1653,9 @@
           <span class="store-rating-count">(415 avis)</span>
         </div>
         <div class="store-gmb">
-          <svg class="store-gmb-icon" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#fff"/><path d="M24 4C13 4 4 13 4 24s9 20 20 20 20-9 20-20S35 4 24 4z" fill="#4285F4"/><path d="M24 4C13 4 4 13 4 24h20V4z" fill="#EA4335"/><path d="M4 24c0 11 9 20 20 20V24H4z" fill="#34A853"/><path d="M44 24c0-11-9-20-20-20v20h20z" fill="#FBBC05"/><circle cx="24" cy="24" r="8" fill="#fff"/><circle cx="24" cy="24" r="5" fill="#4285F4"/></svg>
           <div>
-            <div class="store-gmb-google">Google My Business</div>
-            <div class="store-gmb-sub">Établissement vérifié</div>
+            <div class="store-gmb-google"><span class="g1">G</span><span class="g2">o</span><span class="g3">o</span><span class="g4">g</span><span class="g5">l</span><span class="g6">e</span></div>
+            <div class="store-gmb-sub">MY BUSINESS</div>
           </div>
         </div>
         <div class="store-info">
@@ -1678,20 +1684,10 @@
           <svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
           Réserver ma réparation
         </a>
+        <div class="store-map-thumb">
+          <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=5.3955%2C43.2878%2C5.4015%2C43.2918&amp;layer=mapnik&amp;marker=43.2898%2C5.3985" loading="lazy" title="12 Av. de St Julien, Marseille"></iframe>
+        </div>
       </div>
-    </div>
-
-    <!-- MAP -->
-    <div class="stores-map reveal">
-      <div class="stores-map-label">
-        <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:var(--orange);flex-shrink:0"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-        Nos 3 boutiques à Marseille
-      </div>
-      <iframe
-        src="https://www.openstreetmap.org/export/embed.html?bbox=5.358%2C43.282%2C5.412%2C43.316&amp;layer=mapnik"
-        width="100%" height="320" style="border:0;border-radius:16px;display:block;" allowfullscreen loading="lazy"
-        title="Carte des boutiques Mistral Phone à Marseille"
-      ></iframe>
     </div>
 
   </div>
