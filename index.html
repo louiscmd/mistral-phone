@@ -1141,6 +1141,8 @@
     .cal-slot:hover { background: var(--blue); color: white; }
     .cal-slot.selected { background: var(--blue); color: white; }
     .cal-slot:disabled { background: var(--gray-100); color: var(--gray-400); cursor: not-allowed; border-color: transparent; }
+    .cal-slot.booked { background: #FEE2E2 !important; color: #DC2626 !important; border-color: #FECACA !important; cursor: not-allowed !important; }
+    .cal-slot.booked:hover { background: #FEE2E2 !important; color: #DC2626 !important; transform: none !important; }
 
     /* ─── BACK TO TOP ─── */
     .back-top {
@@ -1958,6 +1960,9 @@
   </div>
 </div>
 
+<!-- Firebase SDK (for real-time booked slot tracking) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 <script>
 // ─── DATA ───
 const iphoneModels = [
@@ -2412,6 +2417,11 @@ function submitForm(e) {
   })
   .then(r => {
     if (r.ok) {
+      // Save booked slot to Firebase so it shows red for all future visitors
+      if (db && date && time) {
+        const slotKey = `${date}|${time}`;
+        db.ref('bookings/' + slotKey).set({ bookedAt: new Date().toISOString() }).catch(() => {});
+      }
       document.getElementById('formSuccess').style.display = 'block';
       btn.textContent = 'Envoyé !';
       btn.style.background = '#10B981';
@@ -2431,6 +2441,30 @@ function submitForm(e) {
   });
 }
 
+// ─── FIREBASE — BOOKED SLOTS ───
+// SETUP (5 minutes, free):
+// 1. Go to https://console.firebase.google.com → create a project (e.g. "mistral-phone")
+// 2. Build → Realtime Database → Create database → choose Europe → "Start in test mode"
+// 3. Gear ⚙ → Project settings → "Your apps" → add a Web app → copy the firebaseConfig
+// 4. Paste the values below and redeploy
+const FIREBASE_CONFIG = {
+  apiKey:            "REPLACE_WITH_YOUR_API_KEY",
+  authDomain:        "REPLACE_WITH_YOUR_PROJECT.firebaseapp.com",
+  databaseURL:       "https://REPLACE_WITH_YOUR_PROJECT-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId:         "REPLACE_WITH_YOUR_PROJECT",
+  storageBucket:     "REPLACE_WITH_YOUR_PROJECT.firebasestorage.app",
+  messagingSenderId: "REPLACE_WITH_YOUR_SENDER_ID",
+  appId:             "REPLACE_WITH_YOUR_APP_ID"
+};
+let db = null;
+let bookedSlots = new Set(); // keys stored as "YYYY-MM-DD|HH:MM"
+try {
+  if (!FIREBASE_CONFIG.apiKey.startsWith('REPLACE')) {
+    firebase.initializeApp(FIREBASE_CONFIG);
+    db = firebase.database();
+  }
+} catch(e) { /* Firebase not configured — slots shown as all available */ }
+
 // ─── CALENDAR WIDGET ───
 let calWeekOffset = 0;
 const TIME_SLOTS = ['09:00','10:00','11:00','12:00','14:00','15:00','16:00','17:00','18:00'];
@@ -2438,7 +2472,16 @@ const TIME_SLOTS = ['09:00','10:00','11:00','12:00','14:00','15:00','16:00','17:
 function openAgenda() {
   document.getElementById('calOverlay').classList.add('open');
   document.getElementById('calModal').classList.add('open');
-  renderCalWeek();
+  if (db) {
+    db.ref('bookings').once('value')
+      .then(snap => {
+        bookedSlots = new Set(Object.keys(snap.val() || {}));
+        renderCalWeek();
+      })
+      .catch(() => renderCalWeek());
+  } else {
+    renderCalWeek();
+  }
 }
 function closeAgenda() {
   document.getElementById('calOverlay').classList.remove('open');
@@ -2476,6 +2519,11 @@ function renderCalWeek() {
     const isPast = d < today;
     const slots = isPast ? '' : TIME_SLOTS.map(t => {
       const dateStr = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+      const slotKey = `${dateStr}|${t}`;
+      const isBooked = bookedSlots.has(slotKey);
+      if (isBooked) {
+        return `<button class="cal-slot booked" disabled title="Créneau réservé">${t}</button>`;
+      }
       return `<button class="cal-slot" onclick="selectSlot('${dateStr}','${t}')">${t}</button>`;
     }).join('');
     return `<div class="cal-day${isPast ? ' past' : ''}">
