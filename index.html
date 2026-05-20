@@ -730,7 +730,7 @@
     .store-gmb-google { font-weight: 700; font-size: 16px; line-height: 1; letter-spacing: -.3px; }
     .store-gmb-google .g1{color:#4285F4}.store-gmb-google .g2{color:#EA4335}.store-gmb-google .g3{color:#FBBC05}.store-gmb-google .g4{color:#4285F4}.store-gmb-google .g5{color:#34A853}.store-gmb-google .g6{color:#EA4335}
     .store-map-thumb { margin-top: 14px; border-radius: 12px; overflow: hidden; height: 140px; }
-    .store-map-thumb iframe { width: 100%; height: 100%; border: 0; display: block; pointer-events: none; }
+    .store-map-thumb iframe { width: 100%; height: 185px; border: 0; display: block; pointer-events: none; margin-top: -22px; }
     .store-gmb-sub { font-size: 10px; color: var(--gray-500); font-weight: 500; letter-spacing: .3px; }
     .store-gmb-icon { width: 36px; height: 36px; flex-shrink: 0; }
     .store-info { display: flex; flex-direction: column; gap: 10px; }
@@ -1188,6 +1188,22 @@
       .contact-form { padding: 24px; }
       .produits-categories { grid-template-columns: 1fr; }
     }
+
+    /* ── PHOTO CAROUSEL ── */
+    .photo-scene { position: relative; border-radius: 20px; overflow: hidden; background: var(--gray-100); margin: 20px 0 16px; height: 320px; }
+    .photo-wrapper { position: relative; width: 100%; height: 100%; }
+    .photo-slide { position: absolute; inset: 0; opacity: 0; transition: opacity .7s ease; }
+    .photo-slide.p-active { opacity: 1; z-index: 1; }
+    .photo-slide-bg { width: 100%; height: 100%; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 16px; }
+    .photo-slide-icon { font-size: 64px; line-height: 1; filter: drop-shadow(0 4px 12px rgba(0,0,0,.3)); }
+    .photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,.6)); color: white; padding: 32px 24px 16px; font-size: 15px; font-weight: 700; letter-spacing: .2px; }
+    .photo-dots { display: flex; justify-content: center; gap: 8px; margin-top: 14px; }
+    .photo-dot { height: 8px; width: 8px; border-radius: 4px; background: var(--gray-300); cursor: pointer; transition: all .25s; }
+    .photo-dot.p-active { background: var(--orange); width: 22px; }
+    .photo-nav { display: flex; justify-content: center; gap: 12px; margin-top: 12px; }
+    .photo-nav-btn { width: 38px; height: 38px; border-radius: 50%; border: 1.5px solid var(--gray-200); background: white; cursor: pointer; font-size: 12px; color: var(--gray-600); transition: all .2s; }
+    .photo-nav-btn:hover { border-color: var(--orange); color: var(--orange); background: var(--orange-xlight); }
+    .photo-section-label { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--orange); margin-top: 52px; margin-bottom: 4px; }
   </style>
 </head>
 <body>
@@ -1520,6 +1536,16 @@
     <div class="why-nav">
       <button class="why-nav-btn" onclick="prevCard()" aria-label="Précédent">&#9664;</button>
       <button class="why-nav-btn" onclick="nextCard()" aria-label="Suivant">&#9654;</button>
+    </div>
+
+    <div class="photo-section-label reveal">Nos réparations en images</div>
+    <div class="photo-scene reveal">
+      <div class="photo-wrapper" id="photoWrapper"></div>
+    </div>
+    <div class="photo-dots" id="photoDots"></div>
+    <div class="photo-nav">
+      <button class="photo-nav-btn" onclick="prevPhoto()" aria-label="Précédent">&#9664;</button>
+      <button class="photo-nav-btn" onclick="nextPhoto()" aria-label="Suivant">&#9654;</button>
     </div>
   </div>
 </section>
@@ -2223,6 +2249,49 @@ function resetAutoPlay() {
 
 buildWhyCards();
 resetAutoPlay();
+
+// ─── PHOTO CAROUSEL ───
+const photoSlides = [
+  { bg: 'linear-gradient(140deg,#1B4AAF 0%,#0d2d6e 100%)', icon: '📱', caption: 'Remplacement écran — résultat comme neuf' },
+  { bg: 'linear-gradient(140deg,#E87722 0%,#9c3d00 100%)', icon: '🔋', caption: 'Batterie neuve — autonomie retrouvée' },
+  { bg: 'linear-gradient(140deg,#1a3a6e 0%,#E87722 100%)', icon: '🏪', caption: 'Boutique Maréchal Foch — 13004 Marseille' },
+  { bg: 'linear-gradient(140deg,#15432e 0%,#2d6a4f 100%)', icon: '🔧', caption: 'Techniciens certifiés Qualirepar' },
+  { bg: 'linear-gradient(140deg,#4a1a6e 0%,#7c3aed 100%)', icon: '⭐', caption: 'Plus de 1 000 clients satisfaits' },
+];
+
+let currentPhoto = 0;
+let photoTimer;
+
+function buildPhotoCarousel() {
+  const wrapper = document.getElementById('photoWrapper');
+  const dots    = document.getElementById('photoDots');
+  wrapper.innerHTML = photoSlides.map((s, i) => `
+    <div class="photo-slide${i===0?' p-active':''}" id="photo-slide-${i}">
+      <div class="photo-slide-bg" style="background:${s.bg}">
+        <div class="photo-slide-icon">${s.icon}</div>
+      </div>
+      <div class="photo-caption">${s.caption}</div>
+    </div>`).join('');
+  dots.innerHTML = photoSlides.map((_, i) => `
+    <div class="photo-dot${i===0?' p-active':''}" onclick="goPhoto(${i})"></div>`).join('');
+}
+
+function goPhoto(n) {
+  currentPhoto = (n + photoSlides.length) % photoSlides.length;
+  document.querySelectorAll('.photo-slide').forEach((s,i) => s.classList.toggle('p-active', i===currentPhoto));
+  document.querySelectorAll('.photo-dot').forEach((d,i) => d.classList.toggle('p-active', i===currentPhoto));
+  resetPhotoPlay();
+}
+function nextPhoto() { goPhoto(currentPhoto + 1); }
+function prevPhoto() { goPhoto(currentPhoto - 1); }
+function resetPhotoPlay() {
+  clearInterval(photoTimer);
+  photoTimer = setInterval(nextPhoto, 5000);
+}
+buildPhotoCarousel();
+resetPhotoPlay();
+
+
 
 // ─── NAVBAR SCROLL ───
 const navbar = document.getElementById('navbar');
