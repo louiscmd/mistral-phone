@@ -1232,6 +1232,29 @@
     .admin-save-btn:hover { background: #B91C1C; }
     .admin-save-btn.saved { background: #10B981; }
 
+    /* ─── ADMIN MODEL MANAGER ─── */
+    .admin-divider { border: none; border-top: 2px solid #F3F4F6; margin: 18px -16px 16px; }
+    .admin-section-title { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; color: #9CA3AF; margin-bottom: 10px; }
+    .admin-brand-select { width: 100%; box-sizing: border-box; border: 2px solid #E5E7EB; border-radius: 8px; padding: 8px 10px; font-size: 13px; font-family: inherit; outline: none; margin-bottom: 10px; cursor: pointer; }
+    .admin-brand-select:focus { border-color: #DC2626; }
+    .admin-model-list { max-height: 240px; overflow-y: auto; border: 1.5px solid #E5E7EB; border-radius: 8px; margin-bottom: 8px; }
+    .admin-model-item { display: flex; align-items: center; padding: 7px 10px; border-bottom: 1px solid #F9FAFB; gap: 6px; }
+    .admin-model-item:last-child { border-bottom: none; }
+    .admin-model-item-name { font-size: 12px; font-weight: 600; color: #111; flex: 1; }
+    .admin-model-item.is-custom .admin-model-item-name { color: #92400E; }
+    .admin-model-item.is-custom .admin-model-item-name::before { content: '✦ '; font-size: 9px; color: var(--orange); }
+    .admin-delete-btn { background: none; border: 1.5px solid #FECACA; color: #DC2626; border-radius: 5px; padding: 2px 7px; font-size: 11px; font-weight: 700; cursor: pointer; flex-shrink: 0; transition: all .15s; }
+    .admin-delete-btn:hover { background: #DC2626; color: white; border-color: #DC2626; }
+    .admin-add-toggle-btn { width: 100%; background: white; border: 2px dashed #E5E7EB; color: #9CA3AF; border-radius: 8px; padding: 10px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all .15s; margin-bottom: 8px; }
+    .admin-add-toggle-btn:hover, .admin-add-toggle-btn.open { border-color: var(--orange); color: var(--orange); background: var(--orange-xlight); }
+    .admin-add-form { background: #FFFBF5; border: 1.5px solid #FDE68A; border-radius: 10px; padding: 12px; margin-bottom: 8px; }
+    .admin-check-group { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 6px; margin: 8px 0 4px; }
+    .admin-check-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #374151; cursor: pointer; }
+    .admin-check-item input[type=checkbox] { accent-color: #DC2626; width: 13px; height: 13px; cursor: pointer; }
+    .admin-add-model-btn { width: 100%; background: #16A34A; color: white; border: none; border-radius: 7px; padding: 9px; font-size: 12px; font-weight: 800; cursor: pointer; margin-top: 8px; transition: background .15s; }
+    .admin-add-model-btn:hover { background: #15803D; }
+    .admin-add-model-btn.saved { background: #10B981; }
+
     /* ─── ADMIN PASSWORD MODAL ─── */
     .admin-pw-overlay {
       position: fixed; inset: 0; background: rgba(0,0,0,.55);
@@ -2293,7 +2316,9 @@ function goToContact(modelName, repairName) {
 }
 
 // ─── BUILD MODELS GRID ───
-function buildGrid(containerId, models) {
+function buildGrid(containerId, staticModels, brandKey) {
+  const custom = brandKey ? (customModels[brandKey] || []) : [];
+  const models = [...staticModels, ...custom].filter(m => !deletedModels.has(m.name));
   const grid = document.getElementById(containerId);
   grid.innerHTML = models.map(m => {
     // Merge Firebase price overrides on top of static model data
@@ -2337,15 +2362,10 @@ function toggleModel(card) {
 }
 
 function buildAllGrids() {
-  buildGrid('iphone-grid', iphoneModels);
-  buildGrid('samsung-grid', samsungModels);
-  buildGrid('huawei-grid', huaweiModels);
-  buildGrid('google-grid', googleModels);
-  buildGrid('honor-grid', honorModels);
-  buildGrid('oppo-grid', oppoModels);
-  buildGrid('motorola-grid', motorolaModels);
+  BRAND_GRIDS.forEach(([id, models, key]) => buildGrid(id, models, key));
 }
-loadPriceOverrides().then(buildAllGrids).catch(buildAllGrids);
+Promise.all([loadPriceOverrides(), loadCustomModels(), loadDeletedModels()])
+  .then(buildAllGrids).catch(buildAllGrids);
 
 // ─── BRAND TABS ───
 function switchBrand(brand) {
@@ -2594,6 +2614,8 @@ const FIREBASE_CONFIG = {
 let db = null;
 let bookedSlots = new Set(); // keys stored as "YYYY-MM-DD|HH:MM"
 let priceOverrides = {};     // { "iPhone 15 Pro": { screenPrice: "149€", ... } }
+let customModels  = { iphone: [], samsung: [], huawei: [], google: [], honor: [], oppo: [], motorola: [] };
+let deletedModels = new Set(); // model names that have been deleted by admin
 try {
   if (!FIREBASE_CONFIG.apiKey.startsWith('REPLACE')) {
     firebase.initializeApp(FIREBASE_CONFIG);
@@ -2707,6 +2729,25 @@ async function loadPriceOverrides() {
   } catch(e) {}
 }
 
+async function loadCustomModels() {
+  if (!db) return;
+  try {
+    const snap = await db.ref('customModels').once('value');
+    const data = snap.val() || {};
+    Object.keys(customModels).forEach(brand => {
+      customModels[brand] = data[brand] ? Object.values(data[brand]) : [];
+    });
+  } catch(e) {}
+}
+
+async function loadDeletedModels() {
+  if (!db) return;
+  try {
+    const snap = await db.ref('deletedModels').once('value');
+    deletedModels = new Set(Object.keys(snap.val() || {}));
+  } catch(e) {}
+}
+
 // ─── ADMIN TAB SWITCHING ───
 function showAdminTab(tab) {
   document.getElementById('tabCreneaux').classList.toggle('active', tab === 'creneaux');
@@ -2717,26 +2758,29 @@ function showAdminTab(tab) {
   if (tab === 'reparations') {
     document.getElementById('adminRepairSearch').value = '';
     filterAdminModels('');
+    showAdminModelList(adminSelectedBrand);
   }
 }
 
 // ─── ADMIN REPAIR EDITOR ───
 const BRAND_GRIDS = [
-  ['iphone-grid', iphoneModels],
-  ['samsung-grid', samsungModels],
-  ['huawei-grid', huaweiModels],
-  ['google-grid', googleModels],
-  ['honor-grid', honorModels],
-  ['oppo-grid', oppoModels],
-  ['motorola-grid', motorolaModels],
+  ['iphone-grid',   iphoneModels,   'iphone'],
+  ['samsung-grid',  samsungModels,  'samsung'],
+  ['huawei-grid',   huaweiModels,   'huawei'],
+  ['google-grid',   googleModels,   'google'],
+  ['honor-grid',    honorModels,    'honor'],
+  ['oppo-grid',     oppoModels,     'oppo'],
+  ['motorola-grid', motorolaModels, 'motorola'],
 ];
 
 function filterAdminModels(query) {
   const q = query.toLowerCase().trim();
-  const pool = [
+  const staticPool = [
     ...iphoneModels, ...samsungModels, ...huaweiModels,
     ...googleModels, ...honorModels, ...oppoModels, ...motorolaModels
   ];
+  const customPool = Object.values(customModels).flat();
+  const pool = [...staticPool, ...customPool].filter(m => !deletedModels.has(m.name));
   const matches = q ? pool.filter(m => m.name.toLowerCase().includes(q)).slice(0, 10) : [];
   const list = document.getElementById('adminRepairList');
   if (!matches.length) {
@@ -2778,8 +2822,11 @@ async function saveModelPrices(modelName, id) {
   }
   // Update local overrides + rebuild grid
   priceOverrides[modelName] = Object.assign(priceOverrides[modelName] || {}, updates);
-  const entry = BRAND_GRIDS.find(([, models]) => models.some(m => m.name === modelName));
-  if (entry) buildGrid(entry[0], entry[1]);
+  const entry = BRAND_GRIDS.find(([, staticModels, brandKey]) =>
+    staticModels.some(m => m.name === modelName) ||
+    (customModels[brandKey] || []).some(m => m.name === modelName)
+  );
+  if (entry) buildGrid(entry[0], entry[1], entry[2]);
   // Flash button
   const btn = document.getElementById('sb_' + id);
   if (btn) {
@@ -2787,6 +2834,106 @@ async function saveModelPrices(modelName, id) {
     btn.classList.add('saved');
     setTimeout(() => { btn.textContent = 'Enregistrer'; btn.classList.remove('saved'); }, 2000);
   }
+}
+
+// ─── ADMIN MODEL MANAGER ───
+const REPAIR_TYPES = [
+  { label: 'Écran',           value: 'Remplacement écran' },
+  { label: 'Écran OLED',      value: 'Remplacement écran OLED' },
+  { label: 'Écran AMOLED',    value: 'Remplacement écran AMOLED' },
+  { label: 'Écran LCD',       value: 'Remplacement écran LCD' },
+  { label: 'Batterie',        value: 'Remplacement batterie' },
+  { label: 'Vitre arrière',   value: 'Remplacement vitre arrière' },
+  { label: 'Connecteur',      value: 'Connecteur de charge' },
+  { label: 'Caméra',          value: 'Caméra' },
+  { label: 'Haut-parleur',    value: 'Haut-parleur' },
+  { label: 'Désoxydation',    value: 'Désoxydation' },
+  { label: 'Face ID',         value: 'Face ID' },
+];
+const BRAND_LABELS = { iphone: 'iPhone', samsung: 'Samsung', huawei: 'Huawei & Xiaomi', google: 'Google Pixel', honor: 'Honor', oppo: 'Oppo', motorola: 'Motorola' };
+let adminSelectedBrand = 'iphone';
+
+function showAdminModelList(brandKey) {
+  adminSelectedBrand = brandKey;
+  const staticModels = BRAND_GRIDS.find(([,, k]) => k === brandKey)?.[1] || [];
+  const custom = customModels[brandKey] || [];
+  const all = [
+    ...staticModels.map(m => ({ ...m, _custom: false })),
+    ...custom.map(m => ({ ...m, _custom: true }))
+  ].filter(m => !deletedModels.has(m.name));
+  const list = document.getElementById('adminModelList');
+  if (!all.length) { list.innerHTML = '<div class="admin-model-item"><span style="color:#9CA3AF;font-size:12px">Aucun modèle.</span></div>'; return; }
+  list.innerHTML = all.map(m => `
+    <div class="admin-model-item${m._custom ? ' is-custom' : ''}">
+      <span class="admin-model-item-name">${m.name}</span>
+      <button class="admin-delete-btn" onclick="adminDeleteModel('${m.name.replace(/'/g,"\\'")}','${brandKey}',${m._custom})">🗑</button>
+    </div>`).join('');
+}
+
+function toggleAddForm() {
+  const form = document.getElementById('adminAddForm');
+  const btn  = document.getElementById('adminAddToggleBtn');
+  const open = form.style.display === 'none';
+  form.style.display = open ? '' : 'none';
+  btn.classList.toggle('open', open);
+  btn.textContent = open ? '✕ Annuler' : '+ Ajouter un modèle';
+  if (open) document.getElementById('addModelName').focus();
+}
+
+async function adminAddModel() {
+  const name = document.getElementById('addModelName').value.trim();
+  if (!name) { document.getElementById('addModelName').style.borderColor = '#DC2626'; return; }
+  const brandKey = adminSelectedBrand;
+  const repairs = Array.from(
+    document.querySelectorAll('#adminRepairChecks input[data-repair]:checked')
+  ).map(el => el.getAttribute('data-repair'));
+  if (!repairs.length) { alert('Cochez au moins une réparation.'); return; }
+  const screenPrice  = document.getElementById('addScreenPrice').value.trim();
+  const batteryPrice = document.getElementById('addBatteryPrice').value.trim();
+  const vitrePrice   = document.getElementById('addVitrePrice').value.trim();
+  const newModel = { name, repairs };
+  if (screenPrice)  newModel.screenPrice  = screenPrice;
+  if (batteryPrice) newModel.batteryPrice = batteryPrice;
+  if (vitrePrice)   newModel.vitrePrice   = vitrePrice;
+  // Save to Firebase
+  if (db) {
+    const key = sanitizeKey(name) + '_' + Date.now();
+    await db.ref(`customModels/${brandKey}/${key}`).set(newModel).catch(() => {});
+  }
+  // Update local state
+  customModels[brandKey].push(newModel);
+  // Rebuild grid + refresh list
+  const entry = BRAND_GRIDS.find(([,, k]) => k === brandKey);
+  if (entry) buildGrid(entry[0], entry[1], entry[2]);
+  showAdminModelList(brandKey);
+  toggleAddForm();
+  // Reset form
+  document.getElementById('addModelName').value = '';
+  document.getElementById('addScreenPrice').value = '';
+  document.getElementById('addBatteryPrice').value = '';
+  document.getElementById('addVitrePrice').value = '';
+  document.querySelectorAll('#adminRepairChecks input[type=checkbox]').forEach(el => el.checked = false);
+}
+
+async function adminDeleteModel(modelName, brandKey, isCustom) {
+  if (!confirm(`Supprimer "${modelName}" ?`)) return;
+  if (isCustom) {
+    // Remove from Firebase customModels
+    if (db) {
+      const snap = await db.ref(`customModels/${brandKey}`).once('value');
+      const data = snap.val() || {};
+      const key = Object.keys(data).find(k => data[k].name === modelName);
+      if (key) await db.ref(`customModels/${brandKey}/${key}`).remove().catch(() => {});
+    }
+    customModels[brandKey] = customModels[brandKey].filter(m => m.name !== modelName);
+  } else {
+    // Mark static model as deleted in Firebase
+    if (db) await db.ref('deletedModels/' + sanitizeKey(modelName)).set(true).catch(() => {});
+    deletedModels.add(modelName);
+  }
+  const entry = BRAND_GRIDS.find(([,, k]) => k === brandKey);
+  if (entry) buildGrid(entry[0], entry[1], entry[2]);
+  showAdminModelList(brandKey);
 }
 
 // ─── CALENDAR WIDGET ───
@@ -3024,6 +3171,44 @@ function selectSlot(dateStr, time) {
       </div>
       <input class="admin-repair-search" id="adminRepairSearch" placeholder="🔍 Rechercher un modèle…" oninput="filterAdminModels(this.value)">
       <div id="adminRepairList"><div class="admin-empty">Tapez un modèle pour modifier ses prix.</div></div>
+
+      <!-- Model manager -->
+      <hr class="admin-divider">
+      <div class="admin-section-title">📋 Gérer les modèles</div>
+      <select class="admin-brand-select" id="adminBrandSelect" onchange="showAdminModelList(this.value)">
+        <option value="iphone">iPhone</option>
+        <option value="samsung">Samsung</option>
+        <option value="huawei">Huawei &amp; Xiaomi</option>
+        <option value="google">Google Pixel</option>
+        <option value="honor">Honor</option>
+        <option value="oppo">Oppo</option>
+        <option value="motorola">Motorola</option>
+      </select>
+      <div class="admin-model-list" id="adminModelList"><div class="admin-model-item"><span style="color:#9CA3AF;font-size:12px">Chargement…</span></div></div>
+
+      <button class="admin-add-toggle-btn" id="adminAddToggleBtn" onclick="toggleAddForm()">+ Ajouter un modèle</button>
+      <div class="admin-add-form" id="adminAddForm" style="display:none">
+        <div class="admin-section-title" style="margin-bottom:8px">Nouveau modèle</div>
+        <input class="admin-repair-search" id="addModelName" placeholder="Nom du modèle (ex: iPhone 17 Pro)" style="margin-bottom:8px">
+        <div class="admin-price-row"><span class="admin-price-label">Prix écran</span><input class="admin-price-input" id="addScreenPrice" placeholder="ex: 149€"></div>
+        <div class="admin-price-row"><span class="admin-price-label">Prix batterie</span><input class="admin-price-input" id="addBatteryPrice" placeholder="ex: 89€"></div>
+        <div class="admin-price-row"><span class="admin-price-label">Prix vitre</span><input class="admin-price-input" id="addVitrePrice" placeholder="ex: 99€"></div>
+        <div class="admin-section-title" style="margin-top:10px;margin-bottom:6px">Réparations proposées</div>
+        <div class="admin-check-group" id="adminRepairChecks">
+          <label class="admin-check-item"><input type="checkbox" data-repair="Remplacement écran"> Écran</label>
+          <label class="admin-check-item"><input type="checkbox" data-repair="Remplacement écran OLED"> Écran OLED</label>
+          <label class="admin-check-item"><input type="checkbox" data-repair="Remplacement écran AMOLED"> Écran AMOLED</label>
+          <label class="admin-check-item"><input type="checkbox" data-repair="Remplacement écran LCD"> Écran LCD</label>
+          <label class="admin-check-item"><input type="checkbox" data-repair="Remplacement batterie"> Batterie</label>
+          <label class="admin-check-item"><input type="checkbox" data-repair="Remplacement vitre arrière"> Vitre arrière</label>
+          <label class="admin-check-item"><input type="checkbox" data-repair="Connecteur de charge"> Connecteur</label>
+          <label class="admin-check-item"><input type="checkbox" data-repair="Caméra"> Caméra</label>
+          <label class="admin-check-item"><input type="checkbox" data-repair="Haut-parleur"> Haut-parleur</label>
+          <label class="admin-check-item"><input type="checkbox" data-repair="Désoxydation"> Désoxydation</label>
+          <label class="admin-check-item"><input type="checkbox" data-repair="Face ID"> Face ID</label>
+        </div>
+        <button class="admin-add-model-btn" onclick="adminAddModel()">✓ Ajouter ce modèle</button>
+      </div>
     </div>
   </div>
 </div>
