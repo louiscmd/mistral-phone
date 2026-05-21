@@ -1200,6 +1200,38 @@
     .admin-unbook-btn:hover { background: #DC2626; color: white; border-color: #DC2626; }
     .admin-empty { text-align: center; color: #9CA3AF; font-size: 13px; padding: 32px 0; }
 
+    /* ─── ADMIN TABS ─── */
+    .admin-tabs { display: flex; border-bottom: 2px solid #F3F4F6; margin: -16px -16px 16px; padding: 0 4px; }
+    .admin-tab { flex: 1; padding: 13px 4px; font-size: 11px; font-weight: 700; letter-spacing: .5px; text-align: center; cursor: pointer; color: #9CA3AF; border-bottom: 2.5px solid transparent; margin-bottom: -2px; transition: all .15s; }
+    .admin-tab.active { color: #DC2626; border-bottom-color: #DC2626; }
+
+    /* ─── ADMIN REPAIR EDITOR ─── */
+    .admin-repair-search {
+      width: 100%; box-sizing: border-box;
+      border: 2px solid #E5E7EB; border-radius: 8px;
+      padding: 9px 12px; font-size: 13px; font-family: inherit;
+      outline: none; margin-bottom: 12px; transition: border-color .15s;
+    }
+    .admin-repair-search:focus { border-color: #DC2626; }
+    .admin-repair-card { background: #F9FAFB; border: 1.5px solid #E5E7EB; border-radius: 10px; padding: 12px 12px 10px; margin-bottom: 8px; }
+    .admin-repair-model { font-size: 12px; font-weight: 800; color: #111; margin-bottom: 10px; }
+    .admin-price-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .admin-price-label { font-size: 11px; font-weight: 600; color: #6B7280; width: 105px; flex-shrink: 0; }
+    .admin-price-input {
+      flex: 1; border: 1.5px solid #E5E7EB; border-radius: 6px;
+      padding: 5px 9px; font-size: 13px; font-weight: 600; font-family: inherit;
+      outline: none; transition: border-color .15s;
+    }
+    .admin-price-input:focus { border-color: #DC2626; }
+    .admin-save-btn {
+      width: 100%; background: #DC2626; color: white;
+      border: none; border-radius: 7px; padding: 8px;
+      font-size: 12px; font-weight: 800; cursor: pointer;
+      margin-top: 6px; transition: background .15s;
+    }
+    .admin-save-btn:hover { background: #B91C1C; }
+    .admin-save-btn.saved { background: #10B981; }
+
     /* ─── ADMIN PASSWORD MODAL ─── */
     .admin-pw-overlay {
       position: fixed; inset: 0; background: rgba(0,0,0,.55);
@@ -2263,36 +2295,39 @@ function goToContact(modelName, repairName) {
 // ─── BUILD MODELS GRID ───
 function buildGrid(containerId, models) {
   const grid = document.getElementById(containerId);
-  grid.innerHTML = models.map(m => `
+  grid.innerHTML = models.map(m => {
+    // Merge Firebase price overrides on top of static model data
+    const mc = Object.assign({}, m, priceOverrides[m.name] || {});
+    return `
     <div class="model-card" onclick="toggleModel(this)">
       <div class="model-card-header">
         <div class="model-icon">${phoneIconSVG}</div>
-        <div class="model-name">${m.name}</div>
+        <div class="model-name">${mc.name}</div>
         <div class="model-arrow">›</div>
       </div>
       <div class="model-repairs">
-        ${m.repairs.map(r => {
+        ${mc.repairs.map(r => {
           const isScreen = r.toLowerCase().includes('écran');
           const isBattery = r.toLowerCase().includes('batterie');
           const isSpeaker = r.toLowerCase().includes('haut-parleur');
           const isDesoxy = r.toLowerCase().includes('désoxydation');
           const isVitre = r.toLowerCase().includes('vitre');
-          const price = isScreen && m.screenPrice ? m.screenPrice
-                      : isBattery && m.batteryPrice ? m.batteryPrice
-                      : isVitre && m.vitrePrice ? m.vitrePrice
-                      : (isSpeaker || isDesoxy) ? 'à partir de 39€'
+          const price = isScreen && mc.screenPrice ? mc.screenPrice
+                      : isBattery && mc.batteryPrice ? mc.batteryPrice
+                      : isVitre && mc.vitrePrice ? mc.vitrePrice
+                      : (isSpeaker || isDesoxy) ? (mc.speakerPrice || 'à partir de 39€')
                       : null;
           const priceTag = price ? `<span class="repair-price">${price}</span>` : '';
           const rightClass = price === 'à partir de 39€' ? 'repair-right repair-right-col' : 'repair-right';
           return `
           <div class="repair-item">
             <div class="repair-name"><div class="repair-dot"></div>${r}</div>
-            <div class="${rightClass}">${priceTag}<button class="repair-cta" onclick="event.stopPropagation(); goToContact('${m.name.replace(/'/g,"\\'")}', '${r.replace(/'/g,"\\'")}')">Réserver</button></div>
+            <div class="${rightClass}">${priceTag}<button class="repair-cta" onclick="event.stopPropagation(); goToContact('${mc.name.replace(/'/g,"\\'")}', '${r.replace(/'/g,"\\'")}')">Réserver</button></div>
           </div>`;
         }).join('')}
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 }
 
 function toggleModel(card) {
@@ -2301,13 +2336,16 @@ function toggleModel(card) {
   if (!isOpen) card.classList.add('expanded');
 }
 
-buildGrid('iphone-grid', iphoneModels);
-buildGrid('samsung-grid', samsungModels);
-buildGrid('huawei-grid', huaweiModels);
-buildGrid('google-grid', googleModels);
-buildGrid('honor-grid', honorModels);
-buildGrid('oppo-grid', oppoModels);
-buildGrid('motorola-grid', motorolaModels);
+function buildAllGrids() {
+  buildGrid('iphone-grid', iphoneModels);
+  buildGrid('samsung-grid', samsungModels);
+  buildGrid('huawei-grid', huaweiModels);
+  buildGrid('google-grid', googleModels);
+  buildGrid('honor-grid', honorModels);
+  buildGrid('oppo-grid', oppoModels);
+  buildGrid('motorola-grid', motorolaModels);
+}
+loadPriceOverrides().then(buildAllGrids).catch(buildAllGrids);
 
 // ─── BRAND TABS ───
 function switchBrand(brand) {
@@ -2555,6 +2593,7 @@ const FIREBASE_CONFIG = {
 };
 let db = null;
 let bookedSlots = new Set(); // keys stored as "YYYY-MM-DD|HH:MM"
+let priceOverrides = {};     // { "iPhone 15 Pro": { screenPrice: "149€", ... } }
 try {
   if (!FIREBASE_CONFIG.apiKey.startsWith('REPLACE')) {
     firebase.initializeApp(FIREBASE_CONFIG);
@@ -2645,6 +2684,109 @@ async function adminToggleSlot(slotKey) {
   }
   renderCalWeek();
   renderAdminList();
+}
+
+// ─── PRICE OVERRIDES (Firebase) ───
+function sanitizeKey(name) { return name.replace(/[.#$\[\]/]/g, '_'); }
+
+async function loadPriceOverrides() {
+  if (!db) return;
+  try {
+    const snap = await db.ref('priceOverrides').once('value');
+    const data = snap.val() || {};
+    priceOverrides = {};
+    // Map Firebase keys back to original model names
+    const allM = [
+      ...iphoneModels, ...samsungModels, ...huaweiModels,
+      ...googleModels, ...honorModels, ...oppoModels, ...motorolaModels
+    ];
+    allM.forEach(m => {
+      const k = sanitizeKey(m.name);
+      if (data[k]) priceOverrides[m.name] = data[k];
+    });
+  } catch(e) {}
+}
+
+// ─── ADMIN TAB SWITCHING ───
+function showAdminTab(tab) {
+  document.getElementById('tabCreneaux').classList.toggle('active', tab === 'creneaux');
+  document.getElementById('tabReparations').classList.toggle('active', tab === 'reparations');
+  document.getElementById('adminTabCreneaux').style.display = tab === 'creneaux' ? '' : 'none';
+  document.getElementById('adminTabReparations').style.display = tab === 'reparations' ? '' : 'none';
+  if (tab === 'creneaux') renderAdminList();
+  if (tab === 'reparations') {
+    document.getElementById('adminRepairSearch').value = '';
+    filterAdminModels('');
+  }
+}
+
+// ─── ADMIN REPAIR EDITOR ───
+const BRAND_GRIDS = [
+  ['iphone-grid', iphoneModels],
+  ['samsung-grid', samsungModels],
+  ['huawei-grid', huaweiModels],
+  ['google-grid', googleModels],
+  ['honor-grid', honorModels],
+  ['oppo-grid', oppoModels],
+  ['motorola-grid', motorolaModels],
+];
+
+function filterAdminModels(query) {
+  const q = query.toLowerCase().trim();
+  const pool = [
+    ...iphoneModels, ...samsungModels, ...huaweiModels,
+    ...googleModels, ...honorModels, ...oppoModels, ...motorolaModels
+  ];
+  const matches = q ? pool.filter(m => m.name.toLowerCase().includes(q)).slice(0, 10) : [];
+  const list = document.getElementById('adminRepairList');
+  if (!matches.length) {
+    list.innerHTML = `<div class="admin-empty">${q ? 'Aucun modèle trouvé.' : 'Tapez un modèle pour modifier ses prix.'}</div>`;
+    return;
+  }
+  list.innerHTML = matches.map(m => {
+    const ov = priceOverrides[m.name] || {};
+    const mc = Object.assign({}, m, ov);
+    const id = sanitizeKey(m.name);
+    const fields = [
+      { key: 'screenPrice',  label: 'Écran' },
+      { key: 'batteryPrice', label: 'Batterie' },
+      { key: 'vitrePrice',   label: 'Vitre arrière' },
+      { key: 'speakerPrice', label: 'HP / Désox.' },
+    ];
+    return `<div class="admin-repair-card">
+      <div class="admin-repair-model">${m.name}</div>
+      ${fields.map(f => `
+        <div class="admin-price-row">
+          <span class="admin-price-label">${f.label}</span>
+          <input class="admin-price-input" id="pi_${id}_${f.key}" value="${mc[f.key] || ''}" placeholder="ex: 89€">
+        </div>`).join('')}
+      <button class="admin-save-btn" id="sb_${id}" onclick="saveModelPrices('${m.name.replace(/'/g,"\\'")}','${id}')">Enregistrer</button>
+    </div>`;
+  }).join('');
+}
+
+async function saveModelPrices(modelName, id) {
+  if (!isAdmin) return;
+  const updates = {};
+  ['screenPrice','batteryPrice','vitrePrice','speakerPrice'].forEach(key => {
+    const inp = document.getElementById(`pi_${id}_${key}`);
+    if (inp && inp.value.trim()) updates[key] = inp.value.trim();
+  });
+  // Persist to Firebase
+  if (db) {
+    await db.ref('priceOverrides/' + sanitizeKey(modelName)).update(updates).catch(() => {});
+  }
+  // Update local overrides + rebuild grid
+  priceOverrides[modelName] = Object.assign(priceOverrides[modelName] || {}, updates);
+  const entry = BRAND_GRIDS.find(([, models]) => models.some(m => m.name === modelName));
+  if (entry) buildGrid(entry[0], entry[1]);
+  // Flash button
+  const btn = document.getElementById('sb_' + id);
+  if (btn) {
+    btn.textContent = '✓ Enregistré !';
+    btn.classList.add('saved');
+    setTimeout(() => { btn.textContent = 'Enregistrer'; btn.classList.remove('saved'); }, 2000);
+  }
 }
 
 // ─── CALENDAR WIDGET ───
@@ -2852,17 +2994,36 @@ function selectSlot(dateStr, time) {
 </div>
 <div class="admin-panel" id="adminPanel">
   <div class="admin-panel-header">
-    <span class="admin-panel-title">⚡ ADMIN — CRÉNEAUX</span>
+    <span class="admin-panel-title">⚡ ADMIN</span>
     <button class="admin-panel-close" onclick="toggleAdminPanel()">✕</button>
   </div>
   <div class="admin-panel-body">
-    <div class="admin-hint">
-      Cliquez sur un créneau <strong>rouge</strong> dans l'agenda pour le <strong>libérer</strong>.<br>
-      Cliquez sur un créneau <strong>disponible</strong> pour le <strong>bloquer manuellement</strong>.<br><br>
-      Liste de toutes les réservations actives :
+    <!-- Tabs -->
+    <div class="admin-tabs">
+      <div class="admin-tab active" id="tabCreneaux" onclick="showAdminTab('creneaux')">📅 Créneaux</div>
+      <div class="admin-tab" id="tabReparations" onclick="showAdminTab('reparations')">🔧 Réparations</div>
     </div>
-    <div class="admin-slot-list" id="adminSlotList">
-      <div class="admin-empty">Chargement…</div>
+
+    <!-- Créneaux tab -->
+    <div id="adminTabCreneaux">
+      <div class="admin-hint">
+        Cliquez sur un créneau <strong>rouge</strong> dans l'agenda pour le <strong>libérer</strong>.<br>
+        Cliquez sur un créneau <strong>disponible</strong> pour le <strong>bloquer manuellement</strong>.<br><br>
+        Réservations actives :
+      </div>
+      <div class="admin-slot-list" id="adminSlotList">
+        <div class="admin-empty">Chargement…</div>
+      </div>
+    </div>
+
+    <!-- Réparations tab -->
+    <div id="adminTabReparations" style="display:none">
+      <div class="admin-hint">
+        Recherchez un modèle et modifiez ses <strong>prix</strong> directement.<br>
+        Les changements sont appliqués en temps réel pour tous les visiteurs.
+      </div>
+      <input class="admin-repair-search" id="adminRepairSearch" placeholder="🔍 Rechercher un modèle…" oninput="filterAdminModels(this.value)">
+      <div id="adminRepairList"><div class="admin-empty">Tapez un modèle pour modifier ses prix.</div></div>
     </div>
   </div>
 </div>
