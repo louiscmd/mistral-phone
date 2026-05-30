@@ -1165,35 +1165,36 @@
       display: flex; align-items: center; gap: 6px;
     }
     .admin-fab svg { width: 14px; height: 14px; fill: white; }
-    /* ─── ADMIN FULL-PAGE PANEL ─── */
+    /* ─── ADMIN SIDE PANEL ─── */
     .admin-panel {
-      position: fixed; inset: 0; z-index: 10000;
-      background: #F1F5F9; display: none; flex-direction: column;
-      font-family: inherit;
+      position: fixed; top: 0; right: 0; bottom: 0; z-index: 10000;
+      width: 500px; max-width: 100vw; background: #F8FAFC;
+      display: flex; flex-direction: column;
+      box-shadow: -8px 0 48px rgba(0,0,0,.24);
+      transform: translateX(110%); transition: transform .3s cubic-bezier(.4,0,.2,1);
     }
-    .admin-panel.open { display: flex; }
-    .admin-header {
-      height: 56px; background: #0F172A; color: white;
-      display: flex; align-items: center; padding: 0 20px; gap: 16px;
-      flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,.3);
+    .admin-panel.open { transform: translateX(0); }
+    .admin-panel-header {
+      height: 56px; background: linear-gradient(135deg,#0F172A 0%,#1E293B 100%); color: white;
+      display: flex; align-items: center; padding: 0 14px; gap: 10px;
+      flex-shrink: 0; box-shadow: 0 2px 12px rgba(0,0,0,.35);
     }
-    .admin-back-btn {
-      background: rgba(255,255,255,.12); border: 1.5px solid rgba(255,255,255,.22);
-      color: white; border-radius: 8px; padding: 7px 14px; font-size: 13px;
-      font-weight: 700; cursor: pointer; white-space: nowrap;
-      display: flex; align-items: center; gap: 6px; transition: background .15s;
-    }
-    .admin-back-btn:hover { background: rgba(255,255,255,.22); }
-    .admin-header-title { flex: 1; text-align: center; font-size: 15px; font-weight: 800; letter-spacing: 1px; color: white; }
-    .admin-header-status { font-size: 12px; color: #4ADE80; font-weight: 700; white-space: nowrap; }
+    .admin-panel-brand { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+    .admin-panel-brand-icon { width: 34px; height: 34px; background: #DC2626; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .admin-panel-brand-icon svg { width: 16px; height: 16px; fill: white; }
+    .admin-panel-brand-name { font-size: 13px; font-weight: 800; letter-spacing: .5px; color: white; }
+    .admin-panel-brand-sub { font-size: 10px; color: #94A3B8; font-weight: 500; }
+    .admin-panel-close { background: rgba(255,255,255,.1); border: 1.5px solid rgba(255,255,255,.18); color: white; width: 34px; height: 34px; border-radius: 8px; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .15s; flex-shrink: 0; }
+    .admin-panel-close:hover { background: rgba(255,255,255,.22); }
     .admin-layout { display: flex; flex: 1; overflow: hidden; }
-    .admin-sidebar { width: 215px; background: white; border-right: 1.5px solid #E2E8F0; overflow-y: auto; padding: 12px 0; flex-shrink: 0; }
-    .admin-nav-group-label { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; color: #94A3B8; padding: 14px 16px 4px; text-transform: uppercase; }
-    .admin-nav-item { display: flex; align-items: center; gap: 8px; padding: 10px 16px; font-size: 13px; font-weight: 600; color: #475569; cursor: pointer; transition: all .15s; border-left: 3px solid transparent; }
-    .admin-nav-item:hover:not(.active) { background: #F8FAFC; color: #1E293B; }
-    .admin-nav-item.active { color: #DC2626; background: #FEF2F2; border-left-color: #DC2626; }
-    .admin-main { flex: 1; overflow-y: auto; padding: 28px 36px; }
-    .admin-tab-panel { max-width: 840px; display: none; }
+    .admin-sidebar { width: 68px; background: #1E293B; overflow-y: auto; padding: 5px 0; flex-shrink: 0; display: flex; flex-direction: column; gap: 1px; }
+    .admin-nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 10px 3px 9px; font-size: 8.5px; font-weight: 700; color: #475569; cursor: pointer; transition: all .15s; border-right: 3px solid transparent; text-transform: uppercase; letter-spacing: .3px; text-align: center; user-select: none; }
+    .admin-nav-item:hover:not(.active) { color: #94A3B8; background: rgba(255,255,255,.05); }
+    .admin-nav-item.active { color: white; background: rgba(220,38,38,.2); border-right-color: #DC2626; }
+    .admin-nav-item .nav-icon { font-size: 18px; line-height: 1; display: block; }
+    .admin-nav-divider { height: 1px; background: rgba(255,255,255,.08); margin: 3px 10px; flex-shrink: 0; }
+    .admin-main { flex: 1; overflow-y: auto; padding: 12px 12px 32px; }
+    .admin-tab-panel { display: none; }
     .admin-tab-panel.active { display: block; }
     .admin-panel-h2 { font-size: 20px; font-weight: 800; color: #0F172A; margin: 0 0 4px; }
     .admin-panel-desc { font-size: 13px; color: #64748B; margin: 0 0 22px; }
@@ -1530,9 +1531,9 @@
 <section id="services">
   <div class="section-inner">
     <div class="section-header reveal">
-      <div class="section-tag">Nos Réparations</div>
-      <h2>Choisissez votre marque</h2>
-      <p>Sélectionnez votre téléphone pour découvrir toutes les réparations disponibles et les modèles pris en charge.</p>
+      <div class="section-tag" id="repairs-section-tag">Nos Réparations</div>
+      <h2 id="repairs-section-h2">Choisissez votre marque</h2>
+      <p id="repairs-section-desc">Sélectionnez votre téléphone pour découvrir toutes les réparations disponibles et les modèles pris en charge.</p>
     </div>
 
     <div class="repair-search reveal">
@@ -1561,10 +1562,10 @@
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
         </div>
         <div>
-          <div class="brand-header-title">Réparation iPhone</div>
-          <div class="brand-header-sub">Pièces d'origine ou équivalent · Service Apple Express</div>
+          <div class="brand-header-title" id="brand-iphone-title">Réparation iPhone</div>
+          <div class="brand-header-sub" id="brand-iphone-sub">Pièces d'origine ou équivalent · Service Apple Express</div>
         </div>
-        <div class="brand-badge">Express 30 min</div>
+        <div class="brand-badge" id="brand-iphone-badge">Express 30 min</div>
       </div>
       <div class="models-grid" id="iphone-grid"></div>
       <div class="no-model-note">Si vous ne trouvez pas votre modèle, <a href="#contact">contactez-nous</a>.</div>
@@ -1577,10 +1578,10 @@
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
         </div>
         <div>
-          <div class="brand-header-title">Réparation Samsung</div>
-          <div class="brand-header-sub">Pièces de qualité · Devis immédiat</div>
+          <div class="brand-header-title" id="brand-samsung-title">Réparation Samsung</div>
+          <div class="brand-header-sub" id="brand-samsung-sub">Pièces de qualité · Devis immédiat</div>
         </div>
-        <div class="brand-badge">Express 1h</div>
+        <div class="brand-badge" id="brand-samsung-badge">Express 1h</div>
       </div>
       <div class="models-grid" id="samsung-grid"></div>
       <div class="no-model-note">Si vous ne trouvez pas votre modèle, <a href="#contact">contactez-nous</a>.</div>
@@ -1593,10 +1594,10 @@
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
         </div>
         <div>
-          <div class="brand-header-title">Réparation Huawei &amp; Xiaomi</div>
-          <div class="brand-header-sub">Toutes marques et modèles · Devis immédiat</div>
+          <div class="brand-header-title" id="brand-huawei-title">Réparation Huawei &amp; Xiaomi</div>
+          <div class="brand-header-sub" id="brand-huawei-sub">Toutes marques et modèles · Devis immédiat</div>
         </div>
-        <div class="brand-badge">Express 1h</div>
+        <div class="brand-badge" id="brand-huawei-badge">Express 1h</div>
       </div>
       <div class="models-grid" id="huawei-grid"></div>
       <div class="no-model-note">Si vous ne trouvez pas votre modèle, <a href="#contact">contactez-nous</a>.</div>
@@ -1609,10 +1610,10 @@
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
         </div>
         <div>
-          <div class="brand-header-title">Réparation Google Pixel</div>
-          <div class="brand-header-sub">Pièces de qualité · Devis immédiat</div>
+          <div class="brand-header-title" id="brand-google-title">Réparation Google Pixel</div>
+          <div class="brand-header-sub" id="brand-google-sub">Pièces de qualité · Devis immédiat</div>
         </div>
-        <div class="brand-badge">Express 1h</div>
+        <div class="brand-badge" id="brand-google-badge">Express 1h</div>
       </div>
       <div class="models-grid" id="google-grid"></div>
       <div class="no-model-note">Si vous ne trouvez pas votre modèle, <a href="#contact">contactez-nous</a>.</div>
@@ -1625,10 +1626,10 @@
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
         </div>
         <div>
-          <div class="brand-header-title">Réparation Honor</div>
-          <div class="brand-header-sub">Toutes réparations · Devis immédiat</div>
+          <div class="brand-header-title" id="brand-honor-title">Réparation Honor</div>
+          <div class="brand-header-sub" id="brand-honor-sub">Toutes réparations · Devis immédiat</div>
         </div>
-        <div class="brand-badge">Express 1h</div>
+        <div class="brand-badge" id="brand-honor-badge">Express 1h</div>
       </div>
       <div class="models-grid" id="honor-grid"></div>
       <div class="no-model-note">Si vous ne trouvez pas votre modèle, <a href="#contact">contactez-nous</a>.</div>
@@ -1641,10 +1642,10 @@
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
         </div>
         <div>
-          <div class="brand-header-title">Réparation Oppo</div>
-          <div class="brand-header-sub">Toutes réparations · Devis immédiat</div>
+          <div class="brand-header-title" id="brand-oppo-title">Réparation Oppo</div>
+          <div class="brand-header-sub" id="brand-oppo-sub">Toutes réparations · Devis immédiat</div>
         </div>
-        <div class="brand-badge">Express 1h</div>
+        <div class="brand-badge" id="brand-oppo-badge">Express 1h</div>
       </div>
       <div class="models-grid" id="oppo-grid"></div>
       <div class="no-model-note">Si vous ne trouvez pas votre modèle, <a href="#contact">contactez-nous</a>.</div>
@@ -1657,10 +1658,10 @@
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
         </div>
         <div>
-          <div class="brand-header-title">Réparation Motorola</div>
-          <div class="brand-header-sub">Toutes réparations · Devis immédiat</div>
+          <div class="brand-header-title" id="brand-motorola-title">Réparation Motorola</div>
+          <div class="brand-header-sub" id="brand-motorola-sub">Toutes réparations · Devis immédiat</div>
         </div>
-        <div class="brand-badge">Express 1h</div>
+        <div class="brand-badge" id="brand-motorola-badge">Express 1h</div>
       </div>
       <div class="models-grid" id="motorola-grid"></div>
       <div class="no-model-note">Si vous ne trouvez pas votre modèle, <a href="#contact">contactez-nous</a>.</div>
@@ -1754,9 +1755,9 @@
 <section id="boutiques">
   <div class="section-inner">
     <div class="section-header reveal">
-      <div class="section-tag">Nos Boutiques</div>
-      <h2>3 adresses à Marseille</h2>
-      <p>Trouvez la boutique la plus proche de chez vous. Nos experts vous accueillent 7j/7.<br><small style="color:var(--gray-600);font-size:13px;">Dimanche : 10h - 15h</small></p>
+      <div class="section-tag" id="boutiques-section-tag">Nos Boutiques</div>
+      <h2 id="boutiques-section-h2">3 adresses à Marseille</h2>
+      <p id="boutiques-section-desc">Trouvez la boutique la plus proche de chez vous. Nos experts vous accueillent 7j/7.<br><small id="boutiques-dimanche" style="color:var(--gray-600);font-size:13px;">Dimanche : 10h - 15h</small></p>
     </div>
     <div class="stores-grid">
       <!-- BOUTIQUE 1 -->
@@ -1807,7 +1808,7 @@
           Réserver ma réparation
         </a>
         <div class="store-map-thumb">
-          <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=5.3733%2C43.2992%2C5.3793%2C43.3032&amp;layer=mapnik&amp;marker=43.3012%2C5.3763" loading="lazy" title="11 Av. Maréchal Foch, Marseille"></iframe>
+          <iframe id="b1-map" src="https://www.openstreetmap.org/export/embed.html?bbox=5.3733%2C43.2992%2C5.3793%2C43.3032&amp;layer=mapnik&amp;marker=43.3012%2C5.3763" loading="lazy" title="11 Av. Maréchal Foch, Marseille"></iframe>
         </div>
       </div>
 
@@ -1859,7 +1860,7 @@
           Réserver ma réparation
         </a>
         <div class="store-map-thumb">
-          <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=5.3719%2C43.2999%2C5.3779%2C43.3039&amp;layer=mapnik&amp;marker=43.3019%2C5.3749" loading="lazy" title="1 rue Maréchal Fayolle, Marseille"></iframe>
+          <iframe id="b2-map" src="https://www.openstreetmap.org/export/embed.html?bbox=5.3719%2C43.2999%2C5.3779%2C43.3039&amp;layer=mapnik&amp;marker=43.3019%2C5.3749" loading="lazy" title="1 rue Maréchal Fayolle, Marseille"></iframe>
         </div>
       </div>
 
@@ -1887,11 +1888,11 @@
         <div class="store-info">
           <div class="store-row store-row-red">
             <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
-            12 Av. de St Julien, 13012
+            <span id="b3-address">12 Av. de St Julien, 13012</span>
           </div>
           <div class="store-row store-row-red">
             <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg></div>
-            06 68 09 66 69
+            <span id="b3-phone">06 68 09 66 69</span>
           </div>
           <div class="store-row store-row-orange">
             <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
@@ -1911,7 +1912,7 @@
           Réserver ma réparation
         </a>
         <div class="store-map-thumb">
-          <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=5.3955%2C43.2878%2C5.4015%2C43.2918&amp;layer=mapnik&amp;marker=43.2898%2C5.3985" loading="lazy" title="12 Av. de St Julien, Marseille"></iframe>
+          <iframe id="b3-map" src="https://www.openstreetmap.org/export/embed.html?bbox=5.3955%2C43.2878%2C5.4015%2C43.2918&amp;layer=mapnik&amp;marker=43.2898%2C5.3985" loading="lazy" title="12 Av. de St Julien, Marseille"></iframe>
         </div>
       </div>
     </div>
@@ -1923,14 +1924,14 @@
 <section id="contact">
   <div class="section-inner">
     <div class="section-header reveal">
-      <div class="section-tag">Contact &amp; Réservation</div>
-      <h2>Prenez rendez-vous<br>en quelques clics</h2>
-      <p>Remplissez le formulaire et nous vous recontactons rapidement pour confirmer votre réparation.</p>
+      <div class="section-tag" id="contact-section-tag">Contact &amp; Réservation</div>
+      <h2 id="contact-section-h2">Prenez rendez-vous<br>en quelques clics</h2>
+      <p id="contact-section-desc">Remplissez le formulaire et nous vous recontactons rapidement pour confirmer votre réparation.</p>
     </div>
     <div class="contact-grid">
       <div id="reservation-form" class="contact-form reveal">
-        <div class="form-title">Formulaire de réservation</div>
-        <div class="form-subtitle">Remplissez vos informations et nous reviendrons vers vous rapidement.</div>
+        <div class="form-title" id="form-title">Formulaire de réservation</div>
+        <div class="form-subtitle" id="form-subtitle">Remplissez vos informations et nous reviendrons vers vous rapidement.</div>
         <form id="bookingForm" onsubmit="submitForm(event)">
           <div class="form-row">
             <div class="form-group">
@@ -1953,7 +1954,7 @@
             </div>
           </div>
           <div style="background:var(--orange-xlight);border:2px solid var(--orange);border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:4px;text-align:center;">
-            <p style="color:var(--orange);font-weight:800;font-size:15px;margin:0;">Choisissez une date et heure en cliquant sur "Choisir un créneau"</p>
+            <p id="form-help-text" style="color:var(--orange);font-weight:800;font-size:15px;margin:0;">Choisissez une date et heure en cliquant sur "Choisir un créneau"</p>
           </div>
           <div class="form-group">
             <label>Date &amp; Heure souhaitées *</label>
@@ -2011,18 +2012,18 @@
             <label for="fdesc">Description du problème (optionnel)</label>
             <textarea id="fdesc" name="description" placeholder="Décrivez brièvement le problème de votre téléphone…"></textarea>
           </div>
-          <button type="submit" class="btn-primary" style="width:100%;justify-content:center;font-size:16px;">
+          <button type="submit" id="form-submit-btn" class="btn-primary" style="width:100%;justify-content:center;font-size:16px;">
             📅 Envoyer ma demande de réservation
           </button>
           <div class="form-success" id="formSuccess">
-            ✅ Votre demande a bien été envoyée ! Un email de confirmation vous a été envoyé. Nous vous recontactons très rapidement.
+            <span id="form-success-text">✅ Votre demande a bien été envoyée ! Un email de confirmation vous a été envoyé. Nous vous recontactons très rapidement.</span>
           </div>
         </form>
       </div>
 
       <div class="contact-info reveal reveal-delay-1">
-        <h3>Coordonnées</h3>
-        <p>Appelez-nous directement ou remplissez le formulaire pour planifier votre réparation.</p>
+        <h3 id="contact-info-h3">Coordonnées</h3>
+        <p id="contact-info-p">Appelez-nous directement ou remplissez le formulaire pour planifier votre réparation.</p>
         <div class="contact-items">
           <div class="contact-item">
             <div class="contact-item-icon">
@@ -2804,7 +2805,14 @@ function showAdminTab(tab) {
     if (nav)   nav.classList.toggle('active', t === tab);
   });
   if (tab === 'creneaux') renderAdminList();
-  if (tab === 'reparations') { document.getElementById('adminRepairSearch').value = ''; filterAdminModels(''); showAdminModelList(adminSelectedBrand); }
+  if (tab === 'reparations') {
+    const rs = document.getElementById('adminRepairSearch');
+    if (rs) rs.value = '';
+    filterAdminModels(''); showAdminModelList(adminSelectedBrand);
+    populateRepairsForm();
+    const bs = document.getElementById('sc-brand-select');
+    if (bs) loadBrandHeaderFields(bs.value);
+  }
   if (tab === 'hero') populateHeroForm();
   if (tab === 'boutiques') populateBoutiquesForm();
   if (tab === 'why') populateWhyForm();
@@ -3045,8 +3053,47 @@ function applyAllContent() {
   if (sc('contact.fb_url')) fbLinks.forEach(a => a.href = sc('contact.fb_url'));
   if (sc('contact.ig_url')) igLinks.forEach(a => a.href = sc('contact.ig_url'));
   if (sc('contact.tt_url')) ttLinks.forEach(a => a.href = sc('contact.tt_url'));
-  // Time slots
+  // Time slots & weeks ahead
   if (sc('contact.time_slots')) TIME_SLOTS = sc('contact.time_slots').split(',').map(s => s.trim()).filter(Boolean);
+  if (sc('contact.weeks_ahead')) MAX_WEEKS_AHEAD = parseInt(sc('contact.weeks_ahead')) || 8;
+  // Section headers
+  setEl('repairs-section-tag', sc('repairs.section_tag'));
+  setEl('repairs-section-h2', sc('repairs.section_h2'));
+  setEl('repairs-section-desc', sc('repairs.section_desc'));
+  setEl('boutiques-section-tag', sc('boutiques.section_tag'));
+  setEl('boutiques-section-h2', sc('boutiques.section_h2'));
+  setEl('boutiques-section-desc', sc('boutiques.section_desc'));
+  setEl('boutiques-dimanche', sc('boutiques.section_dimanche'));
+  setEl('contact-section-tag', sc('contact.section_tag'));
+  const csh2 = document.getElementById('contact-section-h2'); if (csh2 && sc('contact.section_h2')) csh2.innerHTML = sc('contact.section_h2').replace(/\n/g,'<br>');
+  setEl('contact-section-desc', sc('contact.section_desc'));
+  // Form texts
+  setEl('form-title', sc('contact.form_title'));
+  setEl('form-subtitle', sc('contact.form_subtitle'));
+  setEl('form-help-text', sc('contact.form_help'));
+  const fsb = document.getElementById('form-submit-btn'); if (fsb && sc('contact.form_submit')) fsb.innerHTML = sc('contact.form_submit');
+  setEl('form-success-text', sc('contact.form_success'));
+  // Contact info
+  setEl('contact-info-h3', sc('contact.section_info_h3'));
+  setEl('contact-info-p', sc('contact.section_info_p'));
+  // Brand headers
+  ['iphone','samsung','huawei','google','honor','oppo','motorola'].forEach(bk => {
+    setEl('brand-'+bk+'-title', sc('brands.'+bk+'.title'));
+    setEl('brand-'+bk+'-sub',   sc('brands.'+bk+'.sub'));
+    setEl('brand-'+bk+'-badge', sc('brands.'+bk+'.badge'));
+  });
+  // GPS maps
+  [1,2,3].forEach(n => {
+    const lat = sc('boutiques.b'+n+'.lat',''), lng = sc('boutiques.b'+n+'.lng','');
+    if (lat && lng) {
+      const iframe = document.getElementById('b'+n+'-map');
+      if (iframe) {
+        const dlat = 0.002, dlng = 0.003;
+        const la = parseFloat(lat), lo = parseFloat(lng);
+        iframe.src = 'https://www.openstreetmap.org/export/embed.html?bbox='+(lo-dlng).toFixed(4)+'%2C'+(la-dlat).toFixed(4)+'%2C'+(lo+dlng).toFixed(4)+'%2C'+(la+dlat).toFixed(4)+'&layer=mapnik&marker='+la.toFixed(4)+'%2C'+lo.toFixed(4);
+      }
+    }
+  });
   // Footer
   setEl('footer-desc', sc('footer.description'));
   setEl('footer-phone', sc('footer.phone'));
@@ -3077,11 +3124,20 @@ function populateHeroForm() {
   sv('sc-phone-num','hero.phone_num');
 }
 function populateBoutiquesForm() {
-  const sv = (id, path) => { const el = document.getElementById(id); if (el) el.value = sc(path, ''); };
+  const sv = (id, path, fb) => { const el = document.getElementById(id); if (el) el.value = sc(path, fb||''); };
+  sv('sc-boutiques-tag','boutiques.section_tag','Nos Boutiques');
+  sv('sc-boutiques-h2','boutiques.section_h2','3 adresses à Marseille');
+  sv('sc-boutiques-desc','boutiques.section_desc','Trouvez la boutique la plus proche de chez vous. Nos experts vous accueillent 7j/7.');
+  sv('sc-boutiques-dimanche','boutiques.section_dimanche','Dimanche : 10h - 15h');
   [1,2,3].forEach(n => {
-    sv('sc-b'+n+'-address','boutiques.b'+n+'.address'); sv('sc-b'+n+'-phone','boutiques.b'+n+'.phone');
-    sv('sc-b'+n+'-rating','boutiques.b'+n+'.rating'); sv('sc-b'+n+'-reviews','boutiques.b'+n+'.reviews');
-    sv('sc-b'+n+'-badge1','boutiques.b'+n+'.badge1'); sv('sc-b'+n+'-badge2','boutiques.b'+n+'.badge2');
+    sv('sc-b'+n+'-address','boutiques.b'+n+'.address');
+    sv('sc-b'+n+'-phone','boutiques.b'+n+'.phone');
+    sv('sc-b'+n+'-rating','boutiques.b'+n+'.rating');
+    sv('sc-b'+n+'-reviews','boutiques.b'+n+'.reviews');
+    sv('sc-b'+n+'-badge1','boutiques.b'+n+'.badge1');
+    sv('sc-b'+n+'-badge2','boutiques.b'+n+'.badge2');
+    sv('sc-b'+n+'-lat','boutiques.b'+n+'.lat');
+    sv('sc-b'+n+'-lng','boutiques.b'+n+'.lng');
   });
 }
 function populateWhyForm() {
@@ -3092,14 +3148,26 @@ function populateWhyForm() {
 }
 function populateContactForm() {
   const sv = (id, path, fb) => { const el = document.getElementById(id); if (el) el.value = sc(path, fb||''); };
-  sv('sc-contact-phone','contact.phone'); sv('sc-contact-email','contact.email');
+  sv('sc-contact-tag','contact.section_tag','Contact & Réservation');
+  sv('sc-contact-h2','contact.section_h2','Prenez rendez-vous en quelques clics');
+  sv('sc-contact-desc','contact.section_desc','Remplissez le formulaire et nous vous recontactons rapidement.');
+  sv('sc-form-title','contact.form_title','Formulaire de réservation');
+  sv('sc-form-subtitle','contact.form_subtitle','Remplissez vos informations et nous reviendrons vers vous rapidement.');
+  sv('sc-form-help','contact.form_help','Choisissez une date et heure en cliquant sur "Choisir un créneau"');
+  sv('sc-form-submit','contact.form_submit','📅 Envoyer ma demande de réservation');
+  sv('sc-form-success','contact.form_success','✅ Votre demande a bien été envoyée ! Un email de confirmation vous a été envoyé. Nous vous recontactons très rapidement.');
+  sv('sc-contact-phone','contact.phone');
+  sv('sc-contact-email','contact.email');
   sv('sc-contact-repair','contact.repair_time');
-  sv('sc-fb-url','contact.fb_url'); sv('sc-ig-url','contact.ig_url'); sv('sc-tt-url','contact.tt_url');
+  sv('sc-fb-url','contact.fb_url');
+  sv('sc-ig-url','contact.ig_url');
+  sv('sc-tt-url','contact.tt_url');
   const allSlots = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00'];
   allSlots.forEach(s => {
     const el = document.getElementById('ts-' + s.replace(':',''));
     if (el) el.checked = TIME_SLOTS.includes(s);
   });
+  sv('sc-weeks-ahead','contact.weeks_ahead','8');
 }
 function populateAnnonceForm() {
   const el = document.getElementById('sc-annonce-active'); if (el) el.checked = !!sc('announcement.active');
@@ -3112,6 +3180,46 @@ function populateFooterForm() {
   sv('sc-footer-desc','footer.description'); sv('sc-footer-phone','footer.phone');
   sv('sc-footer-copyright','footer.copyright');
   sv('sc-seo-title','seo.title'); sv('sc-seo-desc','seo.meta_desc');
+}
+
+function populateRepairsForm() {
+  const sv = (id, path, fb) => { const el = document.getElementById(id); if (el) el.value = sc(path, fb||''); };
+  sv('sc-repairs-tag','repairs.section_tag','Nos Réparations');
+  sv('sc-repairs-h2','repairs.section_h2','Choisissez votre marque');
+}
+
+const BRAND_HEADER_DEFAULTS = {
+  iphone:   { title: 'Réparation iPhone',           sub: "Pièces d'origine ou équivalent · Service Apple Express", badge: 'Express 30 min' },
+  samsung:  { title: 'Réparation Samsung',           sub: 'Pièces de qualité · Devis immédiat',                     badge: 'Express 1h' },
+  huawei:   { title: 'Réparation Huawei & Xiaomi',  sub: 'Toutes marques et modèles · Devis immédiat',              badge: 'Express 1h' },
+  google:   { title: 'Réparation Google Pixel',      sub: 'Pièces de qualité · Devis immédiat',                     badge: 'Express 1h' },
+  honor:    { title: 'Réparation Honor',             sub: 'Toutes réparations · Devis immédiat',                    badge: 'Express 1h' },
+  oppo:     { title: 'Réparation Oppo',              sub: 'Toutes réparations · Devis immédiat',                    badge: 'Express 1h' },
+  motorola: { title: 'Réparation Motorola',          sub: 'Toutes réparations · Devis immédiat',                    badge: 'Express 1h' },
+};
+function loadBrandHeaderFields(brandKey) {
+  if (!brandKey) return;
+  const def = BRAND_HEADER_DEFAULTS[brandKey] || {};
+  const sv = (id, path, fb) => { const el = document.getElementById(id); if (el) el.value = sc(path, fb||''); };
+  sv('sc-brand-title','brands.'+brandKey+'.title', def.title);
+  sv('sc-brand-sub',  'brands.'+brandKey+'.sub',   def.sub);
+  sv('sc-brand-badge','brands.'+brandKey+'.badge',  def.badge);
+}
+async function saveBrandHeader(btn) {
+  if (!isAdmin) return;
+  const sel = document.getElementById('sc-brand-select');
+  if (!sel) return;
+  const brandKey = sel.value;
+  const data = { title: v('sc-brand-title'), sub: v('sc-brand-sub'), badge: v('sc-brand-badge') };
+  if (db) await db.ref('siteContent/brands/'+brandKey).update(data).catch(()=>{});
+  if (!siteContent.brands) siteContent.brands = {};
+  if (!siteContent.brands[brandKey]) siteContent.brands[brandKey] = {};
+  Object.assign(siteContent.brands[brandKey], data);
+  // Apply to DOM
+  const titleEl = document.getElementById('brand-'+brandKey+'-title'); if (titleEl && data.title) titleEl.textContent = data.title;
+  const subEl   = document.getElementById('brand-'+brandKey+'-sub');   if (subEl   && data.sub)   subEl.textContent   = data.sub;
+  const badgeEl = document.getElementById('brand-'+brandKey+'-badge'); if (badgeEl && data.badge) badgeEl.textContent = data.badge;
+  flashSaved(btn);
 }
 
 function flashSaved(btn) {
@@ -3135,7 +3243,7 @@ async function saveSection(section, btn) {
   } else if (section === 'b1' || section === 'b2' || section === 'b3') {
     const n = section;
     path = 'siteContent/boutiques/' + n;
-    data = { address: v('sc-'+n+'-address'), phone: v('sc-'+n+'-phone'), rating: v('sc-'+n+'-rating'), reviews: v('sc-'+n+'-reviews'), badge1: v('sc-'+n+'-badge1'), badge2: v('sc-'+n+'-badge2') };
+    data = { address: v('sc-'+n+'-address'), phone: v('sc-'+n+'-phone'), rating: v('sc-'+n+'-rating'), reviews: v('sc-'+n+'-reviews'), badge1: v('sc-'+n+'-badge1'), badge2: v('sc-'+n+'-badge2'), lat: v('sc-'+n+'-lat'), lng: v('sc-'+n+'-lng') };
   } else if (section === 'why1'||section === 'why2'||section === 'why3'||section === 'why4') {
     const n = section.slice(-1);
     path = 'siteContent/why/c' + n;
@@ -3149,8 +3257,10 @@ async function saveSection(section, btn) {
   } else if (section === 'timeslots') {
     const allSlots = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00'];
     const chosen = allSlots.filter(s => document.getElementById('ts-'+s.replace(':',''))?.checked);
+    const waEl = document.getElementById('sc-weeks-ahead');
+    const weeksAhead = waEl ? waEl.value : '8';
     path = 'siteContent/contact';
-    data = { time_slots: chosen.join(',') };
+    data = { time_slots: chosen.join(','), weeks_ahead: weeksAhead };
   } else if (section === 'annonce') {
     const color = document.querySelector('input[name="annonce-color"]:checked')?.value || '#F97316';
     path = 'siteContent/announcement';
@@ -3161,6 +3271,18 @@ async function saveSection(section, btn) {
   } else if (section === 'seo') {
     path = 'siteContent/seo';
     data = { title: v('sc-seo-title'), meta_desc: v('sc-seo-desc') };
+  } else if (section === 'repairs-header') {
+    path = 'siteContent/repairs';
+    data = { section_tag: v('sc-repairs-tag'), section_h2: v('sc-repairs-h2') };
+  } else if (section === 'boutiques-header') {
+    path = 'siteContent/boutiques';
+    data = { section_tag: v('sc-boutiques-tag'), section_h2: v('sc-boutiques-h2'), section_desc: v('sc-boutiques-desc'), section_dimanche: v('sc-boutiques-dimanche') };
+  } else if (section === 'contact-header') {
+    path = 'siteContent/contact';
+    data = { section_tag: v('sc-contact-tag'), section_h2: v('sc-contact-h2'), section_desc: v('sc-contact-desc') };
+  } else if (section === 'form-texts') {
+    path = 'siteContent/contact';
+    data = { form_title: v('sc-form-title'), form_subtitle: v('sc-form-subtitle'), form_help: v('sc-form-help'), form_submit: v('sc-form-submit'), form_success: v('sc-form-success') };
   }
   if (!path) return;
   await db.ref(path).update(data).catch(e => { alert('Erreur: ' + e.message); return; });
@@ -3175,6 +3297,7 @@ function v(id) { const el = document.getElementById(id); return el ? el.value.tr
 
 // ─── CALENDAR WIDGET ───
 let calWeekOffset = 0;
+let MAX_WEEKS_AHEAD = 8;
 let TIME_SLOTS = ['09:00','10:00','11:00','12:00','14:00','15:00','16:00','17:00','18:00'];
 
 function openAgenda() {
@@ -3196,7 +3319,7 @@ function closeAgenda() {
   document.getElementById('calModal').classList.remove('open');
 }
 function calPrevWeek() { if (calWeekOffset > 0) { calWeekOffset--; renderCalWeek(); } }
-function calNextWeek() { if (calWeekOffset < 8) { calWeekOffset++; renderCalWeek(); } }
+function calNextWeek() { if (calWeekOffset < MAX_WEEKS_AHEAD) { calWeekOffset++; renderCalWeek(); } }
 
 function getWeekDays(offset) {
   const today = new Date(); today.setHours(0,0,0,0);
@@ -3371,83 +3494,432 @@ function selectSlot(dateStr, time) {
   </div>
 </div>
 
-<!-- ─── ADMIN PANEL HTML ─── -->
+<!-- ─── ADMIN FAB ─── -->
 <div class="admin-fab" id="adminFab" style="display:none" onclick="toggleAdminPanel()">
   <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
   ADMIN
 </div>
+
+<!-- ─── ADMIN SIDE PANEL ─── -->
 <div class="admin-panel" id="adminPanel">
+
+  <!-- Header -->
   <div class="admin-panel-header">
-    <span class="admin-panel-title">⚡ ADMIN</span>
-    <button class="admin-panel-close" onclick="toggleAdminPanel()">✕</button>
+    <div class="admin-panel-brand">
+      <div class="admin-panel-brand-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+      </div>
+      <div>
+        <div class="admin-panel-brand-name">MISTRAL ADMIN</div>
+        <div class="admin-panel-brand-sub">Panneau d'administration</div>
+      </div>
+    </div>
+    <button class="admin-panel-close" onclick="toggleAdminPanel()" title="Fermer le panneau">✕</button>
   </div>
-  <div class="admin-panel-body">
-    <!-- Tabs -->
-    <div class="admin-tabs">
-      <div class="admin-tab active" id="tabCreneaux" onclick="showAdminTab('creneaux')">📅 Créneaux</div>
-      <div class="admin-tab" id="tabReparations" onclick="showAdminTab('reparations')">🔧 Réparations</div>
+
+  <!-- Layout -->
+  <div class="admin-layout">
+
+    <!-- Sidebar nav -->
+    <div class="admin-sidebar">
+      <div class="admin-nav-item active" id="nav-creneaux" onclick="showAdminTab('creneaux')"><span class="nav-icon">📅</span>Créneaux</div>
+      <div class="admin-nav-item" id="nav-reparations" onclick="showAdminTab('reparations')"><span class="nav-icon">🔧</span>Répar.</div>
+      <div class="admin-nav-divider"></div>
+      <div class="admin-nav-item" id="nav-hero" onclick="showAdminTab('hero')"><span class="nav-icon">🦸</span>Hero</div>
+      <div class="admin-nav-item" id="nav-boutiques" onclick="showAdminTab('boutiques')"><span class="nav-icon">🏪</span>Bout.</div>
+      <div class="admin-nav-item" id="nav-why" onclick="showAdminTab('why')"><span class="nav-icon">💡</span>Pourquoi</div>
+      <div class="admin-nav-item" id="nav-contact" onclick="showAdminTab('contact')"><span class="nav-icon">📋</span>Contact</div>
+      <div class="admin-nav-divider"></div>
+      <div class="admin-nav-item" id="nav-annonce" onclick="showAdminTab('annonce')"><span class="nav-icon">📢</span>Annonce</div>
+      <div class="admin-nav-item" id="nav-footer" onclick="showAdminTab('footer')"><span class="nav-icon">🦶</span>Footer</div>
     </div>
 
-    <!-- Créneaux tab -->
-    <div id="adminTabCreneaux">
-      <div class="admin-hint">
-        Cliquez sur un créneau <strong>rouge</strong> dans l'agenda pour le <strong>libérer</strong>.<br>
-        Cliquez sur un créneau <strong>disponible</strong> pour le <strong>bloquer manuellement</strong>.<br><br>
-        Réservations actives :
-      </div>
-      <div class="admin-slot-list" id="adminSlotList">
-        <div class="admin-empty">Chargement…</div>
-      </div>
-    </div>
+    <!-- Main content -->
+    <div class="admin-main">
 
-    <!-- Réparations tab -->
-    <div id="adminTabReparations" style="display:none">
-      <div class="admin-hint">
-        Recherchez un modèle et modifiez ses <strong>prix</strong> directement.<br>
-        Les changements sont appliqués en temps réel pour tous les visiteurs.
-      </div>
-      <input class="admin-repair-search" id="adminRepairSearch" placeholder="🔍 Rechercher un modèle…" oninput="filterAdminModels(this.value)">
-      <div id="adminRepairList"><div class="admin-empty">Tapez un modèle pour modifier ses prix.</div></div>
-
-      <!-- Model manager -->
-      <hr class="admin-divider">
-      <div class="admin-section-title">📋 Gérer les modèles</div>
-      <select class="admin-brand-select" id="adminBrandSelect" onchange="showAdminModelList(this.value)">
-        <option value="iphone">iPhone</option>
-        <option value="samsung">Samsung</option>
-        <option value="huawei">Huawei &amp; Xiaomi</option>
-        <option value="google">Google Pixel</option>
-        <option value="honor">Honor</option>
-        <option value="oppo">Oppo</option>
-        <option value="motorola">Motorola</option>
-      </select>
-      <div class="admin-model-list" id="adminModelList"><div class="admin-model-item"><span style="color:#9CA3AF;font-size:12px">Chargement…</span></div></div>
-
-      <button class="admin-add-toggle-btn" id="adminAddToggleBtn" onclick="toggleAddForm()">+ Ajouter un modèle</button>
-      <div class="admin-add-form" id="adminAddForm" style="display:none">
-        <div class="admin-section-title" style="margin-bottom:8px">Nouveau modèle</div>
-        <input class="admin-repair-search" id="addModelName" placeholder="Nom du modèle (ex: iPhone 17 Pro)" style="margin-bottom:8px">
-        <div class="admin-price-row"><span class="admin-price-label">Prix écran</span><input class="admin-price-input" id="addScreenPrice" placeholder="ex: 149€"></div>
-        <div class="admin-price-row"><span class="admin-price-label">Prix batterie</span><input class="admin-price-input" id="addBatteryPrice" placeholder="ex: 89€"></div>
-        <div class="admin-price-row"><span class="admin-price-label">Prix vitre</span><input class="admin-price-input" id="addVitrePrice" placeholder="ex: 99€"></div>
-        <div class="admin-section-title" style="margin-top:10px;margin-bottom:6px">Réparations proposées</div>
-        <div class="admin-check-group" id="adminRepairChecks">
-          <label class="admin-check-item"><input type="checkbox" data-repair="Remplacement écran"> Écran</label>
-          <label class="admin-check-item"><input type="checkbox" data-repair="Remplacement écran OLED"> Écran OLED</label>
-          <label class="admin-check-item"><input type="checkbox" data-repair="Remplacement écran AMOLED"> Écran AMOLED</label>
-          <label class="admin-check-item"><input type="checkbox" data-repair="Remplacement écran LCD"> Écran LCD</label>
-          <label class="admin-check-item"><input type="checkbox" data-repair="Remplacement batterie"> Batterie</label>
-          <label class="admin-check-item"><input type="checkbox" data-repair="Remplacement vitre arrière"> Vitre arrière</label>
-          <label class="admin-check-item"><input type="checkbox" data-repair="Connecteur de charge"> Connecteur</label>
-          <label class="admin-check-item"><input type="checkbox" data-repair="Caméra"> Caméra</label>
-          <label class="admin-check-item"><input type="checkbox" data-repair="Haut-parleur"> Haut-parleur</label>
-          <label class="admin-check-item"><input type="checkbox" data-repair="Désoxydation"> Désoxydation</label>
-          <label class="admin-check-item"><input type="checkbox" data-repair="Face ID"> Face ID</label>
+      <!-- ══ CRÉNEAUX ══ -->
+      <div class="admin-tab-panel active" id="adminTabCreneaux">
+        <h2 class="admin-panel-h2">📅 Créneaux</h2>
+        <p class="admin-panel-desc">Réservations et blocages de créneaux en temps réel.</p>
+        <div class="admin-card">
+          <div class="admin-card-title">Comment ça marche</div>
+          <div class="admin-hint" style="margin:0">Cliquez sur un créneau <strong>rouge</strong> dans l'agenda pour le <strong>libérer</strong>. Cliquez sur un créneau <strong>disponible</strong> pour le <strong>bloquer manuellement</strong>.</div>
         </div>
-        <button class="admin-add-model-btn" onclick="adminAddModel()">✓ Ajouter ce modèle</button>
+        <div class="admin-card">
+          <div class="admin-card-title">Réservations actives</div>
+          <div class="admin-slot-list" id="adminSlotList"><div class="admin-empty">Chargement…</div></div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
+
+      <!-- ══ RÉPARATIONS ══ -->
+      <div class="admin-tab-panel" id="adminTabReparations">
+        <h2 class="admin-panel-h2">🔧 Réparations</h2>
+        <p class="admin-panel-desc">Catalogue, prix et textes de la section réparations.</p>
+
+        <div class="admin-card">
+          <div class="admin-card-title">En-tête de section</div>
+          <div class="admin-field-group">
+            <label class="admin-field-label">Tag de section</label>
+            <input class="admin-field-input" id="sc-repairs-tag" placeholder="Nos Réparations">
+          </div>
+          <div class="admin-field-group">
+            <label class="admin-field-label">Titre H2</label>
+            <input class="admin-field-input" id="sc-repairs-h2" placeholder="Choisissez votre marque">
+          </div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('repairs-header',this)">Enregistrer</button></div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-title">En-tête par marque</div>
+          <div class="admin-field-group">
+            <label class="admin-field-label">Marque</label>
+            <select class="admin-field-input" id="sc-brand-select" onchange="loadBrandHeaderFields(this.value)">
+              <option value="iphone">iPhone</option>
+              <option value="samsung">Samsung</option>
+              <option value="huawei">Huawei &amp; Xiaomi</option>
+              <option value="google">Google Pixel</option>
+              <option value="honor">Honor</option>
+              <option value="oppo">Oppo</option>
+              <option value="motorola">Motorola</option>
+            </select>
+          </div>
+          <div class="admin-field-group">
+            <label class="admin-field-label">Titre (ex: "Réparation iPhone")</label>
+            <input class="admin-field-input" id="sc-brand-title" placeholder="Réparation iPhone">
+          </div>
+          <div class="admin-field-group">
+            <label class="admin-field-label">Sous-titre</label>
+            <input class="admin-field-input" id="sc-brand-sub" placeholder="Pièces d'origine…">
+          </div>
+          <div class="admin-field-group">
+            <label class="admin-field-label">Badge Express</label>
+            <input class="admin-field-input" id="sc-brand-badge" placeholder="Express 30 min">
+          </div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveBrandHeader(this)">Enregistrer</button></div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-title">Modifier les prix</div>
+          <input class="admin-field-input" id="adminRepairSearch" placeholder="🔍 Rechercher un modèle…" oninput="filterAdminModels(this.value)" style="margin-bottom:10px">
+          <div id="adminRepairList"><div class="admin-empty">Tapez un modèle pour modifier ses prix.</div></div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-title">Gérer les modèles</div>
+          <select class="admin-field-input" id="adminBrandSelect" onchange="showAdminModelList(this.value)" style="margin-bottom:10px">
+            <option value="iphone">iPhone</option>
+            <option value="samsung">Samsung</option>
+            <option value="huawei">Huawei &amp; Xiaomi</option>
+            <option value="google">Google Pixel</option>
+            <option value="honor">Honor</option>
+            <option value="oppo">Oppo</option>
+            <option value="motorola">Motorola</option>
+          </select>
+          <div class="admin-model-list" id="adminModelList"><div class="admin-model-item"><span style="color:#9CA3AF;font-size:12px">Chargement…</span></div></div>
+          <button class="admin-add-toggle-btn" id="adminAddToggleBtn" onclick="toggleAddForm()">+ Ajouter un modèle</button>
+          <div class="admin-add-form" id="adminAddForm" style="display:none">
+            <div class="admin-card-title" style="margin-bottom:8px">Nouveau modèle</div>
+            <input class="admin-field-input" id="addModelName" placeholder="Nom (ex: iPhone 17 Pro)" style="margin-bottom:8px">
+            <div class="admin-2col">
+              <div class="admin-field-group"><label class="admin-field-label">Prix écran</label><input class="admin-field-input" id="addScreenPrice" placeholder="149€"></div>
+              <div class="admin-field-group"><label class="admin-field-label">Prix batterie</label><input class="admin-field-input" id="addBatteryPrice" placeholder="89€"></div>
+            </div>
+            <div class="admin-field-group"><label class="admin-field-label">Prix vitre arrière</label><input class="admin-field-input" id="addVitrePrice" placeholder="99€"></div>
+            <div class="admin-card-title" style="margin-top:10px;margin-bottom:6px">Réparations proposées</div>
+            <div class="admin-check-group" id="adminRepairChecks">
+              <label class="admin-check-item"><input type="checkbox" data-repair="Remplacement écran"> Écran</label>
+              <label class="admin-check-item"><input type="checkbox" data-repair="Remplacement écran OLED"> OLED</label>
+              <label class="admin-check-item"><input type="checkbox" data-repair="Remplacement écran AMOLED"> AMOLED</label>
+              <label class="admin-check-item"><input type="checkbox" data-repair="Remplacement écran LCD"> LCD</label>
+              <label class="admin-check-item"><input type="checkbox" data-repair="Remplacement batterie"> Batterie</label>
+              <label class="admin-check-item"><input type="checkbox" data-repair="Remplacement vitre arrière"> Vitre</label>
+              <label class="admin-check-item"><input type="checkbox" data-repair="Connecteur de charge"> Connecteur</label>
+              <label class="admin-check-item"><input type="checkbox" data-repair="Caméra"> Caméra</label>
+              <label class="admin-check-item"><input type="checkbox" data-repair="Haut-parleur"> HP</label>
+              <label class="admin-check-item"><input type="checkbox" data-repair="Désoxydation"> Désox.</label>
+              <label class="admin-check-item"><input type="checkbox" data-repair="Face ID"> Face ID</label>
+            </div>
+            <button class="admin-add-model-btn" onclick="adminAddModel()">✓ Ajouter ce modèle</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ HERO ══ -->
+      <div class="admin-tab-panel" id="adminTabHero">
+        <h2 class="admin-panel-h2">🦸 Hero</h2>
+        <p class="admin-panel-desc">Section principale en haut de la page d'accueil.</p>
+
+        <div class="admin-card">
+          <div class="admin-card-title">Textes principaux</div>
+          <div class="admin-field-group">
+            <label class="admin-field-label">Titre principal</label>
+            <textarea class="admin-field-input admin-field-textarea" id="sc-hero-title" placeholder="Réparation express de tous types de téléphones"></textarea>
+          </div>
+          <div class="admin-field-group">
+            <label class="admin-field-label">Sous-titre / Description</label>
+            <textarea class="admin-field-input admin-field-textarea" id="sc-hero-subtitle" placeholder="Votre iPhone ou Samsung réparé en express…"></textarea>
+          </div>
+          <div class="admin-2col">
+            <div class="admin-field-group">
+              <label class="admin-field-label">Texte bouton CTA</label>
+              <input class="admin-field-input" id="sc-hero-cta1" placeholder="Réserver ma réparation">
+            </div>
+            <div class="admin-field-group">
+              <label class="admin-field-label">Téléphone bouton sec.</label>
+              <input class="admin-field-input" id="sc-hero-phone" placeholder="06 68 09 66 69">
+            </div>
+          </div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('hero-texts',this)">Enregistrer</button></div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-title">3 Statistiques</div>
+          <div class="admin-2col">
+            <div class="admin-field-group"><label class="admin-field-label">Stat 1 — Chiffre</label><input class="admin-field-input" id="sc-stat1-num" placeholder="20+"></div>
+            <div class="admin-field-group"><label class="admin-field-label">Stat 1 — Libellé</label><input class="admin-field-input" id="sc-stat1-label" placeholder="ans d'expérience"></div>
+          </div>
+          <div class="admin-2col">
+            <div class="admin-field-group"><label class="admin-field-label">Stat 2 — Chiffre</label><input class="admin-field-input" id="sc-stat2-num" placeholder="#1"></div>
+            <div class="admin-field-group"><label class="admin-field-label">Stat 2 — Libellé</label><input class="admin-field-input" id="sc-stat2-label" placeholder="à Marseille"></div>
+          </div>
+          <div class="admin-2col">
+            <div class="admin-field-group"><label class="admin-field-label">Stat 3 — Chiffre</label><input class="admin-field-input" id="sc-stat3-num" placeholder="3"></div>
+            <div class="admin-field-group"><label class="admin-field-label">Stat 3 — Libellé</label><input class="admin-field-input" id="sc-stat3-label" placeholder="boutiques"></div>
+          </div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('hero-stats',this)">Enregistrer</button></div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-title">Écran téléphone (animation)</div>
+          <div class="admin-field-group"><label class="admin-field-label">Badge</label><input class="admin-field-input" id="sc-phone-badge" placeholder="Certifié Qualirepar"></div>
+          <div class="admin-field-group"><label class="admin-field-label">Adresse 1</label><input class="admin-field-input" id="sc-phone-addr1" placeholder="11 Av. Maréchal Foch · 13004"></div>
+          <div class="admin-field-group"><label class="admin-field-label">Adresse 2</label><input class="admin-field-input" id="sc-phone-addr2" placeholder="1 Rue Maréchal Fayolle · 13004"></div>
+          <div class="admin-field-group"><label class="admin-field-label">Adresse 3</label><input class="admin-field-input" id="sc-phone-addr3" placeholder="12 Av. de St Julien · 13012"></div>
+          <div class="admin-2col">
+            <div class="admin-field-group"><label class="admin-field-label">Texte animation</label><input class="admin-field-input" id="sc-phone-text" placeholder="Réparation Express"></div>
+            <div class="admin-field-group"><label class="admin-field-label">Numéro affiché</label><input class="admin-field-input" id="sc-phone-num" placeholder="06 68 09 66 69"></div>
+          </div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('hero-phone',this)">Enregistrer</button></div>
+        </div>
+      </div>
+
+      <!-- ══ BOUTIQUES ══ -->
+      <div class="admin-tab-panel" id="adminTabBoutiques">
+        <h2 class="admin-panel-h2">🏪 Boutiques</h2>
+        <p class="admin-panel-desc">Textes et coordonnées des 3 boutiques.</p>
+
+        <div class="admin-card">
+          <div class="admin-card-title">En-tête de section</div>
+          <div class="admin-field-group"><label class="admin-field-label">Tag</label><input class="admin-field-input" id="sc-boutiques-tag" placeholder="Nos Boutiques"></div>
+          <div class="admin-field-group"><label class="admin-field-label">Titre H2</label><input class="admin-field-input" id="sc-boutiques-h2" placeholder="3 adresses à Marseille"></div>
+          <div class="admin-field-group"><label class="admin-field-label">Description</label><textarea class="admin-field-input admin-field-textarea" id="sc-boutiques-desc" placeholder="Trouvez la boutique la plus proche…"></textarea></div>
+          <div class="admin-field-group"><label class="admin-field-label">Horaires dimanche</label><input class="admin-field-input" id="sc-boutiques-dimanche" placeholder="Dimanche : 10h - 15h"></div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('boutiques-header',this)">Enregistrer</button></div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-title">Boutique 1 — Maréchal Foch</div>
+          <div class="admin-field-group"><label class="admin-field-label">Adresse</label><input class="admin-field-input" id="sc-b1-address" placeholder="11 Av. Maréchal Foch, 13004"></div>
+          <div class="admin-2col">
+            <div class="admin-field-group"><label class="admin-field-label">Téléphone</label><input class="admin-field-input" id="sc-b1-phone" placeholder="06 68 09 66 69"></div>
+            <div class="admin-field-group"><label class="admin-field-label">Note Google</label><input class="admin-field-input" id="sc-b1-rating" placeholder="4,9"></div>
+          </div>
+          <div class="admin-field-group"><label class="admin-field-label">Nombre d'avis</label><input class="admin-field-input" id="sc-b1-reviews" placeholder="307 avis"></div>
+          <div class="admin-2col">
+            <div class="admin-field-group"><label class="admin-field-label">Badge 1</label><input class="admin-field-input" id="sc-b1-badge1" placeholder="Réparation express"></div>
+            <div class="admin-field-group"><label class="admin-field-label">Badge 2</label><input class="admin-field-input" id="sc-b1-badge2" placeholder="Certifié Qualirepar"></div>
+          </div>
+          <div class="admin-2col">
+            <div class="admin-field-group"><label class="admin-field-label">GPS Latitude</label><input class="admin-field-input" id="sc-b1-lat" placeholder="43.3012"></div>
+            <div class="admin-field-group"><label class="admin-field-label">GPS Longitude</label><input class="admin-field-input" id="sc-b1-lng" placeholder="5.3763"></div>
+          </div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('b1',this)">Enregistrer</button></div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-title">Boutique 2 — Maréchal Fayolle</div>
+          <div class="admin-field-group"><label class="admin-field-label">Adresse</label><input class="admin-field-input" id="sc-b2-address" placeholder="1 rue Maréchal Fayolle, 13004"></div>
+          <div class="admin-2col">
+            <div class="admin-field-group"><label class="admin-field-label">Téléphone</label><input class="admin-field-input" id="sc-b2-phone" placeholder="06 68 09 66 69"></div>
+            <div class="admin-field-group"><label class="admin-field-label">Note Google</label><input class="admin-field-input" id="sc-b2-rating" placeholder="4,7"></div>
+          </div>
+          <div class="admin-field-group"><label class="admin-field-label">Nombre d'avis</label><input class="admin-field-input" id="sc-b2-reviews" placeholder="340 avis"></div>
+          <div class="admin-2col">
+            <div class="admin-field-group"><label class="admin-field-label">Badge 1</label><input class="admin-field-input" id="sc-b2-badge1" placeholder="Réparation express"></div>
+            <div class="admin-field-group"><label class="admin-field-label">Badge 2</label><input class="admin-field-input" id="sc-b2-badge2" placeholder="Toutes marques"></div>
+          </div>
+          <div class="admin-2col">
+            <div class="admin-field-group"><label class="admin-field-label">GPS Latitude</label><input class="admin-field-input" id="sc-b2-lat" placeholder="43.3019"></div>
+            <div class="admin-field-group"><label class="admin-field-label">GPS Longitude</label><input class="admin-field-input" id="sc-b2-lng" placeholder="5.3749"></div>
+          </div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('b2',this)">Enregistrer</button></div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-title">Boutique 3 — St Julien</div>
+          <div class="admin-field-group"><label class="admin-field-label">Adresse</label><input class="admin-field-input" id="sc-b3-address" placeholder="12 Av. de St Julien, 13012"></div>
+          <div class="admin-2col">
+            <div class="admin-field-group"><label class="admin-field-label">Téléphone</label><input class="admin-field-input" id="sc-b3-phone" placeholder="06 68 09 66 69"></div>
+            <div class="admin-field-group"><label class="admin-field-label">Note Google</label><input class="admin-field-input" id="sc-b3-rating" placeholder="4,9"></div>
+          </div>
+          <div class="admin-field-group"><label class="admin-field-label">Nombre d'avis</label><input class="admin-field-input" id="sc-b3-reviews" placeholder="415 avis"></div>
+          <div class="admin-2col">
+            <div class="admin-field-group"><label class="admin-field-label">Badge 1</label><input class="admin-field-input" id="sc-b3-badge1" placeholder="Réparation express"></div>
+            <div class="admin-field-group"><label class="admin-field-label">Badge 2</label><input class="admin-field-input" id="sc-b3-badge2" placeholder="Toutes marques"></div>
+          </div>
+          <div class="admin-2col">
+            <div class="admin-field-group"><label class="admin-field-label">GPS Latitude</label><input class="admin-field-input" id="sc-b3-lat" placeholder="43.2898"></div>
+            <div class="admin-field-group"><label class="admin-field-label">GPS Longitude</label><input class="admin-field-input" id="sc-b3-lng" placeholder="5.3985"></div>
+          </div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('b3',this)">Enregistrer</button></div>
+        </div>
+      </div>
+
+      <!-- ══ POURQUOI ══ -->
+      <div class="admin-tab-panel" id="adminTabWhy">
+        <h2 class="admin-panel-h2">💡 Pourquoi nous</h2>
+        <p class="admin-panel-desc">Les 4 arguments de la section "Pourquoi nous choisir".</p>
+        <div class="admin-card">
+          <div class="admin-card-title">Argument 1</div>
+          <div class="admin-field-group"><label class="admin-field-label">Titre</label><input class="admin-field-input" id="sc-why1-title" placeholder="Titre de l'argument 1"></div>
+          <div class="admin-field-group"><label class="admin-field-label">Texte</label><textarea class="admin-field-input admin-field-textarea" id="sc-why1-text" placeholder="Description…"></textarea></div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('why1',this)">Enregistrer</button></div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">Argument 2</div>
+          <div class="admin-field-group"><label class="admin-field-label">Titre</label><input class="admin-field-input" id="sc-why2-title" placeholder="Titre de l'argument 2"></div>
+          <div class="admin-field-group"><label class="admin-field-label">Texte</label><textarea class="admin-field-input admin-field-textarea" id="sc-why2-text" placeholder="Description…"></textarea></div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('why2',this)">Enregistrer</button></div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">Argument 3</div>
+          <div class="admin-field-group"><label class="admin-field-label">Titre</label><input class="admin-field-input" id="sc-why3-title" placeholder="Titre de l'argument 3"></div>
+          <div class="admin-field-group"><label class="admin-field-label">Texte</label><textarea class="admin-field-input admin-field-textarea" id="sc-why3-text" placeholder="Description…"></textarea></div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('why3',this)">Enregistrer</button></div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">Argument 4</div>
+          <div class="admin-field-group"><label class="admin-field-label">Titre</label><input class="admin-field-input" id="sc-why4-title" placeholder="Titre de l'argument 4"></div>
+          <div class="admin-field-group"><label class="admin-field-label">Texte</label><textarea class="admin-field-input admin-field-textarea" id="sc-why4-text" placeholder="Description…"></textarea></div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('why4',this)">Enregistrer</button></div>
+        </div>
+      </div>
+
+      <!-- ══ CONTACT ══ -->
+      <div class="admin-tab-panel" id="adminTabContact">
+        <h2 class="admin-panel-h2">📋 Contact</h2>
+        <p class="admin-panel-desc">Section contact, formulaire et créneaux.</p>
+
+        <div class="admin-card">
+          <div class="admin-card-title">En-tête de section</div>
+          <div class="admin-field-group"><label class="admin-field-label">Tag</label><input class="admin-field-input" id="sc-contact-tag" placeholder="Contact &amp; Réservation"></div>
+          <div class="admin-field-group"><label class="admin-field-label">Titre H2</label><textarea class="admin-field-input admin-field-textarea" id="sc-contact-h2" placeholder="Prenez rendez-vous en quelques clics"></textarea></div>
+          <div class="admin-field-group"><label class="admin-field-label">Description</label><textarea class="admin-field-input admin-field-textarea" id="sc-contact-desc" placeholder="Remplissez le formulaire…"></textarea></div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('contact-header',this)">Enregistrer</button></div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-title">Textes du formulaire</div>
+          <div class="admin-field-group"><label class="admin-field-label">Titre du formulaire</label><input class="admin-field-input" id="sc-form-title" placeholder="Formulaire de réservation"></div>
+          <div class="admin-field-group"><label class="admin-field-label">Sous-titre</label><input class="admin-field-input" id="sc-form-subtitle" placeholder="Remplissez vos informations…"></div>
+          <div class="admin-field-group"><label class="admin-field-label">Texte d'aide créneau</label><input class="admin-field-input" id="sc-form-help" placeholder="Choisissez une date et heure…"></div>
+          <div class="admin-field-group"><label class="admin-field-label">Texte bouton d'envoi</label><input class="admin-field-input" id="sc-form-submit" placeholder="📅 Envoyer ma demande de réservation"></div>
+          <div class="admin-field-group"><label class="admin-field-label">Message de confirmation</label><textarea class="admin-field-input admin-field-textarea" id="sc-form-success" placeholder="✅ Votre demande a bien été envoyée…"></textarea></div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('form-texts',this)">Enregistrer</button></div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-title">Coordonnées affichées</div>
+          <div class="admin-2col">
+            <div class="admin-field-group"><label class="admin-field-label">Téléphone</label><input class="admin-field-input" id="sc-contact-phone" placeholder="06 68 09 66 69"></div>
+            <div class="admin-field-group"><label class="admin-field-label">Email</label><input class="admin-field-input" id="sc-contact-email" placeholder="contact@mistralphone.fr"></div>
+          </div>
+          <div class="admin-field-group"><label class="admin-field-label">Délai réparation</label><input class="admin-field-input" id="sc-contact-repair" placeholder="iPhone 30 min · Samsung 1h"></div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('contact-info',this)">Enregistrer</button></div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-title">Réseaux sociaux</div>
+          <div class="admin-field-group"><label class="admin-field-label">Facebook URL</label><input class="admin-field-input" id="sc-fb-url" placeholder="https://facebook.com/mistralphone"></div>
+          <div class="admin-field-group"><label class="admin-field-label">Instagram URL</label><input class="admin-field-input" id="sc-ig-url" placeholder="https://instagram.com/mistralphone"></div>
+          <div class="admin-field-group"><label class="admin-field-label">TikTok URL</label><input class="admin-field-input" id="sc-tt-url" placeholder="https://tiktok.com/@mistralphone"></div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('socials',this)">Enregistrer</button></div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-title">Créneaux horaires disponibles</div>
+          <div class="admin-timeslot-grid">
+            <label class="admin-timeslot-item"><input type="checkbox" id="ts-0800"> 08:00</label>
+            <label class="admin-timeslot-item"><input type="checkbox" id="ts-0900"> 09:00</label>
+            <label class="admin-timeslot-item"><input type="checkbox" id="ts-1000"> 10:00</label>
+            <label class="admin-timeslot-item"><input type="checkbox" id="ts-1100"> 11:00</label>
+            <label class="admin-timeslot-item"><input type="checkbox" id="ts-1200"> 12:00</label>
+            <label class="admin-timeslot-item"><input type="checkbox" id="ts-1300"> 13:00</label>
+            <label class="admin-timeslot-item"><input type="checkbox" id="ts-1400"> 14:00</label>
+            <label class="admin-timeslot-item"><input type="checkbox" id="ts-1500"> 15:00</label>
+            <label class="admin-timeslot-item"><input type="checkbox" id="ts-1600"> 16:00</label>
+            <label class="admin-timeslot-item"><input type="checkbox" id="ts-1700"> 17:00</label>
+            <label class="admin-timeslot-item"><input type="checkbox" id="ts-1800"> 18:00</label>
+            <label class="admin-timeslot-item"><input type="checkbox" id="ts-1900"> 19:00</label>
+          </div>
+          <div class="admin-field-group" style="margin-top:12px">
+            <label class="admin-field-label">Semaines à l'avance réservables</label>
+            <input class="admin-field-input" id="sc-weeks-ahead" type="number" min="1" max="52" placeholder="8" style="max-width:100px">
+          </div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('timeslots',this)">Enregistrer</button></div>
+        </div>
+      </div>
+
+      <!-- ══ ANNONCE ══ -->
+      <div class="admin-tab-panel" id="adminTabAnnonce">
+        <h2 class="admin-panel-h2">📢 Bannière d'annonce</h2>
+        <p class="admin-panel-desc">Bannière temporaire affichée en haut de la page.</p>
+        <div class="admin-card">
+          <div class="admin-card-title">Configuration</div>
+          <div class="admin-toggle-row">
+            <label class="admin-toggle"><input type="checkbox" id="sc-annonce-active"><span class="admin-toggle-slider"></span></label>
+            <span class="admin-toggle-label">Afficher la bannière</span>
+          </div>
+          <div class="admin-field-group">
+            <label class="admin-field-label">Texte de l'annonce</label>
+            <textarea class="admin-field-input admin-field-textarea" id="sc-annonce-text" placeholder="Promo : -25€ sur les écrans ce week-end !"></textarea>
+          </div>
+          <div class="admin-field-group">
+            <label class="admin-field-label">Couleur de la bannière</label>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px">
+              <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="annonce-color" value="#F97316" checked><span style="background:#F97316;width:22px;height:22px;border-radius:50%;display:inline-block;border:2px solid #fff;box-shadow:0 0 0 2px #F97316"></span><span style="font-size:12px;font-weight:600">Orange</span></label>
+              <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="annonce-color" value="#1B4AAF"><span style="background:#1B4AAF;width:22px;height:22px;border-radius:50%;display:inline-block;border:2px solid #fff;box-shadow:0 0 0 2px #1B4AAF"></span><span style="font-size:12px;font-weight:600">Bleu</span></label>
+              <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="annonce-color" value="#DC2626"><span style="background:#DC2626;width:22px;height:22px;border-radius:50%;display:inline-block;border:2px solid #fff;box-shadow:0 0 0 2px #DC2626"></span><span style="font-size:12px;font-weight:600">Rouge</span></label>
+              <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="annonce-color" value="#16A34A"><span style="background:#16A34A;width:22px;height:22px;border-radius:50%;display:inline-block;border:2px solid #fff;box-shadow:0 0 0 2px #16A34A"></span><span style="font-size:12px;font-weight:600">Vert</span></label>
+            </div>
+          </div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('annonce',this)">Enregistrer</button></div>
+        </div>
+      </div>
+
+      <!-- ══ FOOTER ══ -->
+      <div class="admin-tab-panel" id="adminTabFooter">
+        <h2 class="admin-panel-h2">🦶 Footer &amp; SEO</h2>
+        <p class="admin-panel-desc">Pied de page et référencement Google.</p>
+
+        <div class="admin-card">
+          <div class="admin-card-title">Footer</div>
+          <div class="admin-field-group"><label class="admin-field-label">Description de la marque</label><textarea class="admin-field-input admin-field-textarea" id="sc-footer-desc" placeholder="Spécialistes de la réparation de smartphones…"></textarea></div>
+          <div class="admin-field-group"><label class="admin-field-label">Numéro de téléphone</label><input class="admin-field-input" id="sc-footer-phone" placeholder="06 68 09 66 69"></div>
+          <div class="admin-field-group"><label class="admin-field-label">Texte copyright</label><input class="admin-field-input" id="sc-footer-copyright" placeholder="© 2019 Mistral Phone Marseille…"></div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('footer',this)">Enregistrer</button></div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-title">SEO (référencement Google)</div>
+          <div class="admin-field-group"><label class="admin-field-label">Titre de l'onglet navigateur</label><input class="admin-field-input" id="sc-seo-title" placeholder="Mistral Phone – Réparation Express Smartphones à Marseille"></div>
+          <div class="admin-field-group"><label class="admin-field-label">Méta description (texte dans Google)</label><textarea class="admin-field-input admin-field-textarea" id="sc-seo-desc" placeholder="Réparation de smartphones à Marseille depuis 2004…"></textarea></div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('seo',this)">Enregistrer</button></div>
+        </div>
+      </div>
+
+    </div><!-- end admin-main -->
+  </div><!-- end admin-layout -->
+</div><!-- end admin-panel -->
 </body>
 </html>
