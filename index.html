@@ -1165,23 +1165,66 @@
       display: flex; align-items: center; gap: 6px;
     }
     .admin-fab svg { width: 14px; height: 14px; fill: white; }
+    /* ─── ADMIN FULL-PAGE PANEL ─── */
     .admin-panel {
-      position: fixed; top: 0; right: -360px; width: 340px; height: 100vh;
-      background: white; z-index: 10000;
-      box-shadow: -4px 0 32px rgba(0,0,0,.18);
-      transition: right .3s cubic-bezier(.4,0,.2,1);
-      display: flex; flex-direction: column;
+      position: fixed; inset: 0; z-index: 10000;
+      background: #F1F5F9; display: none; flex-direction: column;
       font-family: inherit;
     }
-    .admin-panel.open { right: 0; }
-    .admin-panel-header {
-      background: #DC2626; color: white;
-      padding: 20px 20px 16px;
-      display: flex; align-items: center; justify-content: space-between;
+    .admin-panel.open { display: flex; }
+    .admin-header {
+      height: 56px; background: #0F172A; color: white;
+      display: flex; align-items: center; padding: 0 20px; gap: 16px;
+      flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,.3);
     }
-    .admin-panel-title { font-size: 14px; font-weight: 800; letter-spacing: 1px; }
-    .admin-panel-close { background: rgba(255,255,255,.2); border: none; color: white; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
-    .admin-panel-body { flex: 1; overflow-y: auto; padding: 16px; }
+    .admin-back-btn {
+      background: rgba(255,255,255,.12); border: 1.5px solid rgba(255,255,255,.22);
+      color: white; border-radius: 8px; padding: 7px 14px; font-size: 13px;
+      font-weight: 700; cursor: pointer; white-space: nowrap;
+      display: flex; align-items: center; gap: 6px; transition: background .15s;
+    }
+    .admin-back-btn:hover { background: rgba(255,255,255,.22); }
+    .admin-header-title { flex: 1; text-align: center; font-size: 15px; font-weight: 800; letter-spacing: 1px; color: white; }
+    .admin-header-status { font-size: 12px; color: #4ADE80; font-weight: 700; white-space: nowrap; }
+    .admin-layout { display: flex; flex: 1; overflow: hidden; }
+    .admin-sidebar { width: 215px; background: white; border-right: 1.5px solid #E2E8F0; overflow-y: auto; padding: 12px 0; flex-shrink: 0; }
+    .admin-nav-group-label { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; color: #94A3B8; padding: 14px 16px 4px; text-transform: uppercase; }
+    .admin-nav-item { display: flex; align-items: center; gap: 8px; padding: 10px 16px; font-size: 13px; font-weight: 600; color: #475569; cursor: pointer; transition: all .15s; border-left: 3px solid transparent; }
+    .admin-nav-item:hover:not(.active) { background: #F8FAFC; color: #1E293B; }
+    .admin-nav-item.active { color: #DC2626; background: #FEF2F2; border-left-color: #DC2626; }
+    .admin-main { flex: 1; overflow-y: auto; padding: 28px 36px; }
+    .admin-tab-panel { max-width: 840px; display: none; }
+    .admin-tab-panel.active { display: block; }
+    .admin-panel-h2 { font-size: 20px; font-weight: 800; color: #0F172A; margin: 0 0 4px; }
+    .admin-panel-desc { font-size: 13px; color: #64748B; margin: 0 0 22px; }
+    .admin-card { background: white; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 18px 22px; margin-bottom: 18px; }
+    .admin-card-title { font-size: 13px; font-weight: 800; color: #0F172A; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1.5px solid #F1F5F9; }
+    .admin-field-group { margin-bottom: 13px; }
+    .admin-field-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #64748B; margin-bottom: 5px; display: block; }
+    .admin-field-input { width: 100%; box-sizing: border-box; border: 1.5px solid #E2E8F0; border-radius: 8px; padding: 9px 12px; font-size: 13px; font-family: inherit; outline: none; transition: border-color .15s; background: white; color: #0F172A; }
+    .admin-field-input:focus { border-color: #DC2626; }
+    .admin-field-textarea { min-height: 72px; resize: vertical; line-height: 1.5; }
+    .admin-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .admin-3col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    .admin-save-row { display: flex; justify-content: flex-end; margin-top: 14px; padding-top: 12px; border-top: 1.5px solid #F1F5F9; }
+    .admin-save-primary { background: #DC2626; color: white; border: none; border-radius: 8px; padding: 10px 22px; font-size: 13px; font-weight: 800; cursor: pointer; transition: background .15s; }
+    .admin-save-primary:hover { background: #B91C1C; }
+    .admin-save-primary.saved { background: #10B981; }
+    .admin-toggle-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .admin-toggle { position: relative; width: 44px; height: 24px; flex-shrink: 0; }
+    .admin-toggle input { opacity: 0; width: 0; height: 0; }
+    .admin-toggle-slider { position: absolute; inset: 0; background: #CBD5E1; border-radius: 24px; cursor: pointer; transition: background .2s; }
+    .admin-toggle-slider::before { content: ''; position: absolute; width: 18px; height: 18px; border-radius: 50%; background: white; left: 3px; top: 3px; transition: transform .2s; }
+    .admin-toggle input:checked + .admin-toggle-slider { background: #DC2626; }
+    .admin-toggle input:checked + .admin-toggle-slider::before { transform: translateX(20px); }
+    .admin-toggle-label { font-size: 13px; font-weight: 600; color: #374151; }
+    .admin-timeslot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 8px 0; }
+    .admin-timeslot-item { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: #374151; }
+    .admin-timeslot-item input[type=checkbox] { accent-color: #DC2626; width: 14px; height: 14px; cursor: pointer; }
+    /* ─── ANNOUNCEMENT BAR ─── */
+    .site-announcement { color: white; text-align: center; padding: 11px 48px; font-weight: 700; font-size: 14px; position: relative; z-index: 200; display: none; }
+    .site-announcement.active { display: block; }
+    .site-announcement-close { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,.15); border: none; color: white; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; font-size: 14px; line-height: 1; display: flex; align-items: center; justify-content: center; }
     .admin-hint { font-size: 12px; color: #6B7280; background: #F9FAFB; border-radius: 8px; padding: 10px 12px; margin-bottom: 16px; line-height: 1.5; }
     .admin-hint strong { color: #DC2626; }
     .admin-slot-list { display: flex; flex-direction: column; gap: 8px; }
@@ -1201,9 +1244,7 @@
     .admin-empty { text-align: center; color: #9CA3AF; font-size: 13px; padding: 32px 0; }
 
     /* ─── ADMIN TABS ─── */
-    .admin-tabs { display: flex; border-bottom: 2px solid #F3F4F6; margin: -16px -16px 16px; padding: 0 4px; }
-    .admin-tab { flex: 1; padding: 13px 4px; font-size: 11px; font-weight: 700; letter-spacing: .5px; text-align: center; cursor: pointer; color: #9CA3AF; border-bottom: 2.5px solid transparent; margin-bottom: -2px; transition: all .15s; }
-    .admin-tab.active { color: #DC2626; border-bottom-color: #DC2626; }
+
 
     /* ─── ADMIN REPAIR EDITOR ─── */
     .admin-repair-search {
@@ -1364,6 +1405,9 @@
 </head>
 <body>
 
+<!-- ─── ANNOUNCEMENT BAR ─── -->
+<div class="site-announcement" id="siteAnnouncement"><span id="announcementText"></span><button class="site-announcement-close" onclick="document.getElementById('siteAnnouncement').classList.remove('active')" title="Fermer">✕</button></div>
+
 <!-- ─── NAVBAR ─── -->
 <nav class="navbar" id="navbar">
   <div class="nav-inner">
@@ -1402,24 +1446,24 @@
   </div>
   <div class="hero-inner">
     <div class="hero-content">
-      <h1>Réparation <em>express</em> de tous types de téléphones</h1>
-      <p class="hero-desc">Spécialistes de la réparation de smartphones à Marseille depuis 2004, nous intervenons rapidement sur iPhone, Samsung, Huawei, Xiaomi et bien d'autres marques avec un service fiable et de qualité.</p>
+      <h1 id="hero-title">Réparation <em>express</em> de tous types de téléphones</h1>
+      <p class="hero-desc" id="hero-subtitle">Spécialistes de la réparation de smartphones à Marseille depuis 2004, nous intervenons rapidement sur iPhone, Samsung, Huawei, Xiaomi et bien d'autres marques avec un service fiable et de qualité.</p>
       <div class="hero-actions">
-        <a href="#contact" class="btn-primary">📅 Réserver ma réparation</a>
-        <a href="tel:0668096669" class="btn-secondary">06 68 09 66 69</a>
+        <a href="#contact" class="btn-primary" id="hero-cta1">📅 Réserver ma réparation</a>
+        <a href="tel:0668096669" class="btn-secondary" id="hero-phone-btn">06 68 09 66 69</a>
       </div>
       <div class="hero-stats">
         <div class="stat">
-          <div class="stat-number">20+</div>
-          <div class="stat-label">ans d'expérience</div>
+          <div class="stat-number" id="stat1-num">20+</div>
+          <div class="stat-label" id="stat1-label">ans d'expérience</div>
         </div>
         <div class="stat">
-          <div class="stat-number">#1</div>
-          <div class="stat-label">à Marseille</div>
+          <div class="stat-number" id="stat2-num">#1</div>
+          <div class="stat-label" id="stat2-label">à Marseille</div>
         </div>
         <div class="stat">
-          <div class="stat-number">3</div>
-          <div class="stat-label">boutiques</div>
+          <div class="stat-number" id="stat3-num">3</div>
+          <div class="stat-label" id="stat3-label">boutiques</div>
         </div>
       </div>
     </div>
@@ -1463,17 +1507,17 @@
             </div>
             <!-- Repaired orange screen -->
             <div class="phone-screen-repaired" id="phoneScreenRepaired">
-              <div class="psr-badge">🏆 N°1 à Marseille</div>
+              <div class="psr-badge" id="phone-badge">🏆 N°1 à Marseille</div>
               <div class="psr-addresses">
-                <div class="psr-address">11 Av. Maréchal Foch, 13004</div>
-                <div class="psr-address">1 rue Maréchal Fayolle, 13004</div>
-                <div class="psr-address">12 Av. de St Julien, 13012</div>
+                <div class="psr-address" id="phone-addr1">11 Av. Maréchal Foch, 13004</div>
+                <div class="psr-address" id="phone-addr2">1 rue Maréchal Fayolle, 13004</div>
+                <div class="psr-address" id="phone-addr3">12 Av. de St Julien, 13012</div>
               </div>
               <div class="psr-icon">
                 <svg viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
               </div>
-              <div class="phone-text">Réparation<br>Express</div>
-              <div class="psr-phone-badge">06 68 09 66 69</div>
+              <div class="phone-text" id="phone-anim-text">Réparation<br>Express</div>
+              <div class="psr-phone-badge" id="phone-anim-num">06 68 09 66 69</div>
             </div>
           </div>
         </div>
@@ -1727,8 +1771,8 @@
             <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
             <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           </div>
-          <span class="store-rating-score">4,9</span>
-          <span class="store-rating-count">(307 avis)</span>
+          <span class="store-rating-score" id="b1-rating">4,9</span>
+          <span class="store-rating-count" id="b1-reviews">(307 avis)</span>
         </div>
         <div class="store-gmb">
           <div>
@@ -1739,19 +1783,19 @@
         <div class="store-info">
           <div class="store-row store-row-red">
             <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
-            11 Av. Maréchal Foch, 13004
+            <span id="b1-address">11 Av. Maréchal Foch, 13004</span>
           </div>
           <div class="store-row store-row-red">
             <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg></div>
-            06 68 09 66 69
+            <span id="b1-phone">06 68 09 66 69</span>
           </div>
           <div class="store-row store-row-orange">
             <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-            Réparation express
+            <span id="b1-badge1">Réparation express</span>
           </div>
           <div class="store-row store-row-orange">
             <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
-            Certifié Qualirepar
+            <span id="b1-badge2">Certifié Qualirepar</span>
           </div>
         </div>
         <a href="tel:0668096669" class="store-call-btn">
@@ -1779,8 +1823,8 @@
             <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
             <svg viewBox="0 0 24 24" style="fill:url(#half2)"><defs><linearGradient id="half2"><stop offset="70%" stop-color="#FBBF24"/><stop offset="70%" stop-color="#D1D5DB"/></linearGradient></defs><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           </div>
-          <span class="store-rating-score">4,7</span>
-          <span class="store-rating-count">(340 avis)</span>
+          <span class="store-rating-score" id="b2-rating">4,7</span>
+          <span class="store-rating-count" id="b2-reviews">(340 avis)</span>
         </div>
         <div class="store-gmb">
           <div>
@@ -1791,19 +1835,19 @@
         <div class="store-info">
           <div class="store-row store-row-red">
             <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
-            1 rue Maréchal Fayolle, 13004
+            <span id="b2-address">1 rue Maréchal Fayolle, 13004</span>
           </div>
           <div class="store-row store-row-red">
             <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg></div>
-            06 68 09 66 69
+            <span id="b2-phone">06 68 09 66 69</span>
           </div>
           <div class="store-row store-row-orange">
             <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-            Réparation express
+            <span id="b2-badge1">Réparation express</span>
           </div>
           <div class="store-row store-row-orange">
             <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg></div>
-            Toutes marques
+            <span id="b2-badge2">Toutes marques</span>
           </div>
         </div>
         <a href="tel:0668096669" class="store-call-btn">
@@ -1831,8 +1875,8 @@
             <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
             <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           </div>
-          <span class="store-rating-score">4,9</span>
-          <span class="store-rating-count">(415 avis)</span>
+          <span class="store-rating-score" id="b3-rating">4,9</span>
+          <span class="store-rating-count" id="b3-reviews">(415 avis)</span>
         </div>
         <div class="store-gmb">
           <div>
@@ -1851,11 +1895,11 @@
           </div>
           <div class="store-row store-row-orange">
             <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-            Réparation express
+            <span id="b3-badge1">Réparation express</span>
           </div>
           <div class="store-row store-row-orange">
             <div class="store-row-icon"><svg viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg></div>
-            Toutes marques
+            <span id="b3-badge2">Toutes marques</span>
           </div>
         </div>
         <a href="tel:0668096669" class="store-call-btn">
@@ -1986,7 +2030,7 @@
             </div>
             <div>
               <div class="contact-item-label">Téléphone</div>
-              <div class="contact-item-value"><a href="tel:0668096669">06 68 09 66 69</a></div>
+              <div class="contact-item-value"><a href="tel:0668096669" id="contact-phone-val">06 68 09 66 69</a></div>
             </div>
           </div>
           <div class="contact-item">
@@ -2004,7 +2048,7 @@
             </div>
             <div>
               <div class="contact-item-label">Réparation express</div>
-              <div class="contact-item-value">iPhone 30 min · Samsung &amp; autres marques 1h</div>
+              <div class="contact-item-value" id="contact-repair-val">iPhone 30 min · Samsung &amp; autres marques 1h</div>
             </div>
           </div>
           <div class="contact-item">
@@ -2013,7 +2057,7 @@
             </div>
             <div>
               <div class="contact-item-label">Email</div>
-              <div class="contact-item-value"><a href="mailto:MistralPhone4@gmail.com">MistralPhone4@gmail.com</a></div>
+              <div class="contact-item-value"><a href="mailto:MistralPhone4@gmail.com" id="contact-email-val">MistralPhone4@gmail.com</a></div>
             </div>
           </div>
         </div>
@@ -2044,8 +2088,8 @@
         <div class="footer-logo">
           <img src="logo.png" alt="Mistral Phone" class="footer-logo-img" />
         </div>
-        <p>Spécialistes de la réparation de smartphones à Marseille depuis 2004. iPhone, Samsung, Huawei, Xiaomi et bien d'autres marques – service fiable et de qualité.</p>
-        <div class="footer-phone">06 68 09 66 69</div>
+        <p id="footer-desc">Spécialistes de la réparation de smartphones à Marseille depuis 2004. iPhone, Samsung, Huawei, Xiaomi et bien d'autres marques – service fiable et de qualité.</p>
+        <div class="footer-phone" id="footer-phone">06 68 09 66 69</div>
       </div>
       <div class="footer-col">
         <h4>Navigation</h4>
@@ -2079,7 +2123,7 @@
     </div>
     <div class="footer-bottom">
       <div>
-        <span>© 2019 Mistral Phone Marseille · Tous droits réservés</span>
+        <span id="footer-copyright">© 2019 Mistral Phone Marseille · Tous droits réservés</span>
         <span style="margin:0 8px;">·</span>
         <a href="mentions-legales.html" style="color:var(--gray-400);text-decoration:none;font-size:13px;transition:color .2s;" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--gray-400)'">Mentions légales</a>
       </div>
@@ -2364,7 +2408,7 @@ function toggleModel(card) {
 function buildAllGrids() {
   BRAND_GRIDS.forEach(([id, models, key]) => buildGrid(id, models, key));
 }
-Promise.all([loadPriceOverrides(), loadCustomModels(), loadDeletedModels()])
+Promise.all([loadPriceOverrides(), loadCustomModels(), loadDeletedModels(), loadSiteContent()])
   .then(buildAllGrids).catch(buildAllGrids);
 
 // ─── BRAND TABS ───
@@ -2665,8 +2709,10 @@ document.addEventListener('keydown', e => {
 
 function toggleAdminPanel() {
   const panel = document.getElementById('adminPanel');
+  const opening = !panel.classList.contains('open');
   panel.classList.toggle('open');
-  if (panel.classList.contains('open')) renderAdminList();
+  document.body.style.overflow = opening ? 'hidden' : '';
+  if (opening) { showAdminTab('creneaux'); }
 }
 
 function renderAdminList() {
@@ -2749,17 +2795,22 @@ async function loadDeletedModels() {
 }
 
 // ─── ADMIN TAB SWITCHING ───
+const ALL_ADMIN_TABS = ['creneaux','reparations','hero','boutiques','why','contact','annonce','footer'];
 function showAdminTab(tab) {
-  document.getElementById('tabCreneaux').classList.toggle('active', tab === 'creneaux');
-  document.getElementById('tabReparations').classList.toggle('active', tab === 'reparations');
-  document.getElementById('adminTabCreneaux').style.display = tab === 'creneaux' ? '' : 'none';
-  document.getElementById('adminTabReparations').style.display = tab === 'reparations' ? '' : 'none';
+  ALL_ADMIN_TABS.forEach(t => {
+    const panel = document.getElementById('adminTab' + t.charAt(0).toUpperCase() + t.slice(1));
+    const nav   = document.getElementById('nav-' + t);
+    if (panel) panel.classList.toggle('active', t === tab);
+    if (nav)   nav.classList.toggle('active', t === tab);
+  });
   if (tab === 'creneaux') renderAdminList();
-  if (tab === 'reparations') {
-    document.getElementById('adminRepairSearch').value = '';
-    filterAdminModels('');
-    showAdminModelList(adminSelectedBrand);
-  }
+  if (tab === 'reparations') { document.getElementById('adminRepairSearch').value = ''; filterAdminModels(''); showAdminModelList(adminSelectedBrand); }
+  if (tab === 'hero') populateHeroForm();
+  if (tab === 'boutiques') populateBoutiquesForm();
+  if (tab === 'why') populateWhyForm();
+  if (tab === 'contact') populateContactForm();
+  if (tab === 'annonce') populateAnnonceForm();
+  if (tab === 'footer') populateFooterForm();
 }
 
 // ─── ADMIN REPAIR EDITOR ───
@@ -2936,9 +2987,195 @@ async function adminDeleteModel(modelName, brandKey, isCustom) {
   showAdminModelList(brandKey);
 }
 
+// ─── SITE CONTENT (Firebase-backed editable fields) ───
+let siteContent = {};
+
+async function loadSiteContent() {
+  if (!db) return;
+  try {
+    const snap = await db.ref('siteContent').once('value');
+    siteContent = snap.val() || {};
+    applyAllContent();
+  } catch(e) {}
+}
+
+function sc(path, fallback) {
+  return path.split('.').reduce((o, k) => (o && o[k] !== undefined ? o[k] : undefined), siteContent) ?? fallback;
+}
+
+function setEl(id, val) { const el = document.getElementById(id); if (el && val !== undefined && val !== null) el.textContent = val; }
+function setElHref(id, href) { const el = document.getElementById(id); if (el && href) { el.href = href; if (!el.textContent.startsWith('http')) el.textContent = href.replace('https://','').replace('www.',''); } }
+
+function applyAllContent() {
+  // Hero
+  setEl('hero-title', sc('hero.title'));
+  setEl('hero-subtitle', sc('hero.subtitle'));
+  const c1 = document.getElementById('hero-cta1'); if (c1 && sc('hero.cta1')) c1.textContent = sc('hero.cta1');
+  const pb = document.getElementById('hero-phone-btn'); if (pb && sc('hero.phone')) { pb.textContent = sc('hero.phone'); pb.href = 'tel:' + sc('hero.phone').replace(/\s/g,''); }
+  setEl('stat1-num', sc('hero.stat1_num')); setEl('stat1-label', sc('hero.stat1_label'));
+  setEl('stat2-num', sc('hero.stat2_num')); setEl('stat2-label', sc('hero.stat2_label'));
+  setEl('stat3-num', sc('hero.stat3_num')); setEl('stat3-label', sc('hero.stat3_label'));
+  setEl('phone-badge', sc('hero.phone_badge'));
+  setEl('phone-addr1', sc('hero.phone_addr1')); setEl('phone-addr2', sc('hero.phone_addr2')); setEl('phone-addr3', sc('hero.phone_addr3'));
+  setEl('phone-anim-num', sc('hero.phone_num'));
+  const pat = document.getElementById('phone-anim-text'); if (pat && sc('hero.phone_text')) pat.innerHTML = sc('hero.phone_text').replace('\n','<br>');
+  // Boutiques
+  [1,2,3].forEach(n => {
+    setEl('b'+n+'-address', sc('boutiques.b'+n+'.address'));
+    const ph = document.getElementById('b'+n+'-phone'); if (ph && sc('boutiques.b'+n+'.phone')) { ph.textContent = sc('boutiques.b'+n+'.phone'); }
+    setEl('b'+n+'-rating', sc('boutiques.b'+n+'.rating'));
+    const rv = document.getElementById('b'+n+'-reviews'); if (rv && sc('boutiques.b'+n+'.reviews')) rv.textContent = '(' + sc('boutiques.b'+n+'.reviews') + ')';
+    setEl('b'+n+'-badge1', sc('boutiques.b'+n+'.badge1'));
+    setEl('b'+n+'-badge2', sc('boutiques.b'+n+'.badge2'));
+  });
+  // Why cards
+  [1,2,3,4].forEach(n => {
+    if (sc('why.c'+n+'.title')) whyReasons[n-1].title = sc('why.c'+n+'.title');
+    if (sc('why.c'+n+'.text'))  whyReasons[n-1].text  = sc('why.c'+n+'.text');
+  });
+  if (Object.keys(siteContent.why || {}).length) { buildWhyCards(); resetAutoPlay(); }
+  // Contact
+  const cpv = document.getElementById('contact-phone-val'); if (cpv && sc('contact.phone')) { cpv.textContent = sc('contact.phone'); cpv.href = 'tel:' + sc('contact.phone').replace(/\s/g,''); }
+  const cev = document.getElementById('contact-email-val'); if (cev && sc('contact.email')) { cev.textContent = sc('contact.email'); cev.href = 'mailto:' + sc('contact.email'); }
+  setEl('contact-repair-val', sc('contact.repair_time'));
+  // Socials
+  const fbLinks = document.querySelectorAll('.social-btn.fb, .footer-bottom-socials a[aria-label="Facebook"]');
+  const igLinks = document.querySelectorAll('.social-btn.ig, .footer-bottom-socials a[aria-label="Instagram"]');
+  const ttLinks = document.querySelectorAll('.social-btn.tt, .footer-bottom-socials a[aria-label="TikTok"]');
+  if (sc('contact.fb_url')) fbLinks.forEach(a => a.href = sc('contact.fb_url'));
+  if (sc('contact.ig_url')) igLinks.forEach(a => a.href = sc('contact.ig_url'));
+  if (sc('contact.tt_url')) ttLinks.forEach(a => a.href = sc('contact.tt_url'));
+  // Time slots
+  if (sc('contact.time_slots')) TIME_SLOTS = sc('contact.time_slots').split(',').map(s => s.trim()).filter(Boolean);
+  // Footer
+  setEl('footer-desc', sc('footer.description'));
+  setEl('footer-phone', sc('footer.phone'));
+  setEl('footer-copyright', sc('footer.copyright'));
+  // Announcement
+  const bar = document.getElementById('siteAnnouncement');
+  if (bar && sc('announcement.active') && sc('announcement.text')) {
+    document.getElementById('announcementText').textContent = sc('announcement.text');
+    if (sc('announcement.bg_color')) bar.style.background = sc('announcement.bg_color');
+    bar.classList.add('active');
+  }
+  // SEO
+  if (sc('seo.title')) document.title = sc('seo.title');
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc && sc('seo.meta_desc')) metaDesc.setAttribute('content', sc('seo.meta_desc'));
+}
+
+// Populate admin form fields
+function populateHeroForm() {
+  const sv = (id, path) => { const el = document.getElementById(id); if (el) el.value = sc(path, ''); };
+  sv('sc-hero-title','hero.title'); sv('sc-hero-subtitle','hero.subtitle');
+  sv('sc-hero-cta1','hero.cta1'); sv('sc-hero-phone','hero.phone');
+  sv('sc-stat1-num','hero.stat1_num'); sv('sc-stat1-label','hero.stat1_label');
+  sv('sc-stat2-num','hero.stat2_num'); sv('sc-stat2-label','hero.stat2_label');
+  sv('sc-stat3-num','hero.stat3_num'); sv('sc-stat3-label','hero.stat3_label');
+  sv('sc-phone-badge','hero.phone_badge'); sv('sc-phone-text','hero.phone_text');
+  sv('sc-phone-addr1','hero.phone_addr1'); sv('sc-phone-addr2','hero.phone_addr2'); sv('sc-phone-addr3','hero.phone_addr3');
+  sv('sc-phone-num','hero.phone_num');
+}
+function populateBoutiquesForm() {
+  const sv = (id, path) => { const el = document.getElementById(id); if (el) el.value = sc(path, ''); };
+  [1,2,3].forEach(n => {
+    sv('sc-b'+n+'-address','boutiques.b'+n+'.address'); sv('sc-b'+n+'-phone','boutiques.b'+n+'.phone');
+    sv('sc-b'+n+'-rating','boutiques.b'+n+'.rating'); sv('sc-b'+n+'-reviews','boutiques.b'+n+'.reviews');
+    sv('sc-b'+n+'-badge1','boutiques.b'+n+'.badge1'); sv('sc-b'+n+'-badge2','boutiques.b'+n+'.badge2');
+  });
+}
+function populateWhyForm() {
+  [1,2,3,4].forEach(n => {
+    const t = document.getElementById('sc-why'+n+'-title'); if (t) t.value = sc('why.c'+n+'.title', whyReasons[n-1].title);
+    const tx = document.getElementById('sc-why'+n+'-text');  if (tx) tx.value = sc('why.c'+n+'.text',  whyReasons[n-1].text);
+  });
+}
+function populateContactForm() {
+  const sv = (id, path, fb) => { const el = document.getElementById(id); if (el) el.value = sc(path, fb||''); };
+  sv('sc-contact-phone','contact.phone'); sv('sc-contact-email','contact.email');
+  sv('sc-contact-repair','contact.repair_time');
+  sv('sc-fb-url','contact.fb_url'); sv('sc-ig-url','contact.ig_url'); sv('sc-tt-url','contact.tt_url');
+  const allSlots = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00'];
+  allSlots.forEach(s => {
+    const el = document.getElementById('ts-' + s.replace(':',''));
+    if (el) el.checked = TIME_SLOTS.includes(s);
+  });
+}
+function populateAnnonceForm() {
+  const el = document.getElementById('sc-annonce-active'); if (el) el.checked = !!sc('announcement.active');
+  const tx = document.getElementById('sc-annonce-text'); if (tx) tx.value = sc('announcement.text','');
+  const color = sc('announcement.bg_color','#F97316');
+  document.querySelectorAll('input[name="annonce-color"]').forEach(r => { r.checked = r.value === color; });
+}
+function populateFooterForm() {
+  const sv = (id, path) => { const el = document.getElementById(id); if (el) el.value = sc(path, ''); };
+  sv('sc-footer-desc','footer.description'); sv('sc-footer-phone','footer.phone');
+  sv('sc-footer-copyright','footer.copyright');
+  sv('sc-seo-title','seo.title'); sv('sc-seo-desc','seo.meta_desc');
+}
+
+function flashSaved(btn) {
+  if (!btn) return;
+  btn.textContent = '✓ Enregistré !'; btn.classList.add('saved');
+  setTimeout(() => { btn.textContent = 'Enregistrer'; btn.classList.remove('saved'); }, 2000);
+}
+
+async function saveSection(section, btn) {
+  if (!db) { alert('Firebase non configuré.'); return; }
+  let path, data;
+  if (section === 'hero-texts') {
+    path = 'siteContent/hero';
+    data = { title: v('sc-hero-title'), subtitle: v('sc-hero-subtitle'), cta1: v('sc-hero-cta1'), phone: v('sc-hero-phone') };
+  } else if (section === 'hero-stats') {
+    path = 'siteContent/hero';
+    data = { stat1_num: v('sc-stat1-num'), stat1_label: v('sc-stat1-label'), stat2_num: v('sc-stat2-num'), stat2_label: v('sc-stat2-label'), stat3_num: v('sc-stat3-num'), stat3_label: v('sc-stat3-label') };
+  } else if (section === 'hero-phone') {
+    path = 'siteContent/hero';
+    data = { phone_badge: v('sc-phone-badge'), phone_text: v('sc-phone-text'), phone_addr1: v('sc-phone-addr1'), phone_addr2: v('sc-phone-addr2'), phone_addr3: v('sc-phone-addr3'), phone_num: v('sc-phone-num') };
+  } else if (section === 'b1' || section === 'b2' || section === 'b3') {
+    const n = section;
+    path = 'siteContent/boutiques/' + n;
+    data = { address: v('sc-'+n+'-address'), phone: v('sc-'+n+'-phone'), rating: v('sc-'+n+'-rating'), reviews: v('sc-'+n+'-reviews'), badge1: v('sc-'+n+'-badge1'), badge2: v('sc-'+n+'-badge2') };
+  } else if (section === 'why1'||section === 'why2'||section === 'why3'||section === 'why4') {
+    const n = section.slice(-1);
+    path = 'siteContent/why/c' + n;
+    data = { title: v('sc-why'+n+'-title'), text: v('sc-why'+n+'-text') };
+  } else if (section === 'contact-info') {
+    path = 'siteContent/contact';
+    data = { phone: v('sc-contact-phone'), email: v('sc-contact-email'), repair_time: v('sc-contact-repair') };
+  } else if (section === 'socials') {
+    path = 'siteContent/contact';
+    data = { fb_url: v('sc-fb-url'), ig_url: v('sc-ig-url'), tt_url: v('sc-tt-url') };
+  } else if (section === 'timeslots') {
+    const allSlots = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00'];
+    const chosen = allSlots.filter(s => document.getElementById('ts-'+s.replace(':',''))?.checked);
+    path = 'siteContent/contact';
+    data = { time_slots: chosen.join(',') };
+  } else if (section === 'annonce') {
+    const color = document.querySelector('input[name="annonce-color"]:checked')?.value || '#F97316';
+    path = 'siteContent/announcement';
+    data = { active: document.getElementById('sc-annonce-active').checked, text: v('sc-annonce-text'), bg_color: color };
+  } else if (section === 'footer') {
+    path = 'siteContent/footer';
+    data = { description: v('sc-footer-desc'), phone: v('sc-footer-phone'), copyright: v('sc-footer-copyright') };
+  } else if (section === 'seo') {
+    path = 'siteContent/seo';
+    data = { title: v('sc-seo-title'), meta_desc: v('sc-seo-desc') };
+  }
+  if (!path) return;
+  await db.ref(path).update(data).catch(e => { alert('Erreur: ' + e.message); return; });
+  // Merge into local siteContent and re-apply
+  const keys = path.replace('siteContent/','').split('/');
+  let target = siteContent;
+  keys.forEach((k, i) => { if (i === keys.length - 1) Object.assign(target[k] = target[k] || {}, data); else target = target[k] = target[k] || {}; });
+  applyAllContent();
+  flashSaved(btn);
+}
+function v(id) { const el = document.getElementById(id); return el ? el.value.trim() : ''; }
+
 // ─── CALENDAR WIDGET ───
 let calWeekOffset = 0;
-const TIME_SLOTS = ['09:00','10:00','11:00','12:00','14:00','15:00','16:00','17:00','18:00'];
+let TIME_SLOTS = ['09:00','10:00','11:00','12:00','14:00','15:00','16:00','17:00','18:00'];
 
 function openAgenda() {
   document.getElementById('calOverlay').classList.add('open');
