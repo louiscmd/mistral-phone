@@ -3366,8 +3366,7 @@ function populateThemeForm() {
   sv('sc-logo-url','theme.logo_url','');
   sv('sc-favicon-url','theme.favicon_url','');
   const photosEl = document.getElementById('sc-photo-slides');
-  if (photosEl) photosEl.value = sc('theme.photo_slides','').split(',').filter(Boolean).join('
-');
+  if (photosEl) photosEl.value = sc('theme.photo_slides','').split(',').filter(Boolean).join('\n');
   sv('sc-ga-id','analytics.ga_id','');
   sv('sc-gtm-id','analytics.gtm_id','');
   sv('sc-nav-cta-text','theme.nav_cta_text','Réserver');
