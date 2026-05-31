@@ -363,22 +363,131 @@
       .footer-grid { grid-template-columns: 1fr; }
       .empty-state { padding: 48px 24px; }
     /* ─── PROMO GRID ─── */
-    .promo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 24px; margin-bottom: 48px; }
-    .promo-card { background: #fff; border-radius: 16px; box-shadow: 0 4px 16px rgba(0,0,0,.08); overflow: hidden; border: 1px solid var(--gray-100); transition: transform .2s, box-shadow .2s; }
-    .promo-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.14); }
-    .promo-card-header { background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%); padding: 20px 24px 14px; }
-    .promo-card-badge { display: inline-block; background: rgba(255,255,255,.25); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
-    .promo-card-title { font-size: 20px; font-weight: 800; color: #fff; line-height: 1.3; }
-    .promo-card-body { padding: 20px 24px; }
+    .promo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px,1fr)); gap: 28px; margin-bottom: 56px; }
+
+    .promo-card {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(249,115,22,.15), 0 2px 8px rgba(0,0,0,.06);
+      overflow: hidden;
+      border: 2px solid #FED7AA;
+      transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s;
+      position: relative;
+    }
+    .promo-card:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 20px 60px rgba(249,115,22,.25), 0 4px 16px rgba(0,0,0,.08);
+    }
+
+    /* Flame ribbon in top-right corner */
+    .promo-card-ribbon {
+      position: absolute;
+      top: 16px; right: -30px;
+      background: #fff;
+      color: var(--orange);
+      font-size: 11px; font-weight: 800;
+      padding: 4px 36px;
+      transform: rotate(45deg);
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      box-shadow: 0 2px 8px rgba(0,0,0,.1);
+    }
+
+    .promo-card-header {
+      background: linear-gradient(135deg, #F97316 0%, #EA580C 60%, #C2410C 100%);
+      padding: 28px 24px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .promo-card-header::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 140px; height: 140px;
+      background: rgba(255,255,255,.08);
+      border-radius: 50%;
+    }
+    .promo-card-header::after {
+      content: '';
+      position: absolute;
+      bottom: -20px; left: -20px;
+      width: 80px; height: 80px;
+      background: rgba(255,255,255,.06);
+      border-radius: 50%;
+    }
+
+    .promo-card-fire { font-size: 32px; margin-bottom: 8px; display: block; }
+    .promo-card-title { font-size: 22px; font-weight: 900; color: #fff; line-height: 1.25; position: relative; z-index: 1; }
+    .promo-card-subtitle { font-size: 13px; color: rgba(255,255,255,.8); margin-top: 6px; font-weight: 500; position: relative; z-index: 1; }
+
+    /* Discount badge (auto-calculated if both prices given) */
+    .promo-discount-badge {
+      display: inline-flex;
+      align-items: center;
+      background: #fff;
+      color: var(--orange);
+      font-size: 15px; font-weight: 900;
+      padding: 5px 14px;
+      border-radius: 30px;
+      margin-top: 12px;
+      position: relative; z-index: 1;
+      box-shadow: 0 2px 8px rgba(0,0,0,.15);
+    }
+
+    .promo-card-body { padding: 22px 24px 24px; }
+
+    .promo-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 16px;
+      padding: 14px 16px;
+      background: var(--orange-xlight);
+      border-radius: 12px;
+      border: 1px solid var(--orange-light);
+    }
+    .promo-price-new { font-size: 36px; font-weight: 900; color: var(--orange); letter-spacing: -1px; }
+    .promo-price-label { font-size: 12px; color: var(--orange); font-weight: 600; margin-top: 2px; }
+    .promo-price-old { font-size: 18px; font-weight: 600; color: #9CA3AF; text-decoration: line-through; }
+
     .promo-card-desc { font-size: 14px; color: var(--gray-600); line-height: 1.7; margin-bottom: 16px; }
-    .promo-price-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-    .promo-price-new { font-size: 28px; font-weight: 900; color: var(--orange); }
-    .promo-price-old { font-size: 18px; font-weight: 600; color: var(--gray-400); text-decoration: line-through; }
-    .promo-expiry { font-size: 12px; color: var(--gray-400); display: flex; align-items: center; gap: 6px; }
-    .promo-expiry::before { content: "⏱️"; }
-    .promo-card-cta { display: block; text-align: center; background: var(--orange); color: #fff; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 14px; text-decoration: none; transition: background .2s; }
-    .promo-card-cta:hover { background: var(--orange-dark); }
-    @media (max-width: 600px) { .promo-grid { grid-template-columns: 1fr; } }
+
+    .promo-expiry {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px; font-weight: 600;
+      color: #92400E;
+      background: #FEF3C7;
+      border: 1px solid #FDE68A;
+      padding: 5px 12px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+
+    .promo-card-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
+      color: #fff;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 14px;
+      text-decoration: none;
+      transition: all .2s;
+      box-shadow: 0 4px 12px rgba(249,115,22,.35);
+      letter-spacing: .2px;
+    }
+    .promo-card-cta:hover {
+      background: linear-gradient(135deg, var(--orange-dark) 0%, #9A3412 100%);
+      box-shadow: 0 6px 20px rgba(249,115,22,.45);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 600px) { .promo-grid { grid-template-columns: 1fr; gap: 20px; } }
 
       .cta-box { padding: 36px 24px; }
     }
@@ -551,18 +660,33 @@ async function loadPromos() {
     }
     if(emptyState) emptyState.style.display = 'none';
     container.innerHTML = '<div class="promo-grid">' + promos.map(p => {
-      const expiryHtml = p.expiry ? `<div class="promo-expiry">Offre valable jusqu'au ${new Date(p.expiry).toLocaleDateString('fr-FR')}</div>` : '';
-      const priceHtml = (p.price || p.old_price) ? `<div class="promo-price-row">${p.price ? '<span class="promo-price-new">'+p.price+'</span>' : ''}${p.old_price ? '<span class="promo-price-old">'+p.old_price+'</span>' : ''}</div>` : '';
+      // Compute discount % if both prices given (strip non-numeric)
+      let discountHtml = '';
+      if (p.price && p.old_price) {
+        const newN = parseFloat(p.price.replace(/[^0-9.]/g,''));
+        const oldN = parseFloat(p.old_price.replace(/[^0-9.]/g,''));
+        if (oldN > newN && oldN > 0) {
+          const pct = Math.round((1 - newN/oldN) * 100);
+          discountHtml = `<div class="promo-discount-badge">-${pct}%</div>`;
+        }
+      }
+      const expiryHtml = p.expiry ? `<div class="promo-expiry">⏱️ Jusqu'au ${new Date(p.expiry).toLocaleDateString('fr-FR')}</div>` : '';
+      const priceHtml = (p.price || p.old_price) ? `
+        <div class="promo-price-row">
+          ${p.price ? '<div><div class="promo-price-new">'+p.price+'</div><div class="promo-price-label">prix promo</div></div>' : ''}
+          ${p.old_price ? '<div class="promo-price-old">'+p.old_price+'</div>' : ''}
+        </div>` : '';
       return `<div class="promo-card">
         <div class="promo-card-header">
-          <div class="promo-card-badge">🔥 Promo</div>
+          <span class="promo-card-fire">🔥</span>
           <div class="promo-card-title">${p.title || ''}</div>
+          ${p.desc ? '<div class="promo-card-subtitle">'+p.desc+'</div>' : ''}
+          ${discountHtml}
         </div>
         <div class="promo-card-body">
-          ${p.desc ? '<div class="promo-card-desc">'+p.desc+'</div>' : ''}
           ${priceHtml}
           ${expiryHtml}
-          <a href="index.html#contact" class="promo-card-cta">📅 En profiter maintenant</a>
+          <a href="index.html#contact" class="promo-card-cta">📅 En profiter maintenant →</a>
         </div>
       </div>`;
     }).join('') + '</div>';

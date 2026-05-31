@@ -1425,7 +1425,7 @@
 <body>
 
 <!-- ─── ANNOUNCEMENT BAR ─── -->
-<div class="site-announcement" id="siteAnnouncement"><span id="announcementText"></span><button class="site-announcement-close" onclick="document.getElementById('siteAnnouncement').classList.remove('active')" title="Fermer">✕</button></div>
+<div class="site-announcement" id="siteAnnouncement"><span id="announcementText"></span><button class="site-announcement-close" onclick="document.getElementById('siteAnnouncement').classList.remove('active'); sessionStorage.setItem('announceDismissed', '1');" title="Fermer">✕</button></div>
 
 <!-- ─── NAVBAR ─── -->
 <nav class="navbar" id="navbar">
@@ -3197,10 +3197,14 @@ function applyAllContent() {
   setEl('footer-copyright', sc('footer.copyright'));
   // Announcement
   const bar = document.getElementById('siteAnnouncement');
-  if (bar && sc('announcement.active') && sc('announcement.text')) {
-    document.getElementById('announcementText').textContent = sc('announcement.text');
-    if (sc('announcement.bg_color')) bar.style.background = sc('announcement.bg_color');
-    bar.classList.add('active');
+  if (bar) {
+    if (sc('announcement.active') && sc('announcement.text') && !sessionStorage.getItem('announceDismissed')) {
+      document.getElementById('announcementText').textContent = sc('announcement.text');
+      if (sc('announcement.bg_color')) bar.style.background = sc('announcement.bg_color');
+      bar.classList.add('active');
+    } else {
+      bar.classList.remove('active');
+    }
   }
   // SEO
   if (sc('seo.title')) document.title = sc('seo.title');
@@ -3306,6 +3310,25 @@ function populateAnnonceForm() {
   const tx = document.getElementById('sc-annonce-text'); if (tx) tx.value = sc('announcement.text','');
   const color = sc('announcement.bg_color','#F97316');
   document.querySelectorAll('input[name="annonce-color"]').forEach(r => { r.checked = r.value === color; });
+  updateAnnoncePreview();
+}
+function updateAnnoncePreview() {
+  const preview = document.getElementById('annonce-preview');
+  const status  = document.getElementById('annonce-status');
+  if (!preview) return;
+  const isActive = !!sc('announcement.active');
+  const text     = sc('announcement.text','');
+  const color    = sc('announcement.bg_color','#F97316');
+  if (isActive && text) {
+    preview.style.display = 'flex';
+    preview.style.background = color;
+    const previewText = document.getElementById('annonce-preview-text');
+    if (previewText) previewText.textContent = text;
+    if (status) { status.textContent = '● Affichée'; status.style.color = '#16A34A'; }
+  } else {
+    preview.style.display = 'none';
+    if (status) { status.textContent = '○ Désactivée'; status.style.color = '#9CA3AF'; }
+  }
 }
 function populateFooterForm() {
   const sv = (id, path) => { const el = document.getElementById(id); if (el) el.value = sc(path, ''); };
@@ -3555,6 +3578,29 @@ async function saveBrandHeader(btn) {
   flashSaved(btn);
 }
 
+async function deleteAnnonce(btn) {
+  if (!db) return;
+  if (!confirm('Supprimer définitivement cette bannière ?')) return;
+  await db.ref('siteContent/announcement').remove().catch(e => alert('Erreur: ' + e.message));
+  // Clear local
+  if (siteContent.announcement) delete siteContent.announcement;
+  // Hide from page
+  const bar = document.getElementById('siteAnnouncement');
+  if (bar) bar.classList.remove('active');
+  applyAllContent();
+  populateAnnonceForm();
+  flashSaved(btn);
+}
+async function deactivateAnnonce(btn) {
+  if (!db) return;
+  await db.ref('siteContent/announcement').update({ active: false }).catch(e => alert('Erreur: ' + e.message));
+  if (!siteContent.announcement) siteContent.announcement = {};
+  siteContent.announcement.active = false;
+  const bar = document.getElementById('siteAnnouncement');
+  if (bar) bar.classList.remove('active');
+  populateAnnonceForm();
+  flashSaved(btn);
+}
 function flashSaved(btn) {
   if (!btn) return;
   btn.textContent = '✓ Enregistré !'; btn.classList.add('saved');
@@ -3598,6 +3644,7 @@ async function saveSection(section, btn) {
     const color = document.querySelector('input[name="annonce-color"]:checked')?.value || '#F97316';
     path = 'siteContent/announcement';
     data = { active: document.getElementById('sc-annonce-active').checked, text: v('sc-annonce-text'), bg_color: color };
+    // Preview will be updated via applyAllContent() at end of saveSection
   } else if (section === 'footer') {
     path = 'siteContent/footer';
     data = { description: v('sc-footer-desc'), phone: v('sc-footer-phone'), copyright: v('sc-footer-copyright') };
@@ -3694,6 +3741,7 @@ async function saveSection(section, btn) {
   let target = siteContent;
   keys.forEach((k, i) => { if (i === keys.length - 1) Object.assign(target[k] = target[k] || {}, data); else target = target[k] = target[k] || {}; });
   applyAllContent();
+  if (section === 'annonce') updateAnnoncePreview();
   flashSaved(btn);
 }
 function v(id) { const el = document.getElementById(id); return el ? el.value.trim() : ''; }
@@ -4307,19 +4355,36 @@ function selectSlot(dateStr, time) {
       <!-- ══ ANNONCE ══ -->
       <div class="admin-tab-panel" id="adminTabAnnonce">
         <h2 class="admin-panel-h2">📢 Bannière d'annonce</h2>
-        <p class="admin-panel-desc">Bannière temporaire affichée en haut de la page.</p>
+        <p class="admin-panel-desc">Bannière temporaire affichée en haut de chaque page.</p>
+
+        <!-- Live preview -->
+        <div class="admin-card" style="padding:0;overflow:hidden">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #F1F5F9">
+            <div class="admin-card-title" style="margin:0">Aperçu live</div>
+            <div id="annonce-status" style="font-size:12px;font-weight:700;color:#9CA3AF">○ Désactivée</div>
+          </div>
+          <div id="annonce-preview" style="display:none;align-items:center;justify-content:center;padding:12px 20px;background:#F97316;color:#fff;font-size:13px;font-weight:600;text-align:center;gap:10px">
+            <span id="annonce-preview-text"></span>
+          </div>
+          <div style="padding:12px 16px;display:flex;gap:8px;flex-wrap:wrap">
+            <button class="admin-save-primary" style="flex:1;background:#EF4444;min-width:120px" onclick="deactivateAnnonce(this)">⏸ Désactiver</button>
+            <button class="admin-save-primary" style="flex:1;background:#6B7280;min-width:120px" onclick="deleteAnnonce(this)">🗑 Supprimer</button>
+          </div>
+        </div>
+
+        <!-- Edit / create -->
         <div class="admin-card">
-          <div class="admin-card-title">Configuration</div>
+          <div class="admin-card-title">Modifier / créer une bannière</div>
           <div class="admin-toggle-row">
             <label class="admin-toggle"><input type="checkbox" id="sc-annonce-active"><span class="admin-toggle-slider"></span></label>
             <span class="admin-toggle-label">Afficher la bannière</span>
           </div>
-          <div class="admin-field-group">
+          <div class="admin-field-group" style="margin-top:12px">
             <label class="admin-field-label">Texte de l'annonce</label>
             <textarea class="admin-field-input admin-field-textarea" id="sc-annonce-text" placeholder="Promo : -25€ sur les écrans ce week-end !"></textarea>
           </div>
           <div class="admin-field-group">
-            <label class="admin-field-label">Couleur de la bannière</label>
+            <label class="admin-field-label">Couleur</label>
             <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px">
               <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="annonce-color" value="#F97316" checked><span style="background:#F97316;width:22px;height:22px;border-radius:50%;display:inline-block;border:2px solid #fff;box-shadow:0 0 0 2px #F97316"></span><span style="font-size:12px;font-weight:600">Orange</span></label>
               <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="annonce-color" value="#1B4AAF"><span style="background:#1B4AAF;width:22px;height:22px;border-radius:50%;display:inline-block;border:2px solid #fff;box-shadow:0 0 0 2px #1B4AAF"></span><span style="font-size:12px;font-weight:600">Bleu</span></label>
@@ -4327,7 +4392,7 @@ function selectSlot(dateStr, time) {
               <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="annonce-color" value="#16A34A"><span style="background:#16A34A;width:22px;height:22px;border-radius:50%;display:inline-block;border:2px solid #fff;box-shadow:0 0 0 2px #16A34A"></span><span style="font-size:12px;font-weight:600">Vert</span></label>
             </div>
           </div>
-          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('annonce',this)">Enregistrer</button></div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('annonce',this)">✓ Enregistrer &amp; afficher</button></div>
         </div>
       </div>
 
