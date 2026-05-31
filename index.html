@@ -3650,8 +3650,7 @@ async function saveSection(section, btn) {
     data = { favicon_url: favUrl };
     if (favUrl) { let favicon = document.querySelector('link[rel="icon"]'); if(!favicon) { favicon = document.createElement('link'); favicon.rel = 'icon'; document.head.appendChild(favicon); } favicon.href = favUrl; }
   } else if (section === 'theme-photos') {
-    const slides = v('sc-photo-slides').split('
-').map(s=>s.trim()).filter(Boolean);
+    const slides = v('sc-photo-slides').split('\n').map(s=>s.trim()).filter(Boolean);
     const slidesStr = slides.join(',');
     path = 'siteContent/theme';
     data = { photo_slides: slidesStr };
