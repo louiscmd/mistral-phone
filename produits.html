@@ -486,6 +486,18 @@
       section { padding: 64px 16px; }
       .produits-categories { grid-template-columns: 1fr; }
     }
+
+    /* ─── PRODUCT GRID ─── */
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 20px; margin-bottom: 32px; }
+    .product-card { background: #fff; border: 1px solid var(--gray-100); border-radius: 14px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,.06); transition: transform .2s, box-shadow .2s; }
+    .product-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.1); }
+    .product-card-name { font-size: 16px; font-weight: 700; color: var(--gray-900); margin-bottom: 6px; }
+    .product-card-state { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 12px; background: #DCFCE7; color: #16A34A; margin-bottom: 8px; }
+    .product-card-desc { font-size: 13px; color: var(--gray-600); margin-bottom: 12px; }
+    .product-card-price { font-size: 22px; font-weight: 900; color: var(--orange); margin-bottom: 12px; }
+    .product-card-cta { display: block; text-align: center; background: var(--orange); color: #fff; padding: 10px; border-radius: 8px; font-weight: 700; font-size: 13px; text-decoration: none; transition: background .2s; }
+    .product-card-cta:hover { background: var(--orange-dark); }
+
   </style>
 </head>
 <body>
@@ -531,20 +543,25 @@
   <div class="section-inner">
 
     <div class="smartphones-section reveal">
-      <h2 class="smartphones-title">Smartphones</h2>
-      <ul class="smartphones-list">
-        <li>iPhone X</li>
-        <li>Samsung Galaxy S9 Plus</li>
-        <li>Huawei</li>
-        <li>iPhone</li>
-      </ul>
-      <p class="store-note">Plus de produits disponibles en boutique.</p>
+      <h2 class="smartphones-title" id="produits-page-title">Smartphones</h2>
+      <div id="products-container">
+        <!-- Dynamic product cards rendered by Firebase -->
+      </div>
+      <div id="products-fallback">
+        <ul class="smartphones-list" id="static-product-list">
+          <li>iPhone X</li>
+          <li>Samsung Galaxy S9 Plus</li>
+          <li>Huawei</li>
+          <li>iPhone</li>
+        </ul>
+        <p class="store-note">Plus de produits disponibles en boutique.</p>
+      </div>
     </div>
 
     <div class="produits-info reveal">
       <div class="produits-info-text">
         <h3>Catalogue disponible en boutique</h3>
-        <p>Notre sélection évolue régulièrement. Venez nous rendre visite ou contactez-nous pour connaître les disponibilités et les tarifs actuels. Tous nos appareils sont testés et débloqués tout opérateur.</p>
+        <p id="produits-page-desc">Notre sélection évolue régulièrement. Venez nous rendre visite ou contactez-nous pour connaître les disponibilités et les tarifs actuels. Tous nos appareils sont testés et débloqués tout opérateur.</p>
       </div>
       <a href="index.html#boutiques" class="btn-secondary">Nos adresses</a>
     </div>
@@ -618,6 +635,61 @@
 </footer>
 
 <a href="#" class="back-top" id="backTop">↑</a>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<script>
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyDmWjAqqDsaM_Us6KuUZxqbP9ytiXJZSIE",
+  authDomain: "mistral-phone-20e50.firebaseapp.com",
+  databaseURL: "https://mistral-phone-20e50-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "mistral-phone-20e50",
+  storageBucket: "mistral-phone-20e50.firebasestorage.app",
+  messagingSenderId: "394917341229",
+  appId: "1:394917341229:web:32dc3f99a84d535ec7b0a4"
+};
+let db = null;
+try { firebase.initializeApp(FIREBASE_CONFIG); db = firebase.database(); } catch(e) {}
+
+async function loadProduitsContent() {
+  if (!db) return;
+  try {
+    const snap = await db.ref('siteContent/produits').once('value');
+    const data = snap.val() || {};
+    const titleEl = document.getElementById('produits-page-title');
+    const descEl  = document.getElementById('produits-page-desc');
+    if (titleEl && data.title) titleEl.textContent = data.title;
+    if (descEl  && data.description) descEl.textContent = data.description;
+  } catch(e) {}
+}
+
+async function loadProducts() {
+  if (!db) return;
+  const container = document.getElementById('products-container');
+  const fallback  = document.getElementById('products-fallback');
+  try {
+    const snap = await db.ref('siteContent/products').once('value');
+    const data = snap.val() || {};
+    const products = Object.values(data).filter(p => p.active !== false);
+    if (!products.length) return; // keep static fallback
+    if (fallback) fallback.style.display = 'none';
+    if (container) {
+      container.innerHTML = '<div class="product-grid">' + products.map(p => `
+        <div class="product-card">
+          <div class="product-card-name">${p.name || ''}</div>
+          ${p.state ? '<div class="product-card-state">'+p.state+'</div>' : ''}
+          ${p.desc  ? '<div class="product-card-desc">'+p.desc+'</div>'  : ''}
+          ${p.price ? '<div class="product-card-price">'+p.price+'</div>' : ''}
+          <a href="index.html#contact" class="product-card-cta">📅 Réserver / Renseignements</a>
+        </div>`).join('') + '</div>';
+    }
+  } catch(e) {}
+}
+
+loadProduitsContent();
+loadProducts();
+</script>
 
 <script>
 // ─── NAVBAR SCROLL ───

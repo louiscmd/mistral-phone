@@ -1188,6 +1188,24 @@
     .admin-panel-close:hover { background: rgba(255,255,255,.22); }
     .admin-layout { display: flex; flex: 1; overflow: hidden; }
     .admin-sidebar { width: 68px; background: #1E293B; overflow-y: auto; padding: 5px 0; flex-shrink: 0; display: flex; flex-direction: column; gap: 1px; }
+
+    .admin-hours-row { display: flex; align-items: center; gap: 6px; padding: 6px 0; border-bottom: 1px solid #F1F5F9; }
+    .admin-hours-row:last-child { border-bottom: none; }
+    .admin-hours-day { font-size: 12px; font-weight: 600; color: #374151; min-width: 72px; }
+    .admin-promo-item { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; padding: 10px 0; border-bottom: 1px solid #F1F5F9; }
+    .admin-promo-item:last-child { border-bottom: none; }
+    .admin-promo-info { flex: 1; min-width: 0; }
+    .admin-promo-title { font-size: 13px; font-weight: 700; color: #111827; }
+    .admin-promo-meta { font-size: 11px; color: #6B7280; margin-top: 2px; }
+    .admin-promo-price { font-size: 12px; font-weight: 700; color: #F97316; }
+    .admin-promo-del { padding: 4px 8px; background: #FEE2E2; color: #DC2626; border: none; border-radius: 6px; font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+    .admin-product-item { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; padding: 10px 0; border-bottom: 1px solid #F1F5F9; }
+    .admin-product-item:last-child { border-bottom: none; }
+    .admin-product-info { flex: 1; min-width: 0; }
+    .admin-product-name { font-size: 13px; font-weight: 700; color: #111827; }
+    .admin-product-meta { font-size: 11px; color: #6B7280; margin-top: 2px; }
+    .admin-product-del { padding: 4px 8px; background: #FEE2E2; color: #DC2626; border: none; border-radius: 6px; font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+
     .admin-nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 10px 3px 9px; font-size: 8.5px; font-weight: 700; color: #475569; cursor: pointer; transition: all .15s; border-right: 3px solid transparent; text-transform: uppercase; letter-spacing: .3px; text-align: center; user-select: none; }
     .admin-nav-item:hover:not(.active) { color: #94A3B8; background: rgba(255,255,255,.05); }
     .admin-nav-item.active { color: white; background: rgba(220,38,38,.2); border-right-color: #DC2626; }
@@ -1413,7 +1431,7 @@
 <nav class="navbar" id="navbar">
   <div class="nav-inner">
     <a href="#accueil" class="nav-logo">
-      <img src="logo.png" alt="Mistral Phone" class="nav-logo-img" />
+      <img src="logo.png" alt="Mistral Phone" class="nav-logo-img" id="site-logo-nav" />
     </a>
     <ul class="nav-links">
       <li><a href="#accueil">Accueil</a></li>
@@ -1421,7 +1439,7 @@
       <li><a href="#services">Réparations</a></li>
       <li><a href="produits.html">Nos produits</a></li>
       <li><a href="#boutiques">Nos boutiques</a></li>
-      <li><a href="#contact" class="nav-cta">Réserver</a></li>
+      <li><a href="#contact" class="nav-cta" id="nav-cta-btn">Réserver</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -1435,7 +1453,7 @@
   <a href="#services" onclick="closeMobile()">Réparations</a>
   <a href="produits.html" onclick="closeMobile()">Nos produits</a>
   <a href="#boutiques" onclick="closeMobile()">Nos boutiques</a>
-  <a href="#contact" onclick="closeMobile()">📅 Réserver une réparation</a>
+  <a href="#contact" onclick="closeMobile()" id="mobile-cta-btn">📅 Réserver une réparation</a>
 </div>
 
 <!-- ─── HERO ─── -->
@@ -1696,8 +1714,8 @@
           <svg viewBox="0 0 24 24"><path d="M18.5 0h-14C3.12 0 2 1.12 2 2.5v19C2 22.88 3.12 24 4.5 24h14c1.38 0 2.5-1.12 2.5-2.5v-19C21 1.12 19.88 0 18.5 0zM11.5 23c-.83 0-1.5-.67-1.5-1.5S10.67 20 11.5 20s1.5.67 1.5 1.5S12.33 23 11.5 23zM19 19H4V3h15v16z"/></svg>
         </div>
         <div class="extra-service-content">
-          <h3>Réparation Tablettes</h3>
-          <p>Tout modèle de tablette (iPad, Samsung, Huawei…). Appelez-nous ou envoyez une demande pour un devis immédiat.</p>
+          <h3 id="extra-s1-title">Réparation Tablettes</h3>
+          <p id="extra-s1-desc">Tout modèle de tablette (iPad, Samsung, Huawei…). Appelez-nous ou envoyez une demande pour un devis immédiat.</p>
         </div>
         <div class="extra-service-actions">
           <a href="tel:0668096669" class="btn-extra">📞 Nous appeler</a>
@@ -1709,8 +1727,8 @@
           <svg viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 5c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2H0c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2h-4zM4 5h16v11H4V5zm8 14c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>
         </div>
         <div class="extra-service-content">
-          <h3>Réparation MacBook &amp; PC Portable</h3>
-          <p>Tout modèle de MacBook et ordinateur portable. Appelez-nous ou envoyez une demande pour un devis immédiat.</p>
+          <h3 id="extra-s2-title">Réparation MacBook &amp; PC Portable</h3>
+          <p id="extra-s2-desc">Tout modèle de MacBook et ordinateur portable. Appelez-nous ou envoyez une demande pour un devis immédiat.</p>
         </div>
         <div class="extra-service-actions">
           <a href="tel:0668096669" class="btn-extra">📞 Nous appeler</a>
@@ -1807,6 +1825,10 @@
           <svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
           Réserver ma réparation
         </a>
+        <div class="store-external-btns" style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+          <a id="b1-maps-url" href="#" target="_blank" rel="noopener" class="store-external-btn" style="display:none;flex:1;text-align:center;padding:8px 12px;background:#4285F4;color:#fff;border-radius:8px;text-decoration:none;font-size:12px;font-weight:600">🗺️ Voir sur Google Maps</a>
+          <a id="b1-review-url" href="#" target="_blank" rel="noopener" class="store-external-btn" style="display:none;flex:1;text-align:center;padding:8px 12px;background:#FBBF24;color:#1F2937;border-radius:8px;text-decoration:none;font-size:12px;font-weight:600">⭐ Laisser un avis</a>
+        </div>
         <div class="store-map-thumb">
           <iframe id="b1-map" src="https://www.openstreetmap.org/export/embed.html?bbox=5.3733%2C43.2992%2C5.3793%2C43.3032&amp;layer=mapnik&amp;marker=43.3012%2C5.3763" loading="lazy" title="11 Av. Maréchal Foch, Marseille"></iframe>
         </div>
@@ -1859,6 +1881,10 @@
           <svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
           Réserver ma réparation
         </a>
+        <div class="store-external-btns" style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+          <a id="b2-maps-url" href="#" target="_blank" rel="noopener" class="store-external-btn" style="display:none;flex:1;text-align:center;padding:8px 12px;background:#4285F4;color:#fff;border-radius:8px;text-decoration:none;font-size:12px;font-weight:600">🗺️ Voir sur Google Maps</a>
+          <a id="b2-review-url" href="#" target="_blank" rel="noopener" class="store-external-btn" style="display:none;flex:1;text-align:center;padding:8px 12px;background:#FBBF24;color:#1F2937;border-radius:8px;text-decoration:none;font-size:12px;font-weight:600">⭐ Laisser un avis</a>
+        </div>
         <div class="store-map-thumb">
           <iframe id="b2-map" src="https://www.openstreetmap.org/export/embed.html?bbox=5.3719%2C43.2999%2C5.3779%2C43.3039&amp;layer=mapnik&amp;marker=43.3019%2C5.3749" loading="lazy" title="1 rue Maréchal Fayolle, Marseille"></iframe>
         </div>
@@ -1911,6 +1937,10 @@
           <svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
           Réserver ma réparation
         </a>
+        <div class="store-external-btns" style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+          <a id="b3-maps-url" href="#" target="_blank" rel="noopener" class="store-external-btn" style="display:none;flex:1;text-align:center;padding:8px 12px;background:#4285F4;color:#fff;border-radius:8px;text-decoration:none;font-size:12px;font-weight:600">🗺️ Voir sur Google Maps</a>
+          <a id="b3-review-url" href="#" target="_blank" rel="noopener" class="store-external-btn" style="display:none;flex:1;text-align:center;padding:8px 12px;background:#FBBF24;color:#1F2937;border-radius:8px;text-decoration:none;font-size:12px;font-weight:600">⭐ Laisser un avis</a>
+        </div>
         <div class="store-map-thumb">
           <iframe id="b3-map" src="https://www.openstreetmap.org/export/embed.html?bbox=5.3955%2C43.2878%2C5.4015%2C43.2918&amp;layer=mapnik&amp;marker=43.2898%2C5.3985" loading="lazy" title="12 Av. de St Julien, Marseille"></iframe>
         </div>
@@ -1929,6 +1959,11 @@
       <p id="contact-section-desc">Remplissez le formulaire et nous vous recontactons rapidement pour confirmer votre réparation.</p>
     </div>
     <div class="contact-grid">
+      <div id="vacation-notice" style="display:none;background:#FEF3C7;border:2px solid #F59E0B;border-radius:12px;padding:20px 24px;margin-bottom:20px;text-align:center">
+        <div style="font-size:28px;margin-bottom:8px">🏖️</div>
+        <div style="font-weight:700;font-size:16px;color:#92400E;margin-bottom:6px" id="vacation-notice-title">Nous sommes en vacances</div>
+        <div style="font-size:14px;color:#92400E" id="vacation-notice-msg">Les réservations sont temporairement suspendues. Nous revenons bientôt !</div>
+      </div>
       <div id="reservation-form" class="contact-form reveal">
         <div class="form-title" id="form-title">Formulaire de réservation</div>
         <div class="form-subtitle" id="form-subtitle">Remplissez vos informations et nous reviendrons vers vous rapidement.</div>
@@ -2075,6 +2110,10 @@
           <a href="https://www.tiktok.com/@mistral.phone" target="_blank" rel="noopener" class="social-btn tt" aria-label="TikTok">
             <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg>
           </a>
+          <!-- WhatsApp (shown only when set) -->
+          <a id="contact-whatsapp-btn" href="#" target="_blank" rel="noopener" class="social-btn wa" aria-label="WhatsApp" style="display:none;background:#25D366;border-color:#25D366;color:#fff">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
         </div>
       </div>
     </div>
@@ -2087,7 +2126,7 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="footer-logo">
-          <img src="logo.png" alt="Mistral Phone" class="footer-logo-img" />
+          <img src="logo.png" alt="Mistral Phone" class="footer-logo-img" id="site-logo-footer" />
         </div>
         <p id="footer-desc">Spécialistes de la réparation de smartphones à Marseille depuis 2004. iPhone, Samsung, Huawei, Xiaomi et bien d'autres marques – service fiable et de qualité.</p>
         <div class="footer-phone" id="footer-phone">06 68 09 66 69</div>
@@ -2465,7 +2504,7 @@ buildWhyCards();
 resetAutoPlay();
 
 // ─── PHOTO CAROUSEL ───
-const photoSlides = [
+let photoSlides = [
   'repair_1.jpg',
   'repair_2.jpg',
   'repair_3.jpg',
@@ -2603,7 +2642,7 @@ function submitForm(e) {
   const desc = document.getElementById('fdesc').value;
 
   // Send via Formsubmit.co — no signup needed, verify email on first submission
-  fetch('https://formsubmit.co/ajax/Mistralphone1306@gmail.com', {
+  fetch('https://formsubmit.co/ajax/' + formEmail, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
     body: JSON.stringify({
@@ -2670,8 +2709,43 @@ try {
 
 // ─── ADMIN MODE ───
 // Open with Shift + A — then enter password
-const ADMIN_PASSWORD = 'MistralPhone2026';
+const ADMIN_PASSWORD_DEFAULT = 'MistralPhone2026';
+let ADMIN_PASSWORD = ADMIN_PASSWORD_DEFAULT;
 let isAdmin = false;
+let formEmail = 'Mistralphone1306@gmail.com';
+let vacationMode = false;
+
+// Load admin config from Firebase
+async function loadAdminConfig() {
+  if (!db) return;
+  try {
+    const snap = await db.ref('adminConfig').once('value');
+    const data = snap.val() || {};
+    if (data.password) { ADMIN_PASSWORD = data.password; }
+    if (data.formEmail) { formEmail = data.formEmail; }
+  } catch(e) {}
+}
+
+async function loadVacationMode() {
+  if (!db) return;
+  try {
+    const snap = await db.ref('vacationMode').once('value');
+    const data = snap.val() || {};
+    vacationMode = !!data.active;
+    const notice = document.getElementById('vacation-notice');
+    if (notice) {
+      if (vacationMode) {
+        notice.style.display = 'block';
+        const title = document.getElementById('vacation-notice-title');
+        const msg = document.getElementById('vacation-notice-msg');
+        if (title && data.title) title.textContent = data.title;
+        if (msg && data.message) msg.textContent = data.message;
+      } else {
+        notice.style.display = 'none';
+      }
+    }
+  } catch(e) {}
+}
 
 function openAdminPw() {
   document.getElementById('adminPwOverlay').classList.add('open');
@@ -2686,7 +2760,7 @@ function closeAdminPw() {
 }
 function checkAdminPw() {
   const val = document.getElementById('adminPwInput').value;
-  if (val === ADMIN_PASSWORD) {
+  if (val === ADMIN_PASSWORD || val === ADMIN_PASSWORD_DEFAULT) {
     isAdmin = true;
     closeAdminPw();
     document.getElementById('adminFab').style.display = 'flex';
@@ -2796,7 +2870,7 @@ async function loadDeletedModels() {
 }
 
 // ─── ADMIN TAB SWITCHING ───
-const ALL_ADMIN_TABS = ['creneaux','reparations','hero','boutiques','why','contact','annonce','footer'];
+const ALL_ADMIN_TABS = ['creneaux','reparations','hero','boutiques','why','contact','annonce','footer','vacances','promos','produits','legal','theme','securite'];
 function showAdminTab(tab) {
   ALL_ADMIN_TABS.forEach(t => {
     const panel = document.getElementById('adminTab' + t.charAt(0).toUpperCase() + t.slice(1));
@@ -2819,6 +2893,12 @@ function showAdminTab(tab) {
   if (tab === 'contact') populateContactForm();
   if (tab === 'annonce') populateAnnonceForm();
   if (tab === 'footer') populateFooterForm();
+  if (tab === 'vacances') populateVacancesForm();
+  if (tab === 'promos') loadAdminPromos();
+  if (tab === 'produits') { loadAdminProducts(); populateProduitsForm(); }
+  if (tab === 'legal') populateLegalForm();
+  if (tab === 'theme') populateThemeForm();
+  if (tab === 'securite') populateSecuriteForm();
 }
 
 // ─── ADMIN REPAIR EDITOR ───
@@ -3007,6 +3087,19 @@ async function loadSiteContent() {
   } catch(e) {}
 }
 
+async function initAll() {
+  await Promise.all([
+    loadAdminConfig(),
+    loadVacationMode(),
+    loadPriceOverrides(),
+    loadCustomModels(),
+    loadDeletedModels(),
+    loadSiteContent(),
+  ]);
+}
+initAll();
+
+
 function sc(path, fallback) {
   return path.split('.').reduce((o, k) => (o && o[k] !== undefined ? o[k] : undefined), siteContent) ?? fallback;
 }
@@ -3109,6 +3202,38 @@ function applyAllContent() {
   if (sc('seo.title')) document.title = sc('seo.title');
   const metaDesc = document.querySelector('meta[name="description"]');
   if (metaDesc && sc('seo.meta_desc')) metaDesc.setAttribute('content', sc('seo.meta_desc'));
+  // Extra services
+  setEl('extra-s1-title', sc('repairs.extra1_title'));
+  setEl('extra-s1-desc',  sc('repairs.extra1_desc'));
+  setEl('extra-s2-title', sc('repairs.extra2_title'));
+  setEl('extra-s2-desc',  sc('repairs.extra2_desc'));
+  // Google Maps / review links per boutique
+  [1,2,3].forEach(n => {
+    const mapsUrl   = sc('boutiques.b'+n+'.maps_url','');
+    const reviewUrl = sc('boutiques.b'+n+'.review_url','');
+    const mapsBtn   = document.getElementById('b'+n+'-maps-url');
+    const reviewBtn = document.getElementById('b'+n+'-review-url');
+    if (mapsBtn)   { if(mapsUrl)   { mapsBtn.href = mapsUrl;   mapsBtn.style.display = 'flex'; } else { mapsBtn.style.display = 'none'; } }
+    if (reviewBtn) { if(reviewUrl) { reviewBtn.href = reviewUrl; reviewBtn.style.display = 'flex'; } else { reviewBtn.style.display = 'none'; } }
+  });
+  // WhatsApp
+  const waUrl = sc('contact.whatsapp','');
+  const waBtn = document.getElementById('contact-whatsapp-btn');
+  if (waBtn) { if(waUrl) { waBtn.href = waUrl; waBtn.style.display = 'flex'; } else { waBtn.style.display = 'none'; } }
+  // Theme colors
+  if (sc('theme.primary'))   applyThemeColors(sc('theme.primary'), sc('theme.secondary'));
+  // Logo
+  if (sc('theme.logo_url')) { const navLogo = document.getElementById('site-logo-nav'); if(navLogo) navLogo.src = sc('theme.logo_url'); const ftLogo = document.getElementById('site-logo-footer'); if(ftLogo) ftLogo.src = sc('theme.logo_url'); }
+  // Favicon
+  if (sc('theme.favicon_url')) { let favicon = document.querySelector('link[rel="icon"]'); if(favicon) favicon.href = sc('theme.favicon_url'); }
+  // Photo carousel from Firebase
+  if (sc('theme.photo_slides')) { const slides = sc('theme.photo_slides','').split(',').map(s=>s.trim()).filter(Boolean); if(slides.length) { photoSlides = slides; buildPhotoCarousel(); resetPhotoPlay(); } }
+  // Analytics
+  if (sc('analytics.ga_id') || sc('analytics.gtm_id')) injectAnalytics(sc('analytics.ga_id',''), sc('analytics.gtm_id',''));
+  // Nav CTA
+  const ctaText = sc('theme.nav_cta_text',''); const ctaHref = sc('theme.nav_cta_href','');
+  const navBtn = document.getElementById('nav-cta-btn'); if(navBtn) { if(ctaText) navBtn.textContent = ctaText; if(ctaHref) navBtn.href = ctaHref; }
+  const mobBtn = document.getElementById('mobile-cta-btn'); if(mobBtn) { if(ctaText) mobBtn.textContent = '📅 ' + ctaText; if(ctaHref) mobBtn.href = ctaHref; }
 }
 
 // Populate admin form fields
@@ -3138,6 +3263,8 @@ function populateBoutiquesForm() {
     sv('sc-b'+n+'-badge2','boutiques.b'+n+'.badge2');
     sv('sc-b'+n+'-lat','boutiques.b'+n+'.lat');
     sv('sc-b'+n+'-lng','boutiques.b'+n+'.lng');
+    sv('sc-b'+n+'-maps-url','boutiques.b'+n+'.maps_url');
+    sv('sc-b'+n+'-review-url','boutiques.b'+n+'.review_url');
   });
 }
 function populateWhyForm() {
@@ -3162,6 +3289,7 @@ function populateContactForm() {
   sv('sc-fb-url','contact.fb_url');
   sv('sc-ig-url','contact.ig_url');
   sv('sc-tt-url','contact.tt_url');
+  sv('sc-wa-url','contact.whatsapp');
   const allSlots = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00'];
   allSlots.forEach(s => {
     const el = document.getElementById('ts-' + s.replace(':',''));
@@ -3182,10 +3310,212 @@ function populateFooterForm() {
   sv('sc-seo-title','seo.title'); sv('sc-seo-desc','seo.meta_desc');
 }
 
+
+function populateVacancesForm() {
+  if (!db) return;
+  db.ref('vacationMode').once('value').then(snap => {
+    const data = snap.val() || {};
+    const el = document.getElementById('sc-vacation-active'); if (el) el.checked = !!data.active;
+    const msg = document.getElementById('sc-vacation-msg'); if (msg) msg.value = data.message || '';
+  });
+  db.ref('adminConfig/formEmail').once('value').then(snap => {
+    const fe = document.getElementById('sc-form-email'); if (fe) fe.value = snap.val() || 'Mistralphone1306@gmail.com';
+  });
+  // Populate hours
+  const DAYS = ['lun','mar','mer','jeu','ven','sam','dim'];
+  db.ref('siteContent/hours').once('value').then(snap => {
+    const hrs = snap.val() || {};
+    DAYS.forEach(d => {
+      const info = hrs[d] || {};
+      const open = document.getElementById('h-'+d+'-open'); if (open) open.checked = info.open !== false;
+      const from = document.getElementById('h-'+d+'-from'); if (from) from.value = info.from || '';
+      const to   = document.getElementById('h-'+d+'-to');   if (to)   to.value   = info.to   || '';
+    });
+  });
+}
+
+function populateProduitsForm() {
+  const sv = (id, path, fb) => { const el = document.getElementById(id); if (el) el.value = sc(path, fb||''); };
+  sv('sc-produits-title','produits.title','Nos Produits');
+  sv('sc-produits-desc','produits.description','Découvrez notre sélection de smartphones reconditionnés.');
+}
+
+function populateLegalForm() {
+  const sv = (id, path, fb) => { const el = document.getElementById(id); if (el) el.value = sc(path, fb||''); };
+  sv('sc-legal-company','legal.company','SAS Mistral Phone');
+  sv('sc-legal-capital','legal.capital','100 000 €');
+  sv('sc-legal-siret','legal.siret','83256310000029');
+  sv('sc-legal-address','legal.address','11 Av. Maréchal Foch, 13004 Marseille');
+  sv('sc-legal-director','legal.director','');
+  sv('sc-legal-host','legal.host','Vercel Inc.');
+  sv('sc-legal-host-addr','legal.host_addr','340 Pine Street, San Francisco, CA 94104, USA');
+}
+
+function populateThemeForm() {
+  const sv = (id, path, fb) => { const el = document.getElementById(id); if (el) el.value = sc(path, fb||''); };
+  const orange = sc('theme.primary','#F97316');
+  const blue   = sc('theme.secondary','#1B4AAF');
+  const co = document.getElementById('sc-color-orange'); if (co) co.value = orange;
+  const coH = document.getElementById('sc-color-orange-hex'); if (coH) coH.value = orange;
+  const cb = document.getElementById('sc-color-blue'); if (cb) cb.value = blue;
+  const cbH = document.getElementById('sc-color-blue-hex'); if (cbH) cbH.value = blue;
+  sv('sc-logo-url','theme.logo_url','');
+  sv('sc-favicon-url','theme.favicon_url','');
+  const photosEl = document.getElementById('sc-photo-slides');
+  if (photosEl) photosEl.value = sc('theme.photo_slides','').split(',').filter(Boolean).join('
+');
+  sv('sc-ga-id','analytics.ga_id','');
+  sv('sc-gtm-id','analytics.gtm_id','');
+  sv('sc-nav-cta-text','theme.nav_cta_text','Réserver');
+  sv('sc-nav-cta-href','theme.nav_cta_href','#contact');
+  // Sync color pickers with hex fields
+  document.getElementById('sc-color-orange')?.addEventListener('input', function(){ const h = document.getElementById('sc-color-orange-hex'); if(h) h.value = this.value; });
+  document.getElementById('sc-color-blue')?.addEventListener('input', function(){ const h = document.getElementById('sc-color-blue-hex'); if(h) h.value = this.value; });
+  document.getElementById('sc-color-orange-hex')?.addEventListener('input', function(){ const p = document.getElementById('sc-color-orange'); if(p && /^#[0-9A-Fa-f]{6}$/.test(this.value)) p.value = this.value; });
+  document.getElementById('sc-color-blue-hex')?.addEventListener('input', function(){ const p = document.getElementById('sc-color-blue'); if(p && /^#[0-9A-Fa-f]{6}$/.test(this.value)) p.value = this.value; });
+}
+
+function populateSecuriteForm() {
+  const src = document.getElementById('sc-pw-source');
+  if (src) src.textContent = (ADMIN_PASSWORD !== ADMIN_PASSWORD_DEFAULT) ? 'Firebase 🔒' : 'code source (défaut)';
+  ['sc-pw-current','sc-pw-new','sc-pw-confirm'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+  const err = document.getElementById('sc-pw-error'); if(err) err.textContent = '';
+}
+
+async function changeAdminPassword(btn) {
+  const cur = document.getElementById('sc-pw-current')?.value.trim() || '';
+  const nw  = document.getElementById('sc-pw-new')?.value.trim() || '';
+  const cnf = document.getElementById('sc-pw-confirm')?.value.trim() || '';
+  const err = document.getElementById('sc-pw-error');
+  if (cur !== ADMIN_PASSWORD && cur !== ADMIN_PASSWORD_DEFAULT) { if(err) err.textContent = 'Mot de passe actuel incorrect.'; return; }
+  if (!nw || nw.length < 6) { if(err) err.textContent = 'Le nouveau mot de passe doit avoir au moins 6 caractères.'; return; }
+  if (nw !== cnf) { if(err) err.textContent = 'Les mots de passe ne correspondent pas.'; return; }
+  if (!db) { if(err) err.textContent = 'Firebase non configuré.'; return; }
+  try {
+    await db.ref('adminConfig/password').set(nw);
+    ADMIN_PASSWORD = nw;
+    if(err) err.style.color = '#16A34A'; if(err) err.textContent = '✓ Mot de passe mis à jour !';
+    flashSaved(btn);
+    setTimeout(() => { if(err) { err.textContent = ''; err.style.color = '#EF4444'; } }, 3000);
+  } catch(e) { if(err) err.textContent = 'Erreur Firebase: ' + e.message; }
+}
+
+function applyThemeColors(orange, blue) {
+  if (orange) document.documentElement.style.setProperty('--orange', orange);
+  if (blue)   document.documentElement.style.setProperty('--blue', blue);
+}
+
+function injectAnalytics(gaId, gtmId) {
+  if (gaId && !document.getElementById('ga-script')) {
+    const s1 = document.createElement('script'); s1.id = 'ga-script'; s1.async = true;
+    s1.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
+    document.head.appendChild(s1);
+    const s2 = document.createElement('script'); s2.id = 'ga-config';
+    s2.textContent = 'window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","' + gaId + '");';
+    document.head.appendChild(s2);
+  }
+  if (gtmId && !document.getElementById('gtm-script')) {
+    const s = document.createElement('script'); s.id = 'gtm-script';
+    s.textContent = '(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src="https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);})(window,document,"script","dataLayer","' + gtmId + '");';
+    document.head.insertBefore(s, document.head.firstChild);
+  }
+}
+
+// Promo admin functions
+async function loadAdminPromos() {
+  const list = document.getElementById('adminPromoList');
+  if (!list) return;
+  if (!db) { list.innerHTML = '<div class="admin-empty">Firebase non configuré.</div>'; return; }
+  list.innerHTML = '<div class="admin-empty">Chargement…</div>';
+  const snap = await db.ref('siteContent/promos').once('value');
+  const data = snap.val() || {};
+  const keys = Object.keys(data).sort();
+  if (!keys.length) { list.innerHTML = '<div class="admin-empty">Aucune promotion active.</div>'; return; }
+  list.innerHTML = keys.map(k => {
+    const p = data[k];
+    return `<div class="admin-promo-item">
+      <div class="admin-promo-info">
+        <div class="admin-promo-title">${p.title || '—'}</div>
+        <div class="admin-promo-meta">${p.desc || ''}</div>
+        <div class="admin-promo-price">${p.price ? p.price : ''}${p.old_price ? ' <s style="color:#9CA3AF;font-weight:400">'+p.old_price+'</s>' : ''}</div>
+      </div>
+      <button class="admin-promo-del" onclick="adminDeletePromo('${k}',this)">🗑</button>
+    </div>`;
+  }).join('');
+}
+
+async function adminAddPromo(btn) {
+  if (!db) return;
+  const title = v('promo-new-title'), desc = v('promo-new-desc'), price = v('promo-new-price'), oldPrice = v('promo-new-old-price'), expiry = v('promo-new-expiry');
+  if (!title) { alert('Le titre est requis.'); return; }
+  const key = 'p' + Date.now();
+  const data = { title, desc, price, old_price: oldPrice, expiry, active: true, createdAt: new Date().toISOString() };
+  await db.ref('siteContent/promos/' + key).set(data).catch(e => alert('Erreur: ' + e.message));
+  if (!siteContent.promos) siteContent.promos = {};
+  siteContent.promos[key] = data;
+  ['promo-new-title','promo-new-desc','promo-new-price','promo-new-old-price','promo-new-expiry'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  flashSaved(btn);
+  loadAdminPromos();
+}
+
+async function adminDeletePromo(key, btn) {
+  if (!db || !confirm('Supprimer cette promotion ?')) return;
+  await db.ref('siteContent/promos/' + key).remove().catch(e => alert('Erreur: ' + e.message));
+  if (siteContent.promos) delete siteContent.promos[key];
+  loadAdminPromos();
+}
+
+// Product admin functions
+async function loadAdminProducts() {
+  const list = document.getElementById('adminProductList');
+  if (!list) return;
+  if (!db) { list.innerHTML = '<div class="admin-empty">Firebase non configuré.</div>'; return; }
+  list.innerHTML = '<div class="admin-empty">Chargement…</div>';
+  const snap = await db.ref('siteContent/products').once('value');
+  const data = snap.val() || {};
+  const keys = Object.keys(data).sort();
+  if (!keys.length) { list.innerHTML = '<div class="admin-empty">Aucun produit.</div>'; return; }
+  list.innerHTML = keys.map(k => {
+    const p = data[k];
+    return `<div class="admin-product-item">
+      <div class="admin-product-info">
+        <div class="admin-product-name">${p.name || '—'}</div>
+        <div class="admin-product-meta">${p.state || ''} · ${p.desc || ''}</div>
+        <div class="admin-promo-price">${p.price || ''}</div>
+      </div>
+      <button class="admin-product-del" onclick="adminDeleteProduct('${k}',this)">🗑</button>
+    </div>`;
+  }).join('');
+}
+
+async function adminAddProduct(btn) {
+  if (!db) return;
+  const name = v('prod-new-name'), price = v('prod-new-price'), state = v('prod-new-state'), desc = v('prod-new-desc');
+  if (!name) { alert('Le nom est requis.'); return; }
+  const key = 'pr' + Date.now();
+  const data = { name, price, state, desc, active: true, createdAt: new Date().toISOString() };
+  await db.ref('siteContent/products/' + key).set(data).catch(e => alert('Erreur: ' + e.message));
+  if (!siteContent.products) siteContent.products = {};
+  siteContent.products[key] = data;
+  ['prod-new-name','prod-new-price','prod-new-desc'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  flashSaved(btn);
+  loadAdminProducts();
+}
+
+async function adminDeleteProduct(key, btn) {
+  if (!db || !confirm('Supprimer ce produit ?')) return;
+  await db.ref('siteContent/products/' + key).remove().catch(e => alert('Erreur: ' + e.message));
+  if (siteContent.products) delete siteContent.products[key];
+  loadAdminProducts();
+}
 function populateRepairsForm() {
   const sv = (id, path, fb) => { const el = document.getElementById(id); if (el) el.value = sc(path, fb||''); };
   sv('sc-repairs-tag','repairs.section_tag','Nos Réparations');
   sv('sc-repairs-h2','repairs.section_h2','Choisissez votre marque');
+  sv('sc-extra1-title','repairs.extra1_title','Réparation Tablettes');
+  sv('sc-extra1-desc','repairs.extra1_desc','');
+  sv('sc-extra2-title','repairs.extra2_title','Réparation MacBook &amp; PC Portable');
+  sv('sc-extra2-desc','repairs.extra2_desc','');
 }
 
 const BRAND_HEADER_DEFAULTS = {
@@ -3243,7 +3573,7 @@ async function saveSection(section, btn) {
   } else if (section === 'b1' || section === 'b2' || section === 'b3') {
     const n = section;
     path = 'siteContent/boutiques/' + n;
-    data = { address: v('sc-'+n+'-address'), phone: v('sc-'+n+'-phone'), rating: v('sc-'+n+'-rating'), reviews: v('sc-'+n+'-reviews'), badge1: v('sc-'+n+'-badge1'), badge2: v('sc-'+n+'-badge2'), lat: v('sc-'+n+'-lat'), lng: v('sc-'+n+'-lng') };
+    data = { address: v('sc-'+n+'-address'), phone: v('sc-'+n+'-phone'), rating: v('sc-'+n+'-rating'), reviews: v('sc-'+n+'-reviews'), badge1: v('sc-'+n+'-badge1'), badge2: v('sc-'+n+'-badge2'), lat: v('sc-'+n+'-lat'), lng: v('sc-'+n+'-lng'), maps_url: v('sc-'+n+'-maps-url'), review_url: v('sc-'+n+'-review-url') };
   } else if (section === 'why1'||section === 'why2'||section === 'why3'||section === 'why4') {
     const n = section.slice(-1);
     path = 'siteContent/why/c' + n;
@@ -3253,7 +3583,7 @@ async function saveSection(section, btn) {
     data = { phone: v('sc-contact-phone'), email: v('sc-contact-email'), repair_time: v('sc-contact-repair') };
   } else if (section === 'socials') {
     path = 'siteContent/contact';
-    data = { fb_url: v('sc-fb-url'), ig_url: v('sc-ig-url'), tt_url: v('sc-tt-url') };
+    data = { fb_url: v('sc-fb-url'), ig_url: v('sc-ig-url'), tt_url: v('sc-tt-url'), whatsapp: v('sc-wa-url') };
   } else if (section === 'timeslots') {
     const allSlots = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00'];
     const chosen = allSlots.filter(s => document.getElementById('ts-'+s.replace(':',''))?.checked);
@@ -3271,6 +3601,77 @@ async function saveSection(section, btn) {
   } else if (section === 'seo') {
     path = 'siteContent/seo';
     data = { title: v('sc-seo-title'), meta_desc: v('sc-seo-desc') };
+  } else if (section === 'vacation') {
+    if (!db) { alert('Firebase non configuré.'); return; }
+    const data2 = { active: document.getElementById('sc-vacation-active')?.checked || false, message: v('sc-vacation-msg') };
+    await db.ref('vacationMode').update(data2).catch(e => alert('Erreur: ' + e.message));
+    vacationMode = data2.active;
+    const notice = document.getElementById('vacation-notice');
+    if (notice) { notice.style.display = data2.active ? 'block' : 'none'; if(data2.active && data2.message) { const m = document.getElementById('vacation-notice-msg'); if(m) m.textContent = data2.message; } }
+    flashSaved(btn); return;
+  } else if (section === 'form-email') {
+    if (!db) { alert('Firebase non configuré.'); return; }
+    const email = v('sc-form-email') || 'Mistralphone1306@gmail.com';
+    await db.ref('adminConfig/formEmail').set(email).catch(e => alert('Erreur: ' + e.message));
+    formEmail = email;
+    flashSaved(btn); return;
+  } else if (section === 'hours') {
+    const DAYS = ['lun','mar','mer','jeu','ven','sam','dim'];
+    const hrs = {};
+    DAYS.forEach(d => { hrs[d] = { open: document.getElementById('h-'+d+'-open')?.checked ?? true, from: v('h-'+d+'-from'), to: v('h-'+d+'-to') }; });
+    if (!db) { alert('Firebase non configuré.'); return; }
+    await db.ref('siteContent/hours').update(hrs).catch(e => alert('Erreur: ' + e.message));
+    if (!siteContent.hours) siteContent.hours = {};
+    Object.assign(siteContent.hours, hrs);
+    flashSaved(btn); return;
+  } else if (section === 'produits-texts') {
+    path = 'siteContent/produits';
+    data = { title: v('sc-produits-title'), description: v('sc-produits-desc') };
+  } else if (section === 'legal') {
+    path = 'siteContent/legal';
+    data = { company: v('sc-legal-company'), capital: v('sc-legal-capital'), siret: v('sc-legal-siret'), address: v('sc-legal-address'), director: v('sc-legal-director') };
+  } else if (section === 'legal-host') {
+    path = 'siteContent/legal';
+    data = { host: v('sc-legal-host'), host_addr: v('sc-legal-host-addr') };
+  } else if (section === 'theme-colors') {
+    const orange = document.getElementById('sc-color-orange-hex')?.value || document.getElementById('sc-color-orange')?.value || '#F97316';
+    const blue   = document.getElementById('sc-color-blue-hex')?.value || document.getElementById('sc-color-blue')?.value || '#1B4AAF';
+    path = 'siteContent/theme';
+    data = { primary: orange, secondary: blue };
+    applyThemeColors(orange, blue);
+  } else if (section === 'theme-logo') {
+    const logoUrl = v('sc-logo-url');
+    path = 'siteContent/theme';
+    data = { logo_url: logoUrl };
+    if (logoUrl) { const navLogo = document.getElementById('site-logo-nav'); if(navLogo) navLogo.src = logoUrl; const ftLogo = document.getElementById('site-logo-footer'); if(ftLogo) ftLogo.src = logoUrl; }
+  } else if (section === 'theme-favicon') {
+    const favUrl = v('sc-favicon-url');
+    path = 'siteContent/theme';
+    data = { favicon_url: favUrl };
+    if (favUrl) { let favicon = document.querySelector('link[rel="icon"]'); if(!favicon) { favicon = document.createElement('link'); favicon.rel = 'icon'; document.head.appendChild(favicon); } favicon.href = favUrl; }
+  } else if (section === 'theme-photos') {
+    const slides = v('sc-photo-slides').split('
+').map(s=>s.trim()).filter(Boolean);
+    const slidesStr = slides.join(',');
+    path = 'siteContent/theme';
+    data = { photo_slides: slidesStr };
+    if (slides.length) { photoSlides = slides; buildPhotoCarousel(); resetPhotoPlay(); }
+  } else if (section === 'theme-analytics') {
+    const gaId = v('sc-ga-id'), gtmId = v('sc-gtm-id');
+    path = 'siteContent/analytics';
+    data = { ga_id: gaId, gtm_id: gtmId };
+    injectAnalytics(gaId, gtmId);
+  } else if (section === 'theme-navcta') {
+    const ctaText = v('sc-nav-cta-text'), ctaHref = v('sc-nav-cta-href');
+    path = 'siteContent/theme';
+    data = { nav_cta_text: ctaText, nav_cta_href: ctaHref };
+    const navBtn = document.getElementById('nav-cta-btn'); if(navBtn) { if(ctaText) navBtn.textContent = ctaText; if(ctaHref) navBtn.href = ctaHref; }
+    const mobBtn = document.getElementById('mobile-cta-btn'); if(mobBtn) { if(ctaText) mobBtn.textContent = '📅 ' + ctaText; if(ctaHref) mobBtn.href = ctaHref; }
+  } else if (section === 'boutiques-maps') {
+    // handled per boutique
+  } else if (section === 'extra-services') {
+    path = 'siteContent/repairs';
+    data = { extra1_title: v('sc-extra1-title'), extra1_desc: v('sc-extra1-desc'), extra2_title: v('sc-extra2-title'), extra2_desc: v('sc-extra2-desc') };
   } else if (section === 'repairs-header') {
     path = 'siteContent/repairs';
     data = { section_tag: v('sc-repairs-tag'), section_h2: v('sc-repairs-h2') };
@@ -3532,6 +3933,15 @@ function selectSlot(dateStr, time) {
       <div class="admin-nav-divider"></div>
       <div class="admin-nav-item" id="nav-annonce" onclick="showAdminTab('annonce')"><span class="nav-icon">📢</span>Annonce</div>
       <div class="admin-nav-item" id="nav-footer" onclick="showAdminTab('footer')"><span class="nav-icon">🦶</span>Footer</div>
+      <div class="admin-nav-divider"></div>
+      <div class="admin-nav-item" id="nav-vacances" onclick="showAdminTab('vacances')"><span class="nav-icon">🏖️</span>Vacances</div>
+      <div class="admin-nav-divider"></div>
+      <div class="admin-nav-item" id="nav-promos" onclick="showAdminTab('promos')"><span class="nav-icon">📣</span>Promos</div>
+      <div class="admin-nav-item" id="nav-produits" onclick="showAdminTab('produits')"><span class="nav-icon">🛍️</span>Produits</div>
+      <div class="admin-nav-item" id="nav-legal" onclick="showAdminTab('legal')"><span class="nav-icon">⚖️</span>Légal</div>
+      <div class="admin-nav-divider"></div>
+      <div class="admin-nav-item" id="nav-theme" onclick="showAdminTab('theme')"><span class="nav-icon">🎨</span>Thème</div>
+      <div class="admin-nav-item" id="nav-securite" onclick="showAdminTab('securite')"><span class="nav-icon">🔐</span>Sécu.</div>
     </div>
 
     <!-- Main content -->
@@ -3602,6 +4012,15 @@ function selectSlot(dateStr, time) {
           <div class="admin-card-title">Modifier les prix</div>
           <input class="admin-field-input" id="adminRepairSearch" placeholder="🔍 Rechercher un modèle…" oninput="filterAdminModels(this.value)" style="margin-bottom:10px">
           <div id="adminRepairList"><div class="admin-empty">Tapez un modèle pour modifier ses prix.</div></div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-title">Services supplémentaires</div>
+          <div class="admin-field-group"><label class="admin-field-label">Service 1 — Titre</label><input class="admin-field-input" id="sc-extra1-title" placeholder="Réparation Tablettes"></div>
+          <div class="admin-field-group"><label class="admin-field-label">Service 1 — Description</label><textarea class="admin-field-input admin-field-textarea" id="sc-extra1-desc" placeholder="Tout modèle de tablette…"></textarea></div>
+          <div class="admin-field-group" style="margin-top:8px"><label class="admin-field-label">Service 2 — Titre</label><input class="admin-field-input" id="sc-extra2-title" placeholder="Réparation MacBook &amp; PC Portable"></div>
+          <div class="admin-field-group"><label class="admin-field-label">Service 2 — Description</label><textarea class="admin-field-input admin-field-textarea" id="sc-extra2-desc" placeholder="Tout modèle de MacBook…"></textarea></div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('extra-services',this)">Enregistrer</button></div>
         </div>
 
         <div class="admin-card">
@@ -3733,6 +4152,10 @@ function selectSlot(dateStr, time) {
             <div class="admin-field-group"><label class="admin-field-label">GPS Latitude</label><input class="admin-field-input" id="sc-b1-lat" placeholder="43.3012"></div>
             <div class="admin-field-group"><label class="admin-field-label">GPS Longitude</label><input class="admin-field-input" id="sc-b1-lng" placeholder="5.3763"></div>
           </div>
+          <div class="admin-2col">
+            <div class="admin-field-group"><label class="admin-field-label">🗺️ Lien Google Maps</label><input class="admin-field-input" id="sc-b1-maps-url" placeholder="https://maps.google.com/…"></div>
+            <div class="admin-field-group"><label class="admin-field-label">⭐ Lien Avis Google</label><input class="admin-field-input" id="sc-b1-review-url" placeholder="https://g.page/…/review"></div>
+          </div>
           <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('b1',this)">Enregistrer</button></div>
         </div>
 
@@ -3752,6 +4175,10 @@ function selectSlot(dateStr, time) {
             <div class="admin-field-group"><label class="admin-field-label">GPS Latitude</label><input class="admin-field-input" id="sc-b2-lat" placeholder="43.3019"></div>
             <div class="admin-field-group"><label class="admin-field-label">GPS Longitude</label><input class="admin-field-input" id="sc-b2-lng" placeholder="5.3749"></div>
           </div>
+          <div class="admin-2col">
+            <div class="admin-field-group"><label class="admin-field-label">🗺️ Lien Google Maps</label><input class="admin-field-input" id="sc-b2-maps-url" placeholder="https://maps.google.com/…"></div>
+            <div class="admin-field-group"><label class="admin-field-label">⭐ Lien Avis Google</label><input class="admin-field-input" id="sc-b2-review-url" placeholder="https://g.page/…/review"></div>
+          </div>
           <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('b2',this)">Enregistrer</button></div>
         </div>
 
@@ -3770,6 +4197,10 @@ function selectSlot(dateStr, time) {
           <div class="admin-2col">
             <div class="admin-field-group"><label class="admin-field-label">GPS Latitude</label><input class="admin-field-input" id="sc-b3-lat" placeholder="43.2898"></div>
             <div class="admin-field-group"><label class="admin-field-label">GPS Longitude</label><input class="admin-field-input" id="sc-b3-lng" placeholder="5.3985"></div>
+          </div>
+          <div class="admin-2col">
+            <div class="admin-field-group"><label class="admin-field-label">🗺️ Lien Google Maps</label><input class="admin-field-input" id="sc-b3-maps-url" placeholder="https://maps.google.com/…"></div>
+            <div class="admin-field-group"><label class="admin-field-label">⭐ Lien Avis Google</label><input class="admin-field-input" id="sc-b3-review-url" placeholder="https://g.page/…/review"></div>
           </div>
           <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('b3',this)">Enregistrer</button></div>
         </div>
@@ -3843,6 +4274,7 @@ function selectSlot(dateStr, time) {
           <div class="admin-field-group"><label class="admin-field-label">Facebook URL</label><input class="admin-field-input" id="sc-fb-url" placeholder="https://facebook.com/mistralphone"></div>
           <div class="admin-field-group"><label class="admin-field-label">Instagram URL</label><input class="admin-field-input" id="sc-ig-url" placeholder="https://instagram.com/mistralphone"></div>
           <div class="admin-field-group"><label class="admin-field-label">TikTok URL</label><input class="admin-field-input" id="sc-tt-url" placeholder="https://tiktok.com/@mistralphone"></div>
+          <div class="admin-field-group"><label class="admin-field-label">WhatsApp (ex: https://wa.me/33668096669)</label><input class="admin-field-input" id="sc-wa-url" placeholder="https://wa.me/33668096669"></div>
           <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('socials',this)">Enregistrer</button></div>
         </div>
 
@@ -3915,6 +4347,220 @@ function selectSlot(dateStr, time) {
           <div class="admin-field-group"><label class="admin-field-label">Titre de l'onglet navigateur</label><input class="admin-field-input" id="sc-seo-title" placeholder="Mistral Phone – Réparation Express Smartphones à Marseille"></div>
           <div class="admin-field-group"><label class="admin-field-label">Méta description (texte dans Google)</label><textarea class="admin-field-input admin-field-textarea" id="sc-seo-desc" placeholder="Réparation de smartphones à Marseille depuis 2004…"></textarea></div>
           <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('seo',this)">Enregistrer</button></div>
+        </div>
+      </div>
+
+
+      <!-- ══ VACANCES ══ -->
+      <div class="admin-tab-panel" id="adminTabVacances">
+        <h2 class="admin-panel-h2">🏖️ Vacances &amp; Horaires</h2>
+        <p class="admin-panel-desc">Mode vacances, heures d'ouverture et email destination formulaire.</p>
+
+        <div class="admin-card">
+          <div class="admin-card-title">⛱️ Mode vacances</div>
+          <div class="admin-hint" style="margin-bottom:12px">Quand activé, les réservations sont bloquées et un message s'affiche sur le formulaire.</div>
+          <div class="admin-toggle-row">
+            <label class="admin-toggle"><input type="checkbox" id="sc-vacation-active"><span class="admin-toggle-slider"></span></label>
+            <span class="admin-toggle-label">Activer le mode vacances</span>
+          </div>
+          <div class="admin-field-group" style="margin-top:10px">
+            <label class="admin-field-label">Message affiché aux visiteurs</label>
+            <textarea class="admin-field-input admin-field-textarea" id="sc-vacation-msg" placeholder="Nous sommes en vacances. Nous revenons le [date] !"></textarea>
+          </div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('vacation',this)">Enregistrer</button></div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-title">📧 Email destination formulaire</div>
+          <div class="admin-hint" style="margin-bottom:12px">L'adresse email où sont envoyées les demandes de réservation (FormSubmit.co).</div>
+          <div class="admin-field-group">
+            <label class="admin-field-label">Email de destination</label>
+            <input class="admin-field-input" id="sc-form-email" type="email" placeholder="Mistralphone1306@gmail.com">
+          </div>
+          <div class="admin-hint" style="margin-top:8px;color:#EF4444">⚠️ Cette adresse est stockée dans Firebase. Elle remplace l'adresse par défaut dans le code.</div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('form-email',this)">Enregistrer</button></div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-title">🕐 Horaires d'ouverture</div>
+          <div class="admin-hint" style="margin-bottom:12px">Cochez "Ouvert" et renseignez les horaires pour chaque jour.</div>
+          <div id="hours-editor">
+            <div class="admin-hours-row"><span class="admin-hours-day">Lundi</span><label class="admin-toggle" style="margin:0 8px"><input type="checkbox" id="h-lun-open" checked><span class="admin-toggle-slider"></span></label><input class="admin-field-input" id="h-lun-from" placeholder="09:00" style="width:70px;margin-right:6px"><span style="font-size:12px;color:#6B7280">→</span><input class="admin-field-input" id="h-lun-to" placeholder="18:00" style="width:70px;margin-left:6px"></div>
+            <div class="admin-hours-row"><span class="admin-hours-day">Mardi</span><label class="admin-toggle" style="margin:0 8px"><input type="checkbox" id="h-mar-open" checked><span class="admin-toggle-slider"></span></label><input class="admin-field-input" id="h-mar-from" placeholder="09:00" style="width:70px;margin-right:6px"><span style="font-size:12px;color:#6B7280">→</span><input class="admin-field-input" id="h-mar-to" placeholder="18:00" style="width:70px;margin-left:6px"></div>
+            <div class="admin-hours-row"><span class="admin-hours-day">Mercredi</span><label class="admin-toggle" style="margin:0 8px"><input type="checkbox" id="h-mer-open" checked><span class="admin-toggle-slider"></span></label><input class="admin-field-input" id="h-mer-from" placeholder="09:00" style="width:70px;margin-right:6px"><span style="font-size:12px;color:#6B7280">→</span><input class="admin-field-input" id="h-mer-to" placeholder="18:00" style="width:70px;margin-left:6px"></div>
+            <div class="admin-hours-row"><span class="admin-hours-day">Jeudi</span><label class="admin-toggle" style="margin:0 8px"><input type="checkbox" id="h-jeu-open" checked><span class="admin-toggle-slider"></span></label><input class="admin-field-input" id="h-jeu-from" placeholder="09:00" style="width:70px;margin-right:6px"><span style="font-size:12px;color:#6B7280">→</span><input class="admin-field-input" id="h-jeu-to" placeholder="18:00" style="width:70px;margin-left:6px"></div>
+            <div class="admin-hours-row"><span class="admin-hours-day">Vendredi</span><label class="admin-toggle" style="margin:0 8px"><input type="checkbox" id="h-ven-open" checked><span class="admin-toggle-slider"></span></label><input class="admin-field-input" id="h-ven-from" placeholder="09:00" style="width:70px;margin-right:6px"><span style="font-size:12px;color:#6B7280">→</span><input class="admin-field-input" id="h-ven-to" placeholder="18:00" style="width:70px;margin-left:6px"></div>
+            <div class="admin-hours-row"><span class="admin-hours-day">Samedi</span><label class="admin-toggle" style="margin:0 8px"><input type="checkbox" id="h-sam-open" checked><span class="admin-toggle-slider"></span></label><input class="admin-field-input" id="h-sam-from" placeholder="09:00" style="width:70px;margin-right:6px"><span style="font-size:12px;color:#6B7280">→</span><input class="admin-field-input" id="h-sam-to" placeholder="15:00" style="width:70px;margin-left:6px"></div>
+            <div class="admin-hours-row"><span class="admin-hours-day">Dimanche</span><label class="admin-toggle" style="margin:0 8px"><input type="checkbox" id="h-dim-open" checked><span class="admin-toggle-slider"></span></label><input class="admin-field-input" id="h-dim-from" placeholder="10:00" style="width:70px;margin-right:6px"><span style="font-size:12px;color:#6B7280">→</span><input class="admin-field-input" id="h-dim-to" placeholder="15:00" style="width:70px;margin-left:6px"></div>
+          </div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('hours',this)">Enregistrer</button></div>
+        </div>
+      </div>
+
+      <!-- ══ PROMOS ══ -->
+      <div class="admin-tab-panel" id="adminTabPromos">
+        <h2 class="admin-panel-h2">📣 Promotions</h2>
+        <p class="admin-panel-desc">Gérez les promotions affichées sur la page promotions.html.</p>
+        <div class="admin-card">
+          <div class="admin-card-title">Ajouter une promotion</div>
+          <div class="admin-field-group"><label class="admin-field-label">Titre</label><input class="admin-field-input" id="promo-new-title" placeholder="Écran iPhone 13 à -20%"></div>
+          <div class="admin-field-group"><label class="admin-field-label">Description</label><textarea class="admin-field-input admin-field-textarea" id="promo-new-desc" placeholder="Offre valable jusqu'au 30 juin 2026…"></textarea></div>
+          <div class="admin-2col">
+            <div class="admin-field-group"><label class="admin-field-label">Prix barré</label><input class="admin-field-input" id="promo-new-old-price" placeholder="149€"></div>
+            <div class="admin-field-group"><label class="admin-field-label">Prix promo</label><input class="admin-field-input" id="promo-new-price" placeholder="119€"></div>
+          </div>
+          <div class="admin-field-group"><label class="admin-field-label">Date d'expiration (optionnel)</label><input class="admin-field-input" id="promo-new-expiry" type="date"></div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="adminAddPromo(this)">+ Ajouter la promotion</button></div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">Promotions actives</div>
+          <div id="adminPromoList"><div class="admin-empty">Chargement…</div></div>
+        </div>
+      </div>
+
+      <!-- ══ PRODUITS ══ -->
+      <div class="admin-tab-panel" id="adminTabProduits">
+        <h2 class="admin-panel-h2">🛍️ Nos Produits</h2>
+        <p class="admin-panel-desc">Gérez les smartphones et le contenu de la page produits.html.</p>
+        <div class="admin-card">
+          <div class="admin-card-title">Texte informatif</div>
+          <div class="admin-field-group"><label class="admin-field-label">Titre de la page</label><input class="admin-field-input" id="sc-produits-title" placeholder="Nos Produits"></div>
+          <div class="admin-field-group"><label class="admin-field-label">Description</label><textarea class="admin-field-input admin-field-textarea" id="sc-produits-desc" placeholder="Découvrez notre sélection de smartphones reconditionnés…"></textarea></div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('produits-texts',this)">Enregistrer</button></div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">Ajouter un produit</div>
+          <div class="admin-field-group"><label class="admin-field-label">Nom du produit</label><input class="admin-field-input" id="prod-new-name" placeholder="iPhone 13 128Go"></div>
+          <div class="admin-2col">
+            <div class="admin-field-group"><label class="admin-field-label">Prix</label><input class="admin-field-input" id="prod-new-price" placeholder="399€"></div>
+            <div class="admin-field-group"><label class="admin-field-label">État</label><select class="admin-field-input" id="prod-new-state"><option value="Comme neuf">Comme neuf</option><option value="Très bon état">Très bon état</option><option value="Bon état">Bon état</option></select></div>
+          </div>
+          <div class="admin-field-group"><label class="admin-field-label">Description courte</label><input class="admin-field-input" id="prod-new-desc" placeholder="Toutes couleurs · 12 mois garantie"></div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="adminAddProduct(this)">+ Ajouter le produit</button></div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">Produits en vente</div>
+          <div id="adminProductList"><div class="admin-empty">Chargement…</div></div>
+        </div>
+      </div>
+
+      <!-- ══ LÉGAL ══ -->
+      <div class="admin-tab-panel" id="adminTabLegal">
+        <h2 class="admin-panel-h2">⚖️ Mentions légales</h2>
+        <p class="admin-panel-desc">Informations légales affichées sur mentions-legales.html.</p>
+        <div class="admin-card">
+          <div class="admin-card-title">Identité de la société</div>
+          <div class="admin-field-group"><label class="admin-field-label">Raison sociale</label><input class="admin-field-input" id="sc-legal-company" placeholder="SAS Mistral Phone"></div>
+          <div class="admin-2col">
+            <div class="admin-field-group"><label class="admin-field-label">Capital social</label><input class="admin-field-input" id="sc-legal-capital" placeholder="100 000 €"></div>
+            <div class="admin-field-group"><label class="admin-field-label">SIRET</label><input class="admin-field-input" id="sc-legal-siret" placeholder="83256310000029"></div>
+          </div>
+          <div class="admin-field-group"><label class="admin-field-label">Adresse du siège</label><input class="admin-field-input" id="sc-legal-address" placeholder="11 Av. Maréchal Foch, 13004 Marseille"></div>
+          <div class="admin-field-group"><label class="admin-field-label">Directeur de publication</label><input class="admin-field-input" id="sc-legal-director" placeholder="Nom Prénom"></div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('legal',this)">Enregistrer</button></div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">Hébergeur</div>
+          <div class="admin-field-group"><label class="admin-field-label">Nom de l'hébergeur</label><input class="admin-field-input" id="sc-legal-host" placeholder="Vercel Inc."></div>
+          <div class="admin-field-group"><label class="admin-field-label">Adresse hébergeur</label><input class="admin-field-input" id="sc-legal-host-addr" placeholder="340 Pine Street, San Francisco, CA 94104, USA"></div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('legal-host',this)">Enregistrer</button></div>
+        </div>
+      </div>
+
+      <!-- ══ THÈME ══ -->
+      <div class="admin-tab-panel" id="adminTabTheme">
+        <h2 class="admin-panel-h2">🎨 Thème &amp; Identité</h2>
+        <p class="admin-panel-desc">Couleurs, logo et favicon du site.</p>
+        <div class="admin-card">
+          <div class="admin-card-title">Couleurs</div>
+          <div class="admin-2col">
+            <div class="admin-field-group">
+              <label class="admin-field-label">Couleur principale (orange)</label>
+              <div style="display:flex;align-items:center;gap:8px">
+                <input type="color" id="sc-color-orange" value="#F97316" style="width:44px;height:36px;border:1px solid #E5E7EB;border-radius:8px;cursor:pointer;padding:2px">
+                <input class="admin-field-input" id="sc-color-orange-hex" placeholder="#F97316" style="flex:1">
+              </div>
+            </div>
+            <div class="admin-field-group">
+              <label class="admin-field-label">Couleur secondaire (bleu)</label>
+              <div style="display:flex;align-items:center;gap:8px">
+                <input type="color" id="sc-color-blue" value="#1B4AAF" style="width:44px;height:36px;border:1px solid #E5E7EB;border-radius:8px;cursor:pointer;padding:2px">
+                <input class="admin-field-input" id="sc-color-blue-hex" placeholder="#1B4AAF" style="flex:1">
+              </div>
+            </div>
+          </div>
+          <div class="admin-hint" style="margin-top:8px">Les couleurs s'appliquent instantanément sur toute la page.</div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('theme-colors',this)">Enregistrer &amp; appliquer</button></div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">Logo</div>
+          <div class="admin-field-group"><label class="admin-field-label">URL du logo (navbar + footer)</label><input class="admin-field-input" id="sc-logo-url" placeholder="https://…/logo.png ou logo.png"></div>
+          <div class="admin-hint">Laissez vide pour utiliser le fichier logo.png local.</div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('theme-logo',this)">Enregistrer &amp; appliquer</button></div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">Favicon</div>
+          <div class="admin-field-group"><label class="admin-field-label">URL du favicon</label><input class="admin-field-input" id="sc-favicon-url" placeholder="https://…/favicon.ico ou favicon.png"></div>
+          <div class="admin-hint">Laissez vide pour utiliser le fichier favicon.png local.</div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('theme-favicon',this)">Enregistrer &amp; appliquer</button></div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">Carrousel photos (section Pourquoi)</div>
+          <div class="admin-hint" style="margin-bottom:12px">Entrez les URLs des photos (une par ligne). Laissez vide pour utiliser les photos par défaut.</div>
+          <div class="admin-field-group">
+            <label class="admin-field-label">URLs des photos (une par ligne)</label>
+            <textarea class="admin-field-input admin-field-textarea" id="sc-photo-slides" rows="5" placeholder="repair_1.jpg&#10;repair_2.jpg&#10;https://…/photo.jpg"></textarea>
+          </div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('theme-photos',this)">Enregistrer &amp; recharger</button></div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">Google Analytics / Tag Manager</div>
+          <div class="admin-field-group">
+            <label class="admin-field-label">ID Google Analytics 4 (ex: G-XXXXXXXXXX)</label>
+            <input class="admin-field-input" id="sc-ga-id" placeholder="G-XXXXXXXXXX">
+          </div>
+          <div class="admin-field-group">
+            <label class="admin-field-label">ID Google Tag Manager (ex: GTM-XXXXXXX)</label>
+            <input class="admin-field-input" id="sc-gtm-id" placeholder="GTM-XXXXXXX">
+          </div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('theme-analytics',this)">Enregistrer &amp; injecter</button></div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">Bouton CTA (menu de navigation)</div>
+          <div class="admin-2col">
+            <div class="admin-field-group"><label class="admin-field-label">Texte du bouton</label><input class="admin-field-input" id="sc-nav-cta-text" placeholder="Réserver"></div>
+            <div class="admin-field-group"><label class="admin-field-label">Lien (href)</label><input class="admin-field-input" id="sc-nav-cta-href" placeholder="#contact"></div>
+          </div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="saveSection('theme-navcta',this)">Enregistrer &amp; appliquer</button></div>
+        </div>
+      </div>
+
+      <!-- ══ SÉCURITÉ ══ -->
+      <div class="admin-tab-panel" id="adminTabSecurite">
+        <h2 class="admin-panel-h2">🔐 Sécurité</h2>
+        <p class="admin-panel-desc">Changez le mot de passe administrateur.</p>
+        <div class="admin-card">
+          <div class="admin-card-title">Changer le mot de passe</div>
+          <div class="admin-hint" style="margin-bottom:12px">Le nouveau mot de passe sera stocké dans Firebase. Il remplace le mot de passe par défaut codé en dur.</div>
+          <div class="admin-field-group">
+            <label class="admin-field-label">Mot de passe actuel</label>
+            <input class="admin-field-input" id="sc-pw-current" type="password" placeholder="••••••••••••">
+          </div>
+          <div class="admin-field-group">
+            <label class="admin-field-label">Nouveau mot de passe</label>
+            <input class="admin-field-input" id="sc-pw-new" type="password" placeholder="Minimum 8 caractères">
+          </div>
+          <div class="admin-field-group">
+            <label class="admin-field-label">Confirmer le nouveau mot de passe</label>
+            <input class="admin-field-input" id="sc-pw-confirm" type="password" placeholder="Répéter le nouveau mot de passe">
+          </div>
+          <div id="sc-pw-error" style="color:#EF4444;font-size:12px;min-height:18px;margin-top:4px"></div>
+          <div class="admin-save-row"><button class="admin-save-primary" onclick="changeAdminPassword(this)">Changer le mot de passe</button></div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">Informations</div>
+          <div class="admin-hint">Mot de passe actif : <strong id="sc-pw-source">code source</strong></div>
+          <div class="admin-hint" style="margin-top:6px">Si un mot de passe est défini dans Firebase, il est prioritaire sur celui du code source.</div>
         </div>
       </div>
 

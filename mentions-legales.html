@@ -327,11 +327,11 @@
   <div class="legal-section">
     <h2>Identification de l'éditeur du site</h2>
     <div class="legal-block">
-      <p><strong>Mistral Phone</strong></p>
-      <p>SAS au capital de 100 000 €</p>
-      <p>Adresse : 11 Avenue Maréchal Foch – 13004 Marseille</p>
-      <p>SIRET : 83256310000029</p>
-      <p>Directeurs de la publication : Ghani LASSOUANI</p>
+      <p><strong id="legal-company">Mistral Phone</strong></p>
+      <p>SAS au capital de <span id="legal-capital">100 000 €</span></p>
+      <p>Adresse : <span id="legal-address">11 Avenue Maréchal Foch – 13004 Marseille</span></p>
+      <p>SIRET : <span id="legal-siret">83256310000029</span></p>
+      <p>Directeurs de la publication : <span id="legal-director">Ghani LASSOUANI</span></p>
     </div>
   </div>
 
@@ -351,12 +351,9 @@
     <h2>Hébergement</h2>
     <p>Notre site Internet est hébergé par :</p>
     <div class="legal-block">
-      <p><strong>OVH</strong></p>
+      <p><strong id="legal-host">OVH</strong></p>
       <p>SAS au capital de 10 059 500 €</p>
-      <p>RCS Lille Métropole 424 761 419 00045</p>
-      <p>Code APE 6202A</p>
-      <p>N° TVA : FR 22 424 761 419</p>
-      <p>Siège social : 2 rue Kellermann – 59100 Roubaix – France</p>
+      <p id="legal-host-addr">2 rue Kellermann – 59100 Roubaix – France</p>
     </div>
   </div>
 
@@ -464,6 +461,40 @@ ham.addEventListener('click', () => { ham.classList.toggle('open'); mob.classLis
 document.querySelectorAll('.mobile-menu a').forEach(a => a.addEventListener('click', () => {
   ham.classList.remove('open'); mob.classList.remove('open');
 }));
+</script>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<script>
+const FIREBASE_CONFIG_ML = {
+  apiKey: "AIzaSyDmWjAqqDsaM_Us6KuUZxqbP9ytiXJZSIE",
+  authDomain: "mistral-phone-20e50.firebaseapp.com",
+  databaseURL: "https://mistral-phone-20e50-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "mistral-phone-20e50",
+  storageBucket: "mistral-phone-20e50.firebasestorage.app",
+  messagingSenderId: "394917341229",
+  appId: "1:394917341229:web:32dc3f99a84d535ec7b0a4"
+};
+let dbML = null;
+try { firebase.initializeApp(FIREBASE_CONFIG_ML); dbML = firebase.database(); } catch(e) {}
+
+async function loadLegalContent() {
+  if (!dbML) return;
+  try {
+    const snap = await dbML.ref('siteContent/legal').once('value');
+    const d = snap.val() || {};
+    const se = (id, val) => { const el = document.getElementById(id); if (el && val) el.textContent = val; };
+    se('legal-company', d.company);
+    se('legal-capital', d.capital);
+    se('legal-address', d.address);
+    se('legal-siret',   d.siret);
+    se('legal-director',d.director);
+    se('legal-host',    d.host);
+    se('legal-host-addr', d.host_addr);
+  } catch(e) {}
+}
+loadLegalContent();
 </script>
 </body>
 </html>

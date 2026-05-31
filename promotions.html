@@ -362,6 +362,24 @@
       .hamburger { display: flex; }
       .footer-grid { grid-template-columns: 1fr; }
       .empty-state { padding: 48px 24px; }
+    /* ─── PROMO GRID ─── */
+    .promo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 24px; margin-bottom: 48px; }
+    .promo-card { background: #fff; border-radius: 16px; box-shadow: 0 4px 16px rgba(0,0,0,.08); overflow: hidden; border: 1px solid var(--gray-100); transition: transform .2s, box-shadow .2s; }
+    .promo-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.14); }
+    .promo-card-header { background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%); padding: 20px 24px 14px; }
+    .promo-card-badge { display: inline-block; background: rgba(255,255,255,.25); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
+    .promo-card-title { font-size: 20px; font-weight: 800; color: #fff; line-height: 1.3; }
+    .promo-card-body { padding: 20px 24px; }
+    .promo-card-desc { font-size: 14px; color: var(--gray-600); line-height: 1.7; margin-bottom: 16px; }
+    .promo-price-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .promo-price-new { font-size: 28px; font-weight: 900; color: var(--orange); }
+    .promo-price-old { font-size: 18px; font-weight: 600; color: var(--gray-400); text-decoration: line-through; }
+    .promo-expiry { font-size: 12px; color: var(--gray-400); display: flex; align-items: center; gap: 6px; }
+    .promo-expiry::before { content: "⏱️"; }
+    .promo-card-cta { display: block; text-align: center; background: var(--orange); color: #fff; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 14px; text-decoration: none; transition: background .2s; }
+    .promo-card-cta:hover { background: var(--orange-dark); }
+    @media (max-width: 600px) { .promo-grid { grid-template-columns: 1fr; } }
+
       .cta-box { padding: 36px 24px; }
     }
     @media (max-width: 1024px) {
@@ -410,7 +428,11 @@
 <!-- ─── MAIN CONTENT ─── -->
 <div class="main-content">
 
-  <div class="empty-state">
+  <div id="promos-container">
+    <!-- Dynamic promo cards rendered by JS -->
+  </div>
+
+  <div class="empty-state" id="empty-state" style="display:none">
     <div class="empty-icon">
       <svg viewBox="0 0 24 24"><path d="M20 7H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm-1 11H5c-.55 0-1-.45-1-1v-7c0-.55.45-1 1-1h14c.55 0 1 .45 1 1v7c0 .55-.45 1-1 1zm-7-4c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM12 3c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2h2c0-2.21-1.79-4-4-4z"/></svg>
     </div>
@@ -490,7 +512,64 @@
 
 <a href="#" class="back-top" id="backTop">↑</a>
 
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 <script>
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyDmWjAqqDsaM_Us6KuUZxqbP9ytiXJZSIE",
+  authDomain: "mistral-phone-20e50.firebaseapp.com",
+  databaseURL: "https://mistral-phone-20e50-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "mistral-phone-20e50",
+  storageBucket: "mistral-phone-20e50.firebasestorage.app",
+  messagingSenderId: "394917341229",
+  appId: "1:394917341229:web:32dc3f99a84d535ec7b0a4"
+};
+let db = null;
+try {
+  firebase.initializeApp(FIREBASE_CONFIG);
+  db = firebase.database();
+} catch(e) {}
+
+async function loadPromos() {
+  const container = document.getElementById('promos-container');
+  const emptyState = document.getElementById('empty-state');
+  if (!container) return;
+  if (!db) { if(emptyState) emptyState.style.display = 'block'; return; }
+  try {
+    const snap = await db.ref('siteContent/promos').once('value');
+    const data = snap.val() || {};
+    const today = new Date();
+    const promos = Object.values(data).filter(p => {
+      if (!p.active) return false;
+      if (p.expiry) { const exp = new Date(p.expiry); if (exp < today) return false; }
+      return true;
+    });
+    if (!promos.length) {
+      if(emptyState) emptyState.style.display = 'block';
+      return;
+    }
+    if(emptyState) emptyState.style.display = 'none';
+    container.innerHTML = '<div class="promo-grid">' + promos.map(p => {
+      const expiryHtml = p.expiry ? `<div class="promo-expiry">Offre valable jusqu'au ${new Date(p.expiry).toLocaleDateString('fr-FR')}</div>` : '';
+      const priceHtml = (p.price || p.old_price) ? `<div class="promo-price-row">${p.price ? '<span class="promo-price-new">'+p.price+'</span>' : ''}${p.old_price ? '<span class="promo-price-old">'+p.old_price+'</span>' : ''}</div>` : '';
+      return `<div class="promo-card">
+        <div class="promo-card-header">
+          <div class="promo-card-badge">🔥 Promo</div>
+          <div class="promo-card-title">${p.title || ''}</div>
+        </div>
+        <div class="promo-card-body">
+          ${p.desc ? '<div class="promo-card-desc">'+p.desc+'</div>' : ''}
+          ${priceHtml}
+          ${expiryHtml}
+          <a href="index.html#contact" class="promo-card-cta">📅 En profiter maintenant</a>
+        </div>
+      </div>`;
+    }).join('') + '</div>';
+  } catch(e) { if(emptyState) emptyState.style.display = 'block'; }
+}
+loadPromos();
+
 const navbar = document.getElementById('navbar');
 const backTop = document.getElementById('backTop');
 window.addEventListener('scroll', () => {
