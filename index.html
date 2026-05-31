@@ -2776,9 +2776,13 @@ function checkAdminPw() {
 
 // Shift + A triggers password prompt
 document.addEventListener('keydown', e => {
-  if (e.shiftKey && e.key === 'A' && !isAdmin) {
+  if (e.shiftKey && e.key === 'A') {
     e.preventDefault();
-    openAdminPw();
+    if (isAdmin) {
+      toggleAdminPanel();
+    } else {
+      openAdminPw();
+    }
   }
 });
 
